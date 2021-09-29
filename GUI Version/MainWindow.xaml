@@ -1,0 +1,121 @@
+﻿<Window x:Class="HzzGrader.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HzzGrader"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="700" Width="700">
+    <ScrollViewer >
+        <DockPanel HorizontalAlignment="Stretch" 
+                   VerticalAlignment="Stretch"
+                   LastChildFill="True">
+            <Grid DockPanel.Dock="Top" VerticalAlignment="Stretch" Background="Beige">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                
+                <Border Grid.Row="0" DockPanel.Dock="Top">
+                    <StackPanel Margin="10 10" VerticalAlignment="Center" MaxWidth="500">
+                    <!--<DockPanel>-->
+                        <TextBox DockPanel.Dock="Top" Name="file_path" MinWidth="200" 
+                                 Margin="0 5"></TextBox>
+                        <Button DockPanel.Dock="Top" Click="ButtonBase_get_path_OnClick" 
+                                Margin="0 5">get java source path</Button>
+                        
+                    
+                    
+                        <TextBox DockPanel.Dock="Top" Name="testcase_folder" MinWidth="200" 
+                                 Margin="0 5" LostFocus="Testcase_folder_OnLostFocus"></TextBox>
+                        <Button DockPanel.Dock="Top" Click="ButtonBase_get_tc_folder_OnClick" 
+                                Margin="0 5">get testcase folder</Button>
+                    
+                    
+                    
+                        <Button DockPanel.Dock="Top" Click="ButtonBase_start_test_OnClick" Name="start_stress_test_btn" 
+                            Margin="0 5">Start Test</Button>
+                        <CheckBox Name="native_hzzgrader_chb" DockPanel.Dock="Top" IsChecked="True"
+                                  Content="Use fast native HzzGrader (a little bit bug prone)"></CheckBox>
+                    
+                        <!--TextBlock Name="code"></TextBlock-->
+                    <!--</DockPanel>-->
+                    </StackPanel>
+                </Border>
+                
+                <Border Grid.Row="1" DockPanel.Dock="Top">
+                    
+                    <DockPanel Margin="10 10">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  DockPanel.Dock="Top">
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                <Label HorizontalAlignment="Center"> input </Label>
+                                <Label Name="information_label" HorizontalAlignment="Center"></Label>
+                            </StackPanel>
+                        </StackPanel>
+                        
+                        <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5" DockPanel.Dock="Top">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="200">
+                        <TextBox x:Name="input" 
+                                   TextWrapping="Wrap" 
+                                   Foreground="Black"
+                                   Background="Beige"
+                                   BorderThickness="0"
+                                   MinWidth="400"
+                                   MinHeight="80" />
+                        </ScrollViewer>
+                        </Border>
+                    </DockPanel>
+                </Border>
+                
+                <Border Grid.Row="2" DockPanel.Dock="Top">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        
+                        <DockPanel Grid.Column="0" Margin="15 15">
+                            <StackPanel Margin="15 15" Orientation="Horizontal" HorizontalAlignment="Center"
+                                        DockPanel.Dock="Top">
+                                <Label> program output </Label>
+                            </StackPanel>
+                            
+                            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5"
+                                    DockPanel.Dock="Top">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="300">
+                            <TextBox x:Name="program_output" 
+                                     TextWrapping="Wrap" 
+                                     Foreground="Black"
+                                     Background="Beige"
+                                     MinWidth="200"
+                                     MinHeight="80" />
+                            </ScrollViewer>
+                            </Border>
+                        </DockPanel>
+                        <DockPanel Grid.Column="1" Margin="15 15">
+                            <StackPanel Margin="15 15" Orientation="Horizontal" HorizontalAlignment="Center"
+                                        DockPanel.Dock="Top">
+                                <Label> expected output </Label>
+                            </StackPanel>
+                            
+                            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5"
+                                    DockPanel.Dock="Top">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="300">
+                            <TextBox x:Name="expected_output" 
+                                     TextWrapping="Wrap" 
+                                     Foreground="Black"
+                                     Background="Beige"
+                                     MinWidth="200"
+                                     MinHeight="80" />
+                            </ScrollViewer>
+                            </Border>
+                        </DockPanel>
+                    </Grid>
+                </Border>
+                
+            </Grid>
+        </DockPanel>
+    </ScrollViewer>
+</Window>

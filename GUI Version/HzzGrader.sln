@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HzzGrader", "HzzGrader.csproj", "{F885B30B-89AB-4D59-99B0-9BA102A449EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "scratch", "scratch\scratch.csproj", "{49C08C92-2F67-4C42-8520-C7666EABA0B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaExecute", "JavaExecute\JavaExecute.csproj", "{11CBF7E3-F272-4015-BB81-E0978F5D4727}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaMiniParser", "JavaMiniParser\JavaMiniParser.csproj", "{9A4677EB-38C7-4F40-9385-679351A0ADEF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F885B30B-89AB-4D59-99B0-9BA102A449EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F885B30B-89AB-4D59-99B0-9BA102A449EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F885B30B-89AB-4D59-99B0-9BA102A449EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F885B30B-89AB-4D59-99B0-9BA102A449EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49C08C92-2F67-4C42-8520-C7666EABA0B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49C08C92-2F67-4C42-8520-C7666EABA0B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49C08C92-2F67-4C42-8520-C7666EABA0B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49C08C92-2F67-4C42-8520-C7666EABA0B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11CBF7E3-F272-4015-BB81-E0978F5D4727}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11CBF7E3-F272-4015-BB81-E0978F5D4727}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11CBF7E3-F272-4015-BB81-E0978F5D4727}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11CBF7E3-F272-4015-BB81-E0978F5D4727}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A4677EB-38C7-4F40-9385-679351A0ADEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A4677EB-38C7-4F40-9385-679351A0ADEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A4677EB-38C7-4F40-9385-679351A0ADEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A4677EB-38C7-4F40-9385-679351A0ADEF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
