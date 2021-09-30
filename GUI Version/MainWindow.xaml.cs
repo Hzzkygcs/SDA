@@ -132,7 +132,10 @@ namespace HzzGrader
             if (native_hzzgrader_chb.IsChecked.Value)
                 result = await compile_stress_test_native();
             else{
-                result = await stress_test_non_native();
+                result = false;
+                Dispatcher.Invoke(stress_test_non_native);
+
+                // result = await stress_test_non_native();
             }
             
             if (result){
@@ -270,7 +273,7 @@ namespace HzzGrader
             java_execute.start();
             bool wait = true;
             java_execute.on_unblocked = execute => { wait = false;};
-            java_execute.execute_external_stdin("HzzGrader", "HzzGrader.java");  // HzzGrader.java just an arbitrary file
+            java_execute.execute_custom_java_args("HzzGrader", "-cp \".;.\"");
 
             while (wait){
                 await Task.Delay(50);
@@ -336,10 +339,8 @@ namespace HzzGrader
             
             string compiled_file_name = Path.GetFileNameWithoutExtension(source_file_path);
             string command_run = "";
-            Process command_prompt_run_process = initialize_cmd_process(new Process());
-            command_prompt_run_process.Start();
             
-            
+
             try{
                 string input_file_name_prefix = "in_";
                 string output_file_name_prefix = "out_";
@@ -373,13 +374,29 @@ namespace HzzGrader
 
                     
                     string java_arg = String.Format("\"{0}\" < \"{1}\"", compiled_file_name, files[file_num]);
+                    // command_run = String.Format("cd \"{0}\"  &  java " + java_arg, compile_dir_path);
+                    command_run = "JavaExecute() non native";
+                    input.Text = command_run;
 
-                    command_run = String.Format("cd \"{0}\"  &  java " + java_arg, compile_dir_path);
-                    input.Text = java_arg;
-                    
                     
                     // result = await execute_cmd_optimized(command_run, command_prompt_run_process, 4000, null);
-                    result = await execute_cmd(command_run, 7000, null, use_process:command_prompt_run_process);
+                    JavaExecute java_execute = new JavaExecute(initialize_cmd_process(new Process()), compile_dir_path);
+                    bool wait = true;
+                    java_execute.on_unblocked = execute => {
+                        wait = false;
+                    };
+                    java_execute.start();
+                    java_execute.execute_arbitrary_cmd("java -cp \".;.\" " + java_arg);
+
+                    while (wait){
+                        /*if (JavaExecute.debug != null && !JavaExecute.debug.Equals("")){
+                            program_output.Text += JavaExecute.debug;
+                            JavaExecute.debug = "";
+                        }*/
+                        await Task.Delay(50);
+                    }
+                    result = java_execute.flush();
+                    
 
                     if (result.Item2.Length > 0){
                         MessageBox.Show("Unexpected error");

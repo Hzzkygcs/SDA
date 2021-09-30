@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace HzzGrader{
     
@@ -21,7 +22,8 @@ namespace HzzGrader{
         private string termination_token = null;
 
         public static readonly string START_CMD = "echo. & echo {0} &";
-        public static readonly string COMMAND = "java \"{0}\" < \"{1}\"";
+        public static readonly string COMMAND_EXTERNAL_STDIN = "java \"{0}\" < \"{1}\"";
+        public static readonly string COMMAND_CUSTOM_ARG = "java {0} \"{1}\"";
         public static readonly string TERMINATION_CMD = "& echo. & echo {0}";
         
         public JavaExecute(Process cmd_process, string directory){
@@ -50,16 +52,52 @@ namespace HzzGrader{
             termination_token = random_string(16);
             
             string cmd = String.Format(START_CMD, start_token)
-                         + String.Format(COMMAND, java_class_name, stdin_file_path)
+                         + String.Format(COMMAND_EXTERNAL_STDIN, java_class_name, stdin_file_path)
                          + String.Format(TERMINATION_CMD, termination_token);
             process.StandardInput.WriteLine(cmd);
         }
+        
+        public void execute_custom_java_args(string java_class_name, string flag=""){
+            if (termination_token != null) throw new SynchronizationLockException();
+            
+            // indicate from which line (and up to what line) the output listener should listen to.
+            // Every cmd's output between the starting and termination line will be captured
+            // and stored to the string builder
+            start_token = random_string(16);
+            termination_token = random_string(16);
+            
+            string cmd = String.Format(START_CMD, start_token)
+                         + String.Format(COMMAND_CUSTOM_ARG, flag, java_class_name)
+                         + String.Format(TERMINATION_CMD, termination_token);
+            process.StandardInput.WriteLine(cmd);
+        }
+        
+        public void execute_arbitrary_cmd(string command){
+            if (termination_token != null) throw new SynchronizationLockException();
+            
+            // indicate from which line (and up to what line) the output listener should listen to.
+            // Every cmd's output between the starting and termination line will be captured
+            // and stored to the string builder
+            start_token = random_string(16);
+            termination_token = random_string(16);
+            
+            string cmd = String.Format(START_CMD, start_token)
+                         + command
+                         + String.Format(TERMINATION_CMD, termination_token);
+            process.StandardInput.WriteLine(cmd);
+        }
+        
 
         public bool is_blocked(){
             return termination_token != null;
         }
-        
+
+
+        // public static string debug = "";
         public void output_handler(object sendingProcess, DataReceivedEventArgs data){
+            // if (debug != null)
+                // debug += "\n" + data.Data;
+            
             if (start_token != null){
                 if (!data.Data.TrimEnd().Equals(start_token))
                     return;

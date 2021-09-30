@@ -38,7 +38,7 @@
                         <Button DockPanel.Dock="Top" Click="ButtonBase_start_test_OnClick" Name="start_stress_test_btn" 
                             Margin="0 5">Start Test</Button>
                         <CheckBox Name="native_hzzgrader_chb" DockPanel.Dock="Top" IsChecked="True"
-                                  Content="Use fast native HzzGrader (a little bit bug prone)"></CheckBox>
+                                  Content="Use fast native HzzGrader (faster)"></CheckBox>
                     
                         <!--TextBlock Name="code"></TextBlock-->
                     <!--</DockPanel>-->

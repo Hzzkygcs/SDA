@@ -183,8 +183,10 @@ namespace HzzGrader
         public static readonly Regex GET_CLASS_DECLARATION_REGEX = 
             new Regex(_KEYWORD_MODIFIERS + "class\\s+([a-zA-Z0-9_]+)\\s*(<[^;]*>)?\\s*(?:extends\\s+([a-zA-Z0-9_]+)\\s*(<[^;]*>)?)?\\s*(?:implements\\s+([^{]+))?\\s*\\{");
         
+        //  (?:(public|private|protected)\s+)?(?:(abstract|static)\s+)?(?:(final)\s+)?(?:(synchronized)\s+)?(([a-zA-Z0-9_]+)\s*(<[a-zA-Z0-9_,\s]*>)?(?:\s*\[\s*\]\s*)*)\s+([a-zA-Z0-9_]+)\s*=(?!=)([^;]+);
         public static readonly Regex GET_DECLARED_ASSIGNED_REGEX = 
-            new Regex(_KEYWORD_MODIFIERS + "(([a-zA-Z0-9_]+)\\s*(<[a-zA-Z0-9_,\\s]*>)?(?:\\s*\\[\\s*\\]\\s*)?)\\s+([a-zA-Z0-9_]+)\\s*=(?!=)([^;]+);");
+            new Regex(_KEYWORD_MODIFIERS + 
+                      "(([a-zA-Z0-9_]+)\\s*(<[a-zA-Z0-9_,\\s]*>)?(?:\\s*\\[\\s*\\]\\s*)*)\\s+([a-zA-Z0-9_]+)\\s*=(?!=)([^;]+);");
 
         public static readonly Regex GET_MAIN_METHOD_REGEX =
             new Regex("public\\s+static\\s+void\\s+main\\s*\\(.+\\)[a-zA-Z0-9_ ]*\\{");
