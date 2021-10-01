@@ -6,68 +6,192 @@
         xmlns:local="clr-namespace:HzzGrader"
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="700">
-    <ScrollViewer >
+    
+    <Window.Resources>
+        <Color x:Key="background1_color">#181818</Color>
+        <Color x:Key="background2_color">#2b2e2e</Color>
+        <Color x:Key="color_a_color">#118df0</Color>
+        <Color x:Key="color_a2_color">#39a7ff</Color>
+        <Color x:Key="color_b_color">#ff304f</Color>
+        <Color x:Key="color_b2_color">#f84c4c</Color>
+        <Color x:Key="color_c_color">#ffffff</Color>
+        
+        <SolidColorBrush x:Key="background1" Color="{StaticResource background1_color}" />
+        <SolidColorBrush x:Key="background2" Color="{StaticResource background2_color}" />
+        <SolidColorBrush x:Key="color_a" Color="{StaticResource color_a_color}" />
+        <SolidColorBrush x:Key="color_a2" Color="{StaticResource color_a2_color}" />
+        <SolidColorBrush x:Key="color_b" Color="{StaticResource color_b_color}" />
+        <SolidColorBrush x:Key="color_b2" Color="{StaticResource color_c_color}" />
+        <SolidColorBrush x:Key="color_c" Color="{StaticResource color_c_color}" />
+        <SolidColorBrush x:Key="foreground1">
+            <SolidColorBrush.Color>#ffffff</SolidColorBrush.Color>
+        </SolidColorBrush>
+        
+        
+        <Style x:Key="button_style" TargetType="{x:Type Button}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="DarkGoldenrod"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    
+    
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
         <DockPanel HorizontalAlignment="Stretch" 
                    VerticalAlignment="Stretch"
-                   LastChildFill="True">
-            <Grid DockPanel.Dock="Top" VerticalAlignment="Stretch" Background="Beige">
+                   LastChildFill="True"
+                   Background="{StaticResource background1}">
+            <Grid DockPanel.Dock="Top" VerticalAlignment="Stretch"  Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UIElement}}">  <!--background removed-->
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="1*"></RowDefinition>
                     <RowDefinition Height="1*"></RowDefinition>
                 </Grid.RowDefinitions>
                 
-                
-                <Border Grid.Row="0" DockPanel.Dock="Top">
-                    <StackPanel Margin="10 10" VerticalAlignment="Center" MaxWidth="500">
-                    <!--<DockPanel>-->
-                        <TextBox DockPanel.Dock="Top" Name="file_path" MinWidth="200" 
-                                 Margin="0 5"></TextBox>
-                        <Button DockPanel.Dock="Top" Click="ButtonBase_get_path_OnClick" 
-                                Margin="0 5">get java source path</Button>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <!--<ColumnDefinition Width="4*"></ColumnDefinition>-->
+                    </Grid.ColumnDefinitions>
+                    
+                    <Border Grid.Column="0" DockPanel.Dock="Top">
                         
-                    
-                    
-                        <TextBox DockPanel.Dock="Top" Name="testcase_folder" MinWidth="200" 
-                                 Margin="0 5" LostFocus="Testcase_folder_OnLostFocus"></TextBox>
-                        <Button DockPanel.Dock="Top" Click="ButtonBase_get_tc_folder_OnClick" 
-                                Margin="0 5">get testcase folder</Button>
-                    
-                    
-                    
-                        <Button DockPanel.Dock="Top" Click="ButtonBase_start_test_OnClick" Name="start_stress_test_btn" 
-                            Margin="0 5">Start Test</Button>
-                        <CheckBox Name="native_hzzgrader_chb" DockPanel.Dock="Top" IsChecked="True"
-                                  Content="Use fast native HzzGrader (faster)"></CheckBox>
-                    
-                        <!--TextBlock Name="code"></TextBlock-->
-                    <!--</DockPanel>-->
-                    </StackPanel>
-                </Border>
+                        
+                        <StackPanel Margin="10 10" VerticalAlignment="Center" MaxWidth="800">
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                <DockPanel>
+                                    <DockPanel DockPanel.Dock="Top" LastChildFill="True" MaxWidth="400" >
+                                        <Button DockPanel.Dock="Right" Click="ButtonBase_get_path_OnClick" 
+                                                Margin="0 5" Background="{StaticResource color_b}" 
+                                                Foreground="{StaticResource foreground1}" Cursor="Hand" 
+                                                BorderThickness="0" 
+                                                Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
+                                                Content="" >
+                                            <Button.Style>
+                                                <Style TargetType="{x:Type Button}">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                                <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                                </Border>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" 
+                                                                            Value="{StaticResource color_b2}" TargetName="Border" />
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </Button.Style>
+                                            
+                                        </Button>
+                                        <TextBox Name="file_path" MinWidth="200" 
+                                                 Margin="5 5" Background="{StaticResource background2}"
+                                                 Foreground="{StaticResource foreground1}" BorderThickness="0"></TextBox>
+                                    </DockPanel>
+                                
+                                    <DockPanel DockPanel.Dock="Top" Name="tc_source_panel" MaxWidth="400" >
+                                        <Button DockPanel.Dock="Right" Click="ButtonBase_get_tc_folder_OnClick" 
+                                                Margin="0 5" Background="{StaticResource color_b}" 
+                                                Foreground="{StaticResource foreground1}" Cursor="Hand" 
+                                                BorderThickness="0" 
+                                                Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
+                                                Content="">
+                                            <Button.Style>
+                                                <Style TargetType="{x:Type Button}">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                                <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                                </Border>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" 
+                                                                            Value="{StaticResource color_b2}" TargetName="Border" />
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
+                                        <TextBox DockPanel.Dock="Top" Name="testcase_folder" MinWidth="200" 
+                                                 Margin="5 5" LostFocus="Testcase_folder_OnLostFocus" Background="{StaticResource background2}"
+                                                 Foreground="{StaticResource foreground1}" BorderThickness="0"></TextBox>
+                                    </DockPanel>
+                                </DockPanel>
+                            </StackPanel>
+                            
+                            
+                            <Button DockPanel.Dock="Top" Click="ButtonBase_start_test_OnClick" Name="start_stress_test_btn" 
+                                    Margin="0 5" MaxWidth="400" Background="{StaticResource color_a}"
+                                    Foreground="{StaticResource foreground1}" Cursor="Hand"
+                                    Content="Start Test" BorderThickness="0">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border x:Name="Border" Background="{TemplateBinding Background}"
+                                                            Padding="2">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" 
+                                                                    Value="{StaticResource color_a2}" TargetName="Border" />
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <CheckBox Name="native_hzzgrader_chb" DockPanel.Dock="Top" IsChecked="True" MaxWidth="300"
+                                      Content="Use fast native HzzGrader (faster)"
+                                      Foreground="{StaticResource foreground1}"></CheckBox>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+                
                 
                 <Border Grid.Row="1" DockPanel.Dock="Top">
-                    
-                    <DockPanel Margin="10 10">
+                    <DockPanel Margin="10 5">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  DockPanel.Dock="Top">
                             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                                <Label HorizontalAlignment="Center"> input </Label>
-                                <Label Name="information_label" HorizontalAlignment="Center"></Label>
+                                <Label HorizontalAlignment="Center" Foreground="{StaticResource foreground1}"> input </Label>
+                                <Label Name="information_label" HorizontalAlignment="Center" Foreground="{StaticResource foreground1}"></Label>
                             </StackPanel>
                         </StackPanel>
                         
-                        <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5" DockPanel.Dock="Top">
-                        <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="200">
-                        <TextBox x:Name="input" 
-                                   TextWrapping="Wrap" 
-                                   Foreground="Black"
-                                   Background="Beige"
-                                   BorderThickness="0"
-                                   MinWidth="400"
-                                   MinHeight="80" />
-                        </ScrollViewer>
+                        <Border BorderBrush="{StaticResource color_a}" BorderThickness="1" CornerRadius="5" DockPanel.Dock="Top">
+                            <ScrollViewer VerticalScrollBarVisibility="Hidden" 
+                                          Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UIElement}}"
+                                          Name="input_scrollview">
+                                <TextBox x:Name="input" 
+                                     TextWrapping="Wrap" 
+                                     MinWidth="400"
+                                     MinHeight="80"
+                                     IsReadOnly="True"
+                                     Background="{StaticResource background2}"
+                                     Foreground="{StaticResource foreground1}"
+                                     BorderThickness="0" 
+                                     PreviewMouseWheel="on_scroll__large_input_textbox"
+                                     PreviewMouseDown="on_click__large_input_textbox"
+                                     PreviewKeyDown="on_key_down__large_input_textbox"/> <!--background removed-->
+                            </ScrollViewer>
                         </Border>
                     </DockPanel>
                 </Border>
+                
                 
                 <Border Grid.Row="2" DockPanel.Dock="Top">
                     <Grid>
@@ -76,39 +200,54 @@
                             <ColumnDefinition Width="1*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         
-                        <DockPanel Grid.Column="0" Margin="15 15">
-                            <StackPanel Margin="15 15" Orientation="Horizontal" HorizontalAlignment="Center"
+                        <DockPanel Grid.Column="0" Margin="15 5">
+                            <StackPanel Margin="15 5" Orientation="Horizontal" HorizontalAlignment="Center"
                                         DockPanel.Dock="Top">
-                                <Label> program output </Label>
+                                <Label Foreground="{StaticResource foreground1}"> program output </Label>
                             </StackPanel>
                             
-                            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5"
+                            <Border BorderBrush="{StaticResource color_a}" BorderThickness="1" CornerRadius="5"
                                     DockPanel.Dock="Top">
-                            <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="300">
-                            <TextBox x:Name="program_output" 
-                                     TextWrapping="Wrap" 
-                                     Foreground="Black"
-                                     Background="Beige"
-                                     MinWidth="200"
-                                     MinHeight="80" />
-                            </ScrollViewer>
+                                <DockPanel LastChildFill="True">
+                                <ScrollViewer VerticalScrollBarVisibility="Hidden" DockPanel.Dock="Top"  
+                                              Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UIElement}}"
+                                              Name="program_output_scrollview">
+                                <TextBox x:Name="program_output" 
+                                         TextWrapping="Wrap" 
+                                         MinWidth="200"
+                                         MinHeight="80"
+                                         IsReadOnly="True"
+                                         Background="{StaticResource background2}"
+                                         Foreground="{StaticResource foreground1}"
+                                         BorderThickness="0" 
+                                         PreviewMouseWheel="on_scroll__large_input_textbox"
+                                         PreviewMouseDown="on_click__large_input_textbox"
+                                         PreviewKeyDown="on_key_down__large_input_textbox"/> <!--background removed-->
+                                </ScrollViewer>
+                                </DockPanel>
                             </Border>
                         </DockPanel>
-                        <DockPanel Grid.Column="1" Margin="15 15">
-                            <StackPanel Margin="15 15" Orientation="Horizontal" HorizontalAlignment="Center"
+                        <DockPanel Grid.Column="1" Margin="15 5">
+                            <StackPanel Margin="15 5" Orientation="Horizontal" HorizontalAlignment="Center"
                                         DockPanel.Dock="Top">
-                                <Label> expected output </Label>
+                                <Label Foreground="{StaticResource foreground1}"> expected output </Label>
                             </StackPanel>
                             
-                            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5"
+                            <Border BorderBrush="{StaticResource color_a}" BorderThickness="1" CornerRadius="5"
                                     DockPanel.Dock="Top">
-                            <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="300">
+                            <ScrollViewer VerticalScrollBarVisibility="Hidden" MaxHeight="300"
+                                           Name="expected_output_scrollview">
                             <TextBox x:Name="expected_output" 
                                      TextWrapping="Wrap" 
-                                     Foreground="Black"
-                                     Background="Beige"
                                      MinWidth="200"
-                                     MinHeight="80" />
+                                     MinHeight="80"
+                                     IsReadOnly="True"
+                                     Background="{StaticResource background2}"
+                                     Foreground="{StaticResource foreground1}"
+                                     BorderThickness="0"
+                                     PreviewMouseWheel="on_scroll__large_input_textbox"
+                                     PreviewMouseDown="on_click__large_input_textbox"
+                                     PreviewKeyDown="on_key_down__large_input_textbox"/>  <!--background removed-->
                             </ScrollViewer>
                             </Border>
                         </DockPanel>

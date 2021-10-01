@@ -13,8 +13,12 @@ using System.Windows.Forms;
 using MessageBox = System.Windows.Forms.MessageBox;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
+
 namespace HzzGrader
 {
+
+
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -59,9 +63,12 @@ namespace HzzGrader
             }
         }
         
+        
         public MainWindow()
         {
             InitializeComponent();
+            initialize_large_textboxes();
+            
             if (File.Exists(prev_source_code_directory)){
                 string text = System.IO.File.ReadAllText(prev_source_code_directory);
                 text = text.Trim();
@@ -117,9 +124,9 @@ namespace HzzGrader
         private async void ButtonBase_start_test_OnClick(object sender, RoutedEventArgs e){
             start_stress_test_btn.IsEnabled = false;
             information_label.Content = "start stresstesting";
-            input.Text = "";
-            program_output.Text = "";
-            expected_output.Text = "";
+            input_content.Text = "";
+            program_output_content.Text = "";
+            expected_output_content.Text = "";
 
             Dispatcher.Invoke(invoke_stress_test);
         }
@@ -130,22 +137,13 @@ namespace HzzGrader
             bool result;
 
             if (native_hzzgrader_chb.IsChecked.Value)
-                result = await compile_stress_test_native();
+                Dispatcher.Invoke(compile_stress_test_native);
             else{
-                result = false;
                 Dispatcher.Invoke(stress_test_non_native);
 
                 // result = await stress_test_non_native();
             }
-            
-            if (result){
-                await Task.Delay(500);
-                information_label.Content = "DONE! No problem found";
-                input.Text = "";
-                program_output.Text = "";
-                expected_output.Text = "";
-            }
-        
+
             start_stress_test_btn.IsEnabled = true;
             
                 
@@ -153,9 +151,9 @@ namespace HzzGrader
         }
 
 
-        public async Task<bool> compile_stress_test_native(){
+        public async Task compile_stress_test_native(){
             if (!await test_if_javac_and_java_is_available())
-                return false;
+                return;
             
             // just to check whether the syntax is valid or not
             string old_source_file_path = file_path.Text;
@@ -167,7 +165,7 @@ namespace HzzGrader
                 Path.Combine(src_code_backup_dir_path, Path.GetFileName(old_source_file_path)), true);
             
             if (!await compile_java_source_code(compile_dir_path, new_source_file_path))
-                return false;
+                return;
             
             JavaMiniParser java_mini_parser = new JavaMiniParser(File.ReadAllText(new_source_file_path));
             java_mini_parser.parse();
@@ -181,7 +179,7 @@ namespace HzzGrader
                                 "should be put before any inner classes");
                 information_label.Content = "All static fields must belong to the public class and " +
                                             "should be put before any inner classes";
-                return false;
+                return;
             }
 
             List<AssignedVariableDeclaration> assigned_static_var_dec =
@@ -189,13 +187,15 @@ namespace HzzGrader
             
             string static_field_reinitialization = "";  // we will put it at the first line of source's main() function
             foreach (var variable in assigned_static_var_dec){
-                static_field_reinitialization += String.Format("{0}={1};", variable.name, variable.assigned_value);
+                if (variable.is_final)
+                    continue;
+                static_field_reinitialization += String.Format("\n{0}={1};", variable.name, variable.assigned_value);
             }
 
             if (java_mini_parser.has_package_statement()){
                 MessageBox.Show("Please remove any package statement");
                 information_label.Content = "Please remove any package statement";
-                return false;
+                return;
             }
             
             {
@@ -240,17 +240,16 @@ namespace HzzGrader
             
             if (!await compile_java_source_code(new string[]{"-Xlint:unchecked"},
                 compile_dir_path, native_hzz_grader_path, new_source_file_path))
-                return false;
+                return;
 
-            if (!await execute_stress_test_native(new_source_file_path, information_token, input_token, program_output_token,
-                expected_output_token, end_token))
-                return false;
-
-            return true;
+            await execute_stress_test_native(new_source_file_path, information_token, input_token, program_output_token,
+                expected_output_token, end_token);
+                return;
+            
         }
 
 
-        public async Task<bool> execute_stress_test_native(string new_source_file_path, string information_token,
+        public async Task execute_stress_test_native(string new_source_file_path, string information_token,
             string input_token, string program_output_token, string expected_output_token, string end_token){
 
             information_token = String.Format("{0}", information_token);
@@ -269,17 +268,23 @@ namespace HzzGrader
              //  Tuple<string,string> result = await execute_cmd(command_run);  
             */
             string command_run = "command run: JavaExecute() ~";
-            JavaExecute java_execute = new JavaExecute(initialize_cmd_process(new Process()), compile_dir_path);
+            Process process = initialize_cmd_process(new Process());
+            JavaExecute java_execute = new JavaExecute(process, compile_dir_path);
             java_execute.start();
             bool wait = true;
-            java_execute.on_unblocked = execute => { wait = false;};
+            java_execute.on_unblocked = execute =>
+            {
+                wait = false;
+            };
             java_execute.execute_custom_java_args("HzzGrader", "-cp \".;.\"");
 
             while (wait){
-                await Task.Delay(50);
+                await Task.Delay(30);
             }
-
+            
             Tuple<string, string> result = java_execute.flush();
+            process.StandardInput.Close();
+            process.Close();
             
             string item1 = result.Item1.Replace("\r", "");
 
@@ -288,8 +293,8 @@ namespace HzzGrader
                 MessageBox.Show(result.Item2);
                 MessageBox.Show(command_run);
                 information_label.Content = "Unexpected error is found";
-                input.Text = "";  program_output.Text = "";  expected_output.Text = "";
-                return false;
+                input_content.Text = "";  program_output_content.Text = "";  expected_output_content.Text = "";
+                return;
             }
 
             if (item1.Contains(information_token)){
@@ -300,20 +305,21 @@ namespace HzzGrader
                     information_label.Content = "error outputted value is not recognized";
                     MessageBox.Show(item1);
                     MessageBox.Show(command_run);
-                    return false;
+                    return;
                 }
                 information_label.Content = temp[1].Trim();
-                input.Text = temp[2].Trim();
-                program_output.Text = temp[3].Trim();
-                expected_output.Text = temp[4].Trim();
-                return false;
+                input_content.Text = temp[2].Trim();
+                program_output_content.Text = temp[3].Trim();
+                expected_output_content.Text = temp[4].Trim();
+                
+                return;
             }else{
                 MessageBox.Show(information_token);
                 MessageBox.Show(item1);
                 MessageBox.Show(item1.Contains(information_token).ToString());
             }
             
-            return true;
+
         }
         
         public async Task<bool> stress_test_non_native(){
@@ -367,16 +373,16 @@ namespace HzzGrader
                     if (!File.Exists(exp_output_file_dir)){
                         MessageBox.Show("File output testcase not found: " + exp_output_file_dir);
                         information_label.Content = "File output testcase not found: " + exp_output_file_dir;
-                        input.Text = "";
-                        program_output.Text = "";
-                        expected_output.Text = "";
+                        input_content.Text = "";
+                        program_output_content.Text = "";
+                        expected_output_content.Text = "";
                     }
 
                     
                     string java_arg = String.Format("\"{0}\" < \"{1}\"", compiled_file_name, files[file_num]);
                     // command_run = String.Format("cd \"{0}\"  &  java " + java_arg, compile_dir_path);
                     command_run = "JavaExecute() non native";
-                    input.Text = command_run;
+                    input_content.Text = command_run;
 
                     
                     // result = await execute_cmd_optimized(command_run, command_prompt_run_process, 4000, null);
@@ -390,7 +396,7 @@ namespace HzzGrader
 
                     while (wait){
                         /*if (JavaExecute.debug != null && !JavaExecute.debug.Equals("")){
-                            program_output.Text += JavaExecute.debug;
+                            program_output_content.Text += JavaExecute.debug;
                             JavaExecute.debug = "";
                         }*/
                         await Task.Delay(50);
@@ -403,8 +409,8 @@ namespace HzzGrader
                         MessageBox.Show(result.Item2);
                         MessageBox.Show(command_run);
                         information_label.Content = "unexpected error";
-                        program_output.Text = "";
-                        expected_output.Text = "";
+                        program_output_content.Text = "";
+                        expected_output_content.Text = "";
                         return false;
                     }
 
@@ -421,9 +427,9 @@ namespace HzzGrader
 
                     if (comparison_res.Length != 0){ 
                         information_label.Content = Path.GetFileName(files[file_num]) + " -- " + (comparison_res);
-                        input.Text = program_input;
-                        program_output.Text = String.Join("\n", prog_output_trimmed);
-                        expected_output.Text = String.Join("\n", exp_output_trimmed);
+                        input_content.Text = program_input;
+                        program_output_content.Text = String.Join("\n", prog_output_trimmed);
+                        expected_output_content.Text = String.Join("\n", exp_output_trimmed);
                         return false;
                     }
                 }
@@ -433,9 +439,9 @@ namespace HzzGrader
                 MessageBox.Show(result.Item1);
                 MessageBox.Show(result.Item2);
                 information_label.Content = "java command time out";
-                input.Text = command_run;
-                program_output.Text = result.Item1;
-                expected_output.Text = "";
+                input_content.Text = command_run;
+                program_output_content.Text = result.Item1;
+                expected_output_content.Text = "";
                 return false;
             }
             catch (Exception e){

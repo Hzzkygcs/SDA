@@ -97,7 +97,8 @@ namespace HzzGrader{
         public void output_handler(object sendingProcess, DataReceivedEventArgs data){
             // if (debug != null)
                 // debug += "\n" + data.Data;
-            
+            if (data.Data == null)
+                return;
             if (start_token != null){
                 if (!data.Data.TrimEnd().Equals(start_token))
                     return;
