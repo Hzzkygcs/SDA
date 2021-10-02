@@ -156,9 +156,14 @@ namespace HzzGrader
                 result = await execute_cmd(command_compile);
 
                 if (result.Item2.Length > 0  && !result.Item2.Contains("warning") || result.Item2.Contains("error")){
-                    MessageBox.Show("Unexpected error");
+                    MessageBox.Show("Unexpected error (compiling java source code)");
                     MessageBox.Show(result.Item2);
                     MessageBox.Show(command_compile);
+                    
+                    write_log("Unexpected error (compiling java source code)");
+                    write_log(result.Item2);
+                    write_log(command_compile + "\n\n");
+
                     information_label.Content = "unexpected error";
                     input.Text = "";
                     program_output.Text = "";

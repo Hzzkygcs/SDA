@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using System.Windows.Input;
+using Microsoft.Extensions.Logging;
+using Microsoft.Win32;
 using MessageBox = System.Windows.Forms.MessageBox;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
@@ -29,8 +32,13 @@ namespace HzzGrader
         private string __native_hzz_grader_src_code;
         private string __default_source_code_directory = AppDomain.CurrentDomain.BaseDirectory;
         private string __default_testcase_directory = AppDomain.CurrentDomain.BaseDirectory;
-        
+
+        public static string current_app_path = AppDomain.CurrentDomain.BaseDirectory;
+        public static string debug_directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "debug");
+        public static string log_file = Path.Combine(current_app_path, "log.txt");
+
         public readonly string src_code_backup_dir_path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "backup");
+
         public readonly string compile_dir_path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bin");
         // string compile_dir_path = System.IO.Path.GetTempPath();
         // string compile_dir_path = @"D:\05 Projects\02 C#\HzzGrader\bin\Debug";
@@ -62,10 +70,22 @@ namespace HzzGrader
                 }
             }
         }
-        
-        
+
+
+        public void write_log(string str){
+            File.AppendAllText(log_file, str + "\n");
+        }
+
+        public void copy_to_debug_directory(string source_directory){
+            foreach(var file in Directory.GetFiles(debug_directory))
+                File.Delete(file);
+            foreach(var file in Directory.GetFiles(source_directory))
+                File.Copy(file, Path.Combine(debug_directory, Path.GetFileName(file)));
+            write_log("the resulting files:  \"" + source_directory + "\"   has been copied to " + debug_directory);
+        }
         public MainWindow()
         {
+            
             InitializeComponent();
             initialize_large_textboxes();
             
@@ -81,9 +101,18 @@ namespace HzzGrader
                 default_testcase_directory = text;
                 testcase_folder.Text = text;
             }
+            if (!File.Exists(log_file)){
+                File.WriteAllText(log_file, "");
+            }
+            
+            
+            File.AppendAllText(log_file, "\n\n============= started on " + DateTime.UtcNow.ToString("dd-MM-yyyy hh:mm") + " =============\n");
 
+            if (Directory.Exists(compile_dir_path))
+                Directory.Delete(compile_dir_path, true);
             Directory.CreateDirectory(compile_dir_path);
             Directory.CreateDirectory(src_code_backup_dir_path);
+            Directory.CreateDirectory(debug_directory);
             
             var assembly = Assembly.GetExecutingAssembly();
             using (var temp = assembly.GetManifestResourceStream("HzzGrader.HzzGrader.java"))
@@ -133,21 +162,14 @@ namespace HzzGrader
 
         public async Task invoke_stress_test(){
             // await Task.Run(async () => {
-
             bool result;
 
             if (native_hzzgrader_chb.IsChecked.Value)
                 Dispatcher.Invoke(compile_stress_test_native);
             else{
                 Dispatcher.Invoke(stress_test_non_native);
-
-                // result = await stress_test_non_native();
             }
-
             start_stress_test_btn.IsEnabled = true;
-            
-                
-            // }).ConfigureAwait(continueOnCapturedContext:false);
         }
 
 
@@ -164,13 +186,19 @@ namespace HzzGrader
             File.Copy(old_source_file_path, 
                 Path.Combine(src_code_backup_dir_path, Path.GetFileName(old_source_file_path)), true);
             
-            if (!await compile_java_source_code(compile_dir_path, new_source_file_path))
+            write_log("checking for the original source syntax");
+            if (!await compile_java_source_code(compile_dir_path, new_source_file_path)){
+                copy_to_debug_directory(compile_dir_path);
                 return;
+            }
+            write_log("no syntax error was found. Parsing java source file");
+            
             
             JavaMiniParser java_mini_parser = new JavaMiniParser(File.ReadAllText(new_source_file_path));
             java_mini_parser.parse();
             java_mini_parser.parse_tokenized_splitted();
 
+            write_log("finished parsing");
             string input_reader_untuk_hzzgrader = "";
 
             if (JavaMiniParserUtil.get_static_assigned_var_dec_not_in_public_class(java_mini_parser).Count >
@@ -199,6 +227,7 @@ namespace HzzGrader
             }
             
             {
+                write_log("trying to locate the main method from the java source file");
                 var temp = JavaMiniParser.GET_MAIN_METHOD_REGEX.Match(java_mini_parser.tokenized_str);
                 Debug.Assert(temp.Success);
                 int main_func_first_line = temp.Index + temp.Length;
@@ -208,6 +237,7 @@ namespace HzzGrader
 
             string nama_class_yang_mau_diuji = Path.GetFileNameWithoutExtension(new_source_file_path);
 
+            write_log("writing HzzGrader.java");
             string information_token = JavaMiniParser.random_string(48);
             string input_token = JavaMiniParser.random_string(48);
             string program_output_token = JavaMiniParser.random_string(48);
@@ -237,15 +267,18 @@ namespace HzzGrader
             File.WriteAllText(new_source_file_path, java_mini_parser.unparse());
             File.WriteAllText(native_hzz_grader_path, hzz_grader_code);
             
-            
+            write_log(new_source_file_path + "  and  " + native_hzz_grader_path + "  has been generated");
             if (!await compile_java_source_code(new string[]{"-Xlint:unchecked"},
-                compile_dir_path, native_hzz_grader_path, new_source_file_path))
+                compile_dir_path, native_hzz_grader_path, new_source_file_path)){
+                copy_to_debug_directory(compile_dir_path);
                 return;
-
+            }
+            
+            write_log("executing HzzGrader.java");
             await execute_stress_test_native(new_source_file_path, information_token, input_token, program_output_token,
                 expected_output_token, end_token);
-                return;
-            
+            copy_to_debug_directory(compile_dir_path);
+            write_log("Done!");
         }
 
 
@@ -263,9 +296,6 @@ namespace HzzGrader
             /*
              We would prefer to use JavaExecute() rather than execute_cmd because sometimes java is freezing the
              output even after it finishes its tasks.
-             
-             //  string command_run = String.Format("cd \"{0}\"  &  java HzzGrader.java", compile_dir_path);
-             //  Tuple<string,string> result = await execute_cmd(command_run);  
             */
             string command_run = "command run: JavaExecute() ~";
             Process process = initialize_cmd_process(new Process());
@@ -292,6 +322,10 @@ namespace HzzGrader
                 MessageBox.Show("Unexpected error is found");
                 MessageBox.Show(result.Item2);
                 MessageBox.Show(command_run);
+                
+                File.AppendAllText(log_file, "Unexpected error is found\n"+result.Item2+
+                                             "\n"+command_run+"\n\n\n");
+                
                 information_label.Content = "Unexpected error is found";
                 input_content.Text = "";  program_output_content.Text = "";  expected_output_content.Text = "";
                 return;
@@ -470,6 +504,28 @@ namespace HzzGrader
         private void Testcase_folder_OnLostFocus(object sender, RoutedEventArgs e) {
             if (!testcase_folder.Text.Equals(default_testcase_directory))
                 default_testcase_directory = testcase_folder.Text;
+        }
+
+        private void hzzgrader_label_on_click__open_repository(object sender, MouseButtonEventArgs e){
+            Process.Start("https://github.com/Hzzkygcs/SDA");
+
+        }
+
+        private void hzzgrader_label_on_right_click__open_log_file(object sender, MouseButtonEventArgs e){
+            string edit = (string)Registry.GetValue(@"HKEY_CLASSES_ROOT\SystemFileAssociations\text\shell\edit\command", null, null);
+            edit = edit.Replace("%1", log_file);
+
+            ProcessStartInfo process_start_info = new ProcessStartInfo("cmd.exe", "/c " + edit);
+            process_start_info.UseShellExecute = false;
+            process_start_info.CreateNoWindow = true;
+            Process process = Process.Start(process_start_info);
+            process.Close();
+        }
+
+        private void hzzgrader_label_on_mouseUp__open_debug_directory(object sender, MouseButtonEventArgs e){
+            if (e.ChangedButton == MouseButton.Middle && e.ButtonState == MouseButtonState.Released){
+                Process.Start(debug_directory);
+            }
         }
     }
 

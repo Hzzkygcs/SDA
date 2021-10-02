@@ -37,12 +37,40 @@
         </Style>
     </Window.Resources>
     
-    
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <DockPanel HorizontalAlignment="Stretch" 
-                   VerticalAlignment="Stretch"
-                   LastChildFill="True"
-                   Background="{StaticResource background1}">
+        
+        
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        
+        <Label MinHeight="20" MinWidth="50" FontSize="15" FontWeight="Bold" 
+               Cursor="Hand" Panel.ZIndex="1000"
+               MouseUp="hzzgrader_label_on_mouseUp__open_debug_directory"
+               MouseRightButtonUp="hzzgrader_label_on_right_click__open_log_file"
+               MouseLeftButtonUp="hzzgrader_label_on_click__open_repository">
+            <StackPanel Orientation="Horizontal" Name="hzzgrader_panel">
+                <TextBlock Foreground="{StaticResource color_a}" Text="Hzz"/>
+                <TextBlock Foreground="{StaticResource color_b}" Text="Grader"/>
+            </StackPanel>
+        </Label>
+        
+        
+        <ScrollViewer VerticalScrollBarVisibility="Auto" 
+                      Grid.ColumnSpan="2" Grid.RowSpan="2">
+            
+            <DockPanel HorizontalAlignment="Stretch" 
+                       VerticalAlignment="Stretch"
+                       LastChildFill="True"
+                       Background="{StaticResource background1}">
+            
+            
             <Grid DockPanel.Dock="Top" VerticalAlignment="Stretch"  Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UIElement}}">  <!--background removed-->
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -59,11 +87,12 @@
                     <Border Grid.Column="0" DockPanel.Dock="Top">
                         
                         
-                        <StackPanel Margin="10 10" VerticalAlignment="Center" MaxWidth="800">
+                        <StackPanel Margin="10 10" VerticalAlignment="Center" MaxWidth="1000">
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                                 <DockPanel>
-                                    <DockPanel DockPanel.Dock="Top" LastChildFill="True" MaxWidth="400" >
-                                        <Button DockPanel.Dock="Right" Click="ButtonBase_get_path_OnClick" 
+                                    <DockPanel DockPanel.Dock="Top" LastChildFill="True" MaxWidth="500">
+                                        <Button DockPanel.Dock="Right" Name="pick_java_file_btn"  
+                                                Click="ButtonBase_get_path_OnClick" 
                                                 Margin="0 5" Background="{StaticResource color_b}" 
                                                 Foreground="{StaticResource foreground1}" Cursor="Hand" 
                                                 BorderThickness="0" 
@@ -90,17 +119,26 @@
                                             </Button.Style>
                                             
                                         </Button>
+                                        
+                                        <Label 
+                                            Foreground="{StaticResource foreground1}"
+                                            Width="{Binding ElementName=label_testcase_folder, Path=ActualWidth}"
+                                            Content="Your java file: " ></Label>
+                                        
                                         <TextBox Name="file_path" MinWidth="200" 
                                                  Margin="5 5" Background="{StaticResource background2}"
                                                  Foreground="{StaticResource foreground1}" BorderThickness="0"></TextBox>
+                                        
                                     </DockPanel>
                                 
-                                    <DockPanel DockPanel.Dock="Top" Name="tc_source_panel" MaxWidth="400" >
-                                        <Button DockPanel.Dock="Right" Click="ButtonBase_get_tc_folder_OnClick" 
+                                    <DockPanel DockPanel.Dock="Top" Name="tc_source_panel" MaxWidth="500" >
+                                        <Button DockPanel.Dock="Right" Click="ButtonBase_get_tc_folder_OnClick"
+                                                
                                                 Margin="0 5" Background="{StaticResource color_b}" 
                                                 Foreground="{StaticResource foreground1}" Cursor="Hand" 
                                                 BorderThickness="0" 
                                                 Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
+                                                Height="{Binding ElementName=pick_java_file_btn, Path=ActualHeight}"
                                                 Content="">
                                             <Button.Style>
                                                 <Style TargetType="{x:Type Button}">
@@ -122,6 +160,11 @@
                                                 </Style>
                                             </Button.Style>
                                         </Button>
+                                        
+                                        <Label Name="label_testcase_folder"
+                                            Foreground="{StaticResource foreground1}"
+                                            Content="Testcase folder: "></Label>
+                                        
                                         <TextBox DockPanel.Dock="Top" Name="testcase_folder" MinWidth="200" 
                                                  Margin="5 5" LostFocus="Testcase_folder_OnLostFocus" Background="{StaticResource background2}"
                                                  Foreground="{StaticResource foreground1}" BorderThickness="0"></TextBox>
@@ -131,7 +174,8 @@
                             
                             
                             <Button DockPanel.Dock="Top" Click="ButtonBase_start_test_OnClick" Name="start_stress_test_btn" 
-                                    Margin="0 5" MaxWidth="400" Background="{StaticResource color_a}"
+                                    Margin="0 5" MaxWidth="500" Background="{StaticResource color_a}"
+                                    Width="{Binding ElementName=tc_source_panel, Path=ActualWidth}"
                                     Foreground="{StaticResource foreground1}" Cursor="Hand"
                                     Content="Start Test" BorderThickness="0">
                                 <Button.Style>
@@ -255,6 +299,9 @@
                 </Border>
                 
             </Grid>
+            
         </DockPanel>
     </ScrollViewer>
+    </Grid>
+        
 </Window>
