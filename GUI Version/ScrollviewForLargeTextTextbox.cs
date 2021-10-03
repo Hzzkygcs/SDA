@@ -24,8 +24,10 @@ namespace HzzGrader
                 return _line_pos;
             }
             set{
+                int max_line = lines.Count;
                 _line_pos = value;
                 _line_pos = (_line_pos < 0) ? 0 : _line_pos;
+                _line_pos = (_line_pos > max_line) ? max_line : _line_pos;
                 update_textbox_line(_line_pos, line_count);
             }
         }
@@ -92,9 +94,16 @@ namespace HzzGrader
             if (content == null)
                 throw new Exception();
 
+            int prev_pos = content.line_pos;
             content.line_pos += (e.Delta < 0) ? scroll_line_distance : -scroll_line_distance;
 
-            e.Handled = true;
+            write_log("scrolled: prev="+prev_pos + "  current=" + content.line_pos);
+            
+            if (prev_pos != content.line_pos)
+                e.Handled = true;
+            else{
+                e.Handled = false;
+            }
         }
 
         public TextboxLargeContent get_textbox_large_content(TextBox textbox){

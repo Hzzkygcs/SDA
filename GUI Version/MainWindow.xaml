@@ -4,10 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HzzGrader"
+        xmlns:l="clr-namespace:Converters"
+        
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="700">
+        Title="HzzGrader" Height="700" Width="700" MinHeight="400" MinWidth="600">
     
     <Window.Resources>
+        <l:VisibilityConverter x:Key="Visibility_converter" />
+        
+        
         <Color x:Key="background1_color">#181818</Color>
         <Color x:Key="background2_color">#2b2e2e</Color>
         <Color x:Key="color_a_color">#118df0</Color>
@@ -43,6 +48,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -50,7 +56,7 @@
         </Grid.RowDefinitions>
         
         
-        <Label MinHeight="20" MinWidth="50" FontSize="15" FontWeight="Bold" 
+        <Label FontSize="15" FontWeight="Bold" 
                Cursor="Hand" Panel.ZIndex="1000"
                MouseUp="hzzgrader_label_on_mouseUp__open_debug_directory"
                MouseRightButtonUp="hzzgrader_label_on_right_click__open_log_file"
@@ -61,9 +67,19 @@
             </StackPanel>
         </Label>
         
+        <Label Grid.Column="2"  FontSize="12" FontWeight="Bold" 
+               Cursor="Hand" Panel.ZIndex="1000" 
+               Visibility="{Binding ElementName=main_scroll_viewer, Path=ComputedVerticalScrollBarVisibility, Converter={StaticResource Visibility_converter}}">
+            
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Foreground="{StaticResource color_b}" Text="ver "/>
+                <TextBlock Name="version_label"  Foreground="{StaticResource color_a}" Text="0.0.0"/>
+            </StackPanel>
+        </Label>
         
-        <ScrollViewer VerticalScrollBarVisibility="Auto" 
-                      Grid.ColumnSpan="2" Grid.RowSpan="2">
+        
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      Grid.ColumnSpan="3" Grid.RowSpan="2" Name="main_scroll_viewer">
             
             <DockPanel HorizontalAlignment="Stretch" 
                        VerticalAlignment="Stretch"
@@ -217,9 +233,9 @@
                         </StackPanel>
                         
                         <Border BorderBrush="{StaticResource color_a}" BorderThickness="1" CornerRadius="5" DockPanel.Dock="Top">
-                            <ScrollViewer VerticalScrollBarVisibility="Hidden" 
+                            <!--<ScrollViewer VerticalScrollBarVisibility="Hidden" 
                                           Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UIElement}}"
-                                          Name="input_scrollview">
+                                          Name="input_scrollview">-->
                                 <TextBox x:Name="input" 
                                      TextWrapping="Wrap" 
                                      MinWidth="400"
@@ -231,7 +247,7 @@
                                      PreviewMouseWheel="on_scroll__large_input_textbox"
                                      PreviewMouseDown="on_click__large_input_textbox"
                                      PreviewKeyDown="on_key_down__large_input_textbox"/> <!--background removed-->
-                            </ScrollViewer>
+                            <!--</ScrollViewer>-->
                         </Border>
                     </DockPanel>
                 </Border>
@@ -253,9 +269,9 @@
                             <Border BorderBrush="{StaticResource color_a}" BorderThickness="1" CornerRadius="5"
                                     DockPanel.Dock="Top">
                                 <DockPanel LastChildFill="True">
-                                <ScrollViewer VerticalScrollBarVisibility="Hidden" DockPanel.Dock="Top"  
+                                    <!--<ScrollViewer VerticalScrollBarVisibility="Hidden" DockPanel.Dock="Top"  
                                               Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UIElement}}"
-                                              Name="program_output_scrollview">
+                                              Name="program_output_scrollview">-->
                                 <TextBox x:Name="program_output" 
                                          TextWrapping="Wrap" 
                                          MinWidth="200"
@@ -267,7 +283,7 @@
                                          PreviewMouseWheel="on_scroll__large_input_textbox"
                                          PreviewMouseDown="on_click__large_input_textbox"
                                          PreviewKeyDown="on_key_down__large_input_textbox"/> <!--background removed-->
-                                </ScrollViewer>
+                                    <!--</ScrollViewer>-->
                                 </DockPanel>
                             </Border>
                         </DockPanel>
@@ -279,8 +295,8 @@
                             
                             <Border BorderBrush="{StaticResource color_a}" BorderThickness="1" CornerRadius="5"
                                     DockPanel.Dock="Top">
-                            <ScrollViewer VerticalScrollBarVisibility="Hidden" MaxHeight="300"
-                                           Name="expected_output_scrollview">
+                                <!--<ScrollViewer VerticalScrollBarVisibility="Hidden" MaxHeight="300"
+                                           Name="expected_output_scrollview">-->
                             <TextBox x:Name="expected_output" 
                                      TextWrapping="Wrap" 
                                      MinWidth="200"
@@ -292,7 +308,7 @@
                                      PreviewMouseWheel="on_scroll__large_input_textbox"
                                      PreviewMouseDown="on_click__large_input_textbox"
                                      PreviewKeyDown="on_key_down__large_input_textbox"/>  <!--background removed-->
-                            </ScrollViewer>
+                            <!--</ScrollViewer>-->
                             </Border>
                         </DockPanel>
                     </Grid>

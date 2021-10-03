@@ -1,0 +1,1 @@
+This folder is used when we're building or fixing some features related to internet connection. These include auto-update feature and the feature to fetch testcases directly from github server.

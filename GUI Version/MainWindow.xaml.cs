@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
+using HzzGrader.updater;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using MessageBox = System.Windows.Forms.MessageBox;
@@ -33,9 +34,9 @@ namespace HzzGrader
         private string __default_source_code_directory = AppDomain.CurrentDomain.BaseDirectory;
         private string __default_testcase_directory = AppDomain.CurrentDomain.BaseDirectory;
 
-        public static string current_app_path = AppDomain.CurrentDomain.BaseDirectory;
+        public static string current_app_dir = AppDomain.CurrentDomain.BaseDirectory;
         public static string debug_directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "debug");
-        public static string log_file = Path.Combine(current_app_path, "log.txt");
+        public static string log_file = Path.Combine(current_app_dir, "log.txt");
 
         public readonly string src_code_backup_dir_path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "backup");
 
@@ -44,6 +45,9 @@ namespace HzzGrader
         // string compile_dir_path = @"D:\05 Projects\02 C#\HzzGrader\bin\Debug";
 
 
+        public Updater updater = new Updater();
+        
+        
         public string default_source_code_directory{
             get{
                 return __default_source_code_directory;
@@ -83,42 +87,57 @@ namespace HzzGrader
                 File.Copy(file, Path.Combine(debug_directory, Path.GetFileName(file)));
             write_log("the resulting files:  \"" + source_directory + "\"   has been copied to " + debug_directory);
         }
-        public MainWindow()
-        {
-            
+        public MainWindow(){
             InitializeComponent();
-            initialize_large_textboxes();
-            
-            if (File.Exists(prev_source_code_directory)){
-                string text = System.IO.File.ReadAllText(prev_source_code_directory);
-                text = text.Trim();
-                default_source_code_directory = text;
-                file_path.Text = text;
-            }
-            if (File.Exists(prev_testcase_directory)){
-                string text = System.IO.File.ReadAllText(prev_testcase_directory);
-                text = text.Trim();
-                default_testcase_directory = text;
-                testcase_folder.Text = text;
-            }
-            if (!File.Exists(log_file)){
-                File.WriteAllText(log_file, "");
-            }
-            
-            
-            File.AppendAllText(log_file, "\n\n============= started on " + DateTime.UtcNow.ToString("dd-MM-yyyy hh:mm") + " =============\n");
+            File.AppendAllText(log_file, "\n\n============= started on " + DateTime.Now.ToString("dd-MM-yyyy hh:mm") + " =============\n");
+            Updater.log_updater = write_log;
+            version_label.Text = updater.update_information.version;
+            try{
+                if (Directory.Exists(Path.Combine(current_app_dir, "update")))
+                    Directory.Delete(Path.Combine(current_app_dir, "update"), true);
 
-            if (Directory.Exists(compile_dir_path))
-                Directory.Delete(compile_dir_path, true);
-            Directory.CreateDirectory(compile_dir_path);
-            Directory.CreateDirectory(src_code_backup_dir_path);
-            Directory.CreateDirectory(debug_directory);
-            
-            var assembly = Assembly.GetExecutingAssembly();
-            using (var temp = assembly.GetManifestResourceStream("HzzGrader.HzzGrader.java"))
-            using (StreamReader stream_reader = new StreamReader(temp)){
-                // jangan lupa set HzzGrader/HzzGrader.java jadi bertipe EmbededFile
-                __native_hzz_grader_src_code = stream_reader.ReadToEnd();
+                Console.WriteLine("running");
+                Updater.handle_remove_and_copy_to_requirements();
+                initialize_large_textboxes();
+                
+                updater.manage_update();
+                
+                if (File.Exists(prev_source_code_directory)){
+                    string text = System.IO.File.ReadAllText(prev_source_code_directory);
+                    text = text.Trim();
+                    default_source_code_directory = text;
+                    file_path.Text = text;
+                }
+                if (File.Exists(prev_testcase_directory)){
+                    string text = System.IO.File.ReadAllText(prev_testcase_directory);
+                    text = text.Trim();
+                    default_testcase_directory = text;
+                    testcase_folder.Text = text;
+                }
+                if (!File.Exists(log_file)){
+                    File.WriteAllText(log_file, "");
+                }
+
+
+                if (Directory.Exists(compile_dir_path))
+                    Directory.Delete(compile_dir_path, true);
+                Directory.CreateDirectory(compile_dir_path);
+                Directory.CreateDirectory(src_code_backup_dir_path);
+                Directory.CreateDirectory(debug_directory);
+
+                var assembly = Assembly.GetExecutingAssembly();
+                using (var temp = assembly.GetManifestResourceStream("HzzGrader.HzzGrader.java"))
+                using (StreamReader stream_reader = new StreamReader(temp)){
+                    // jangan lupa set HzzGrader/HzzGrader.java jadi bertipe EmbededFile
+                    __native_hzz_grader_src_code = stream_reader.ReadToEnd();
+                }
+            }catch (Exception e){
+                write_log("AN ERROR WAS FOUND WHEN RUNNING THE APPS");
+                write_log("======   message   ======");
+                write_log(e.Message);
+                write_log("====== stack trace ======");
+                write_log(e.StackTrace);
+                write_log("=========================");
             }
         }
 
@@ -162,7 +181,21 @@ namespace HzzGrader
 
         public async Task invoke_stress_test(){
             // await Task.Run(async () => {
-            bool result;
+
+
+            if (!File.Exists(file_path.Text)){
+                MessageBox.Show("Your java source code file is not found!", "File Not Found",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
+            if (!Directory.Exists(testcase_folder.Text)){
+                MessageBox.Show("Your testcase folder is not found!", "File Not Found",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            
 
             if (native_hzzgrader_chb.IsChecked.Value)
                 Dispatcher.Invoke(compile_stress_test_native);
@@ -524,7 +557,7 @@ namespace HzzGrader
 
         private void hzzgrader_label_on_mouseUp__open_debug_directory(object sender, MouseButtonEventArgs e){
             if (e.ChangedButton == MouseButton.Middle && e.ButtonState == MouseButtonState.Released){
-                Process.Start(debug_directory);
+                Process.Start(current_app_dir);
             }
         }
     }
