@@ -170,7 +170,7 @@ namespace HzzGrader.updater
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 startInfo.FileName = "cmd.exe";
-                startInfo.Arguments = String.Format("/C timeout 4 & \"{0}\" & timeout 1", new_exe_path);
+                startInfo.Arguments = String.Format("/C timeout 3 & \"{0}\" & timeout 1", new_exe_path);
                 
 
                 process.StartInfo = startInfo;
