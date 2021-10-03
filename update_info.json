@@ -1,0 +1,6 @@
+{
+  "version": "1.0.0.7",
+  "path": "http://localhost:8000/root/Debug.zip",
+  "update_note": "added auto update system and warn users when java source file (or testcase folder) does not exist",
+  "forced": false
+}
