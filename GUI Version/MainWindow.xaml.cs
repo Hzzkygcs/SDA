@@ -19,14 +19,13 @@ using MessageBox = System.Windows.Forms.MessageBox;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 
+
+
 namespace HzzGrader
 {
+// #define AUTO_UPDATE
 
 
-
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow
     {
         public static readonly String prev_source_code_directory = "prevdir";
@@ -46,9 +45,10 @@ namespace HzzGrader
         // string compile_dir_path = @"D:\05 Projects\02 C#\HzzGrader\bin\Debug";
 
 
+#if AUTO_UPDATE
         public Updater updater = new Updater();
-        
-        
+#endif
+
         public string default_source_code_directory{
             get{
                 return __default_source_code_directory;
@@ -102,8 +102,12 @@ namespace HzzGrader
             
             
             File.AppendAllText(log_file, "\n\n============= started on " + DateTime.Now.ToString("dd-MM-yyyy hh:mm") + " =============\n");
+
+#if AUTO_UPDATE
             Updater.log_updater = write_log;
             version_label.Text = updater.update_information.version;
+#endif
+
             try{
                 if (Directory.Exists(Path.Combine(current_app_dir, "update")))
                     Directory.Delete(Path.Combine(current_app_dir, "update"), true);
@@ -111,9 +115,11 @@ namespace HzzGrader
                 Console.WriteLine("running");
                 Updater.handle_remove_and_copy_to_requirements();
                 initialize_large_textboxes();
-                
+
+#if AUTO_UPDATE
                 updater.manage_update();
-                
+#endif
+
                 if (File.Exists(prev_source_code_directory)){
                     string text = System.IO.File.ReadAllText(prev_source_code_directory);
                     text = text.Trim();
