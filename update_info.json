@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0.7",
-  "path": "https://github.com/Hzzkygcs/SDA/releases/download/1.0.beta7/HzzGrader.GUI.beta.7.zip",
-  "update_note": "added auto update system and warn users when java source file (or testcase folder) does not exist",
+  "version": "1.0.0.8",
+  "path": "https://github.com/Hzzkygcs/SDA/releases/download/1.0.beta8/HzzGrader.GUI.beta.8.zip",
+  "update_note": "status compile ditambahkan beserta progressnya. \nBug fixed: awalnya tidak boleh memanggil out.close(); sekarang sudah boleh. \nFlexibility: Tadinya program java tidak boleh mengandung unchecked type. Sekarnag sudah boleh",
   "forced": false
 }
