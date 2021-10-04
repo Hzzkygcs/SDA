@@ -5,10 +5,7 @@
 
 
 Isinya testcase dan HzzGrader (or HzzJudge. whatever akwokwokwok)
-Teman-teman bisa mendownload versi terbaru aplikasinya [disini (auto update)](https://github.com/Hzzkygcs/SDA/releases)
-Jika ingin mendownload tanpa auto update, bisa download [versi beta 6 disini](https://github.com/Hzzkygcs/SDA/releases/tag/1.0.beta6)
-
-
+Teman-teman bisa mendownload versi terbaru aplikasinya [disini](https://github.com/Hzzkygcs/SDA/releases)
 
 ### masalah untuk yang auto update
 
