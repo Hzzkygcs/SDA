@@ -161,19 +161,33 @@ namespace HzzGrader.updater
                 if (notify_user)
                     MessageBox.Show("The application will restart soon to install the new update");
 
+                string current_exe_name;
+                string new_exe_path;
+                Process process;
+                ProcessStartInfo start_info;
+                {
+                    // give the user a prompt about we're updating the program (4 seconds)
+                    current_exe_name = Path.GetFileName(System.Reflection.Assembly.GetEntryAssembly().Location);
+                    new_exe_path = Path.Combine(extract_path, current_exe_name);
+                    process = new Process();
+                    start_info = new ProcessStartInfo();
+                    start_info.WindowStyle = ProcessWindowStyle.Normal;
+                    start_info.FileName = "cmd.exe";
+                    start_info.Arguments = String.Format("/C  echo \"We're updating. Your program should be ready within a few seconds\" & timeout 7 & exit", new_exe_path);
+                    process.StartInfo = start_info;
+                    process.Start();
+                }
 
 
-                // schedule to run the newly extracted apps (4 seconds)
-                string current_exe_name = Path.GetFileName(System.Reflection.Assembly.GetEntryAssembly().Location);
-                string new_exe_path = Path.Combine(extract_path, current_exe_name);
-                Process process = new Process();
-                ProcessStartInfo startInfo = new ProcessStartInfo();
-                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                startInfo.FileName = "cmd.exe";
-                startInfo.Arguments = String.Format("/C timeout 3 & \"{0}\" & timeout 1", new_exe_path);
-                
-
-                process.StartInfo = startInfo;
+                // schedule to run the newly extracted apps within a few seconds
+                current_exe_name = Path.GetFileName(System.Reflection.Assembly.GetEntryAssembly().Location);
+                new_exe_path = Path.Combine(extract_path, current_exe_name);
+                process = new Process();
+                start_info = new ProcessStartInfo();
+                start_info.WindowStyle = ProcessWindowStyle.Hidden;
+                start_info.FileName = "cmd.exe";
+                start_info.Arguments = String.Format("/C timeout 2 & \"{0}\" & timeout 1", new_exe_path);
+                process.StartInfo = start_info;
                 process.Start();
 
                 Application.Current.Shutdown();
@@ -237,7 +251,7 @@ namespace HzzGrader.updater
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 startInfo.FileName = "cmd.exe";
-                startInfo.Arguments = String.Format("/C timeout 3 & \"{0}\"", new_exe_path);
+                startInfo.Arguments = String.Format("/C timeout 2 & \"{0}\"", new_exe_path);
                 
                 
                 process.StartInfo = startInfo;

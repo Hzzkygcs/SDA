@@ -137,7 +137,7 @@ namespace HzzGrader
         }
 
         public Task<bool> compile_java_source_code(string compile_dir_path, params string[] source_file_path){
-            return compile_java_source_code(new string[0], compile_dir_path,  source_file_path);
+            return compile_java_source_code(new string[]{"-Xlint:unchecked"}, compile_dir_path,  source_file_path);
         }
 
         public async Task<bool> compile_java_source_code(string[] flag, string compile_dir_path, params string[] source_file_path){

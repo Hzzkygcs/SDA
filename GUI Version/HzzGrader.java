@@ -39,23 +39,21 @@ public class HzzGrader {
         long total_elapsed = 0;
         
         
-        try (PrintStream print_stream = new PrintStream(baos)){
-            System.setOut(print_stream);
-            
-            
+        try {
             int i = 0;
             File in_file = new File("{{TARGET_DIRECTORY}}" + String.format("/in_%02d.txt", i));
             while (in_file.isFile()){
                 File out_file = new File("{{TARGET_DIRECTORY}}" + String.format("/out_%02d.txt", i));
                 assert (out_file.isFile());
+                old_stdout.println(i);
                 
                 
                 try (var in_fstream = new FileInputStream(in_file)){
-                    //  {{NAMA_CLASS}}.in = new {{NAMA_CLASS}}.InputReader(in_fstream);
-                    System.setIn(in_fstream);
-        
-                    start_time = System.nanoTime();
-                    try{
+                    try (PrintStream print_stream = new PrintStream(baos)){
+                        System.setOut(print_stream);
+                        System.setIn(in_fstream);
+                        
+                        start_time = System.nanoTime();
                         {{NAMA_CLASS}}.main(parameter);
                     } catch (Exception e){
                         System.setOut(old_stdout);

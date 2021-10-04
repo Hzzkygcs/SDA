@@ -13,6 +13,9 @@ namespace HzzGrader{
     class JavaExecute
     {
         public Action<JavaExecute> on_unblocked;
+
+        public int number_of_received_output = 0;
+        
         public Process process;
         public string directory;
         private bool _blocked;
@@ -50,11 +53,13 @@ namespace HzzGrader{
             // and stored to the string builder
             start_token = random_string(16);
             termination_token = random_string(16);
+            number_of_received_output = 0;
             
             string cmd = String.Format(START_CMD, start_token)
                          + String.Format(COMMAND_EXTERNAL_STDIN, java_class_name, stdin_file_path)
                          + String.Format(TERMINATION_CMD, termination_token);
             process.StandardInput.WriteLine(cmd);
+            
         }
         
         public void execute_custom_java_args(string java_class_name, string flag=""){
@@ -65,6 +70,7 @@ namespace HzzGrader{
             // and stored to the string builder
             start_token = random_string(16);
             termination_token = random_string(16);
+            number_of_received_output = 0;
             
             string cmd = String.Format(START_CMD, start_token)
                          + String.Format(COMMAND_CUSTOM_ARG, flag, java_class_name)
@@ -80,6 +86,7 @@ namespace HzzGrader{
             // and stored to the string builder
             start_token = random_string(16);
             termination_token = random_string(16);
+            number_of_received_output = 0;
             
             string cmd = String.Format(START_CMD, start_token)
                          + command
@@ -92,11 +99,9 @@ namespace HzzGrader{
             return termination_token != null;
         }
 
-
-        // public static string debug = "";
+        
         public void output_handler(object sendingProcess, DataReceivedEventArgs data){
-            // if (debug != null)
-                // debug += "\n" + data.Data;
+
             if (data.Data == null)
                 return;
             if (start_token != null){
@@ -106,15 +111,13 @@ namespace HzzGrader{
                 return;
             }
 
-            // Debug.Assert(termination_token != null);
-            // if (termination_token == null) Console.WriteLine("\"{0}\"", data.Data);
-            
             if (data.Data.TrimEnd().Equals(termination_token)){
                 termination_token = null;
                 Task.Run(async () => on_unblocked(this));
                 return;
             }
             
+            number_of_received_output++;
             program_output.AppendLine(data.Data);
         }
 
