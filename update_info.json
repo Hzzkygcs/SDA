@@ -1,6 +1,6 @@
 {
   "version": "1.0.0.10",
-  "path": "https://github.com/Hzzkygcs/SDA/releases/download/1.0.beta10/HzzGrader.GUI.beta.10.auto.update.zip",
+  "path": "https://github.com/Hzzkygcs/SDA/releases/download/1.0.beta10/HzzGrader.GUI.beta.10.zip",
   "update_note": "Ditambahkan fitur window khusus editor  input - program output - expected output.  Fitur ini bisa diakses dengan meng-click label 'input' pada window utama.",
   "forced": false
 }
