@@ -2,6 +2,5 @@ Lab1
 Lab2
 Lab3
 Lab4
-Lab4_Hard
 TP1_NoDeploy
 TP1_DeployOnly
