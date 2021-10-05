@@ -121,7 +121,7 @@ namespace HzzGrader
                     string text = System.IO.File.ReadAllText(prev_source_code_directory);
                     text = text.Trim();
                     default_source_code_directory = text;
-                    file_path.Text = text;
+                    java_file_path.Text = text;
                 }
                 if (File.Exists(prev_testcase_directory)){
                     string text = System.IO.File.ReadAllText(prev_testcase_directory);
@@ -167,7 +167,7 @@ namespace HzzGrader
             if (openFileDialog.ShowDialog() == true){
                 //Get the path of specified file
                 string filePath = openFileDialog.FileName;
-                file_path.Text = filePath;
+                java_file_path.Text = filePath;
                 default_source_code_directory = filePath;
             }
         }
@@ -186,6 +186,12 @@ namespace HzzGrader
 
         private async void ButtonBase_start_test_OnClick(object sender, RoutedEventArgs e){
             start_stress_test_btn.IsEnabled = false;
+            native_hzzgrader_chb.IsEnabled = false;
+            java_file_path.IsEnabled = false;
+            pick_java_file_btn.IsEnabled = false;
+            testcase_folder.IsEnabled = false;
+            pick_testcase_folder.IsEnabled = false;
+
             information_label.Content = "start stresstesting";
             input_content.Text = "";
             program_output_content.Text = "";
@@ -195,15 +201,17 @@ namespace HzzGrader
         }
 
         public async Task invoke_stress_test(){
-            if (!File.Exists(file_path.Text)){
+            if (!File.Exists(java_file_path.Text)){
                 MessageBox.Show("Your java source code file is not found!", "File Not Found",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                on_error();
                 return;
             }
             
             if (!Directory.Exists(testcase_folder.Text)){
                 MessageBox.Show("Your testcase folder is not found!", "File Not Found",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                on_error();
                 return;
             }
             
@@ -255,8 +263,20 @@ namespace HzzGrader
             
             extended_editor.Show();
             extended_editor.Activate();
-            
-            
+        }
+
+
+        private void on_error(){
+            finally_();
+        }
+        
+        private void finally_(){  // might be called twice or more
+            start_stress_test_btn.IsEnabled = true;
+            native_hzzgrader_chb.IsEnabled = true;
+            java_file_path.IsEnabled = true;
+            testcase_folder.IsEnabled = true;
+            testcase_folder.IsEnabled = true;
+            pick_testcase_folder.IsEnabled = true;
         }
     }
 

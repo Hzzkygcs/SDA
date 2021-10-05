@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Input;
 using HzzGrader.JavaRelated;
 
 namespace HzzGrader
@@ -18,7 +19,7 @@ namespace HzzGrader
                 information_label.Content = "check if there is any compile-time error";
 
                 // just to check whether the syntax is valid or not
-                string old_source_file_path = file_path.Text;
+                string old_source_file_path = java_file_path.Text;
                 string new_source_file_path = Path.Combine(compile_dir_path, Path.GetFileName(old_source_file_path));
 
                 string native_hzz_grader_path = Path.Combine(compile_dir_path, "HzzGrader.java");
@@ -127,7 +128,7 @@ namespace HzzGrader
                 write_log("Done!");
             }
             finally{
-                start_stress_test_btn.IsEnabled = true;
+                finally_();
             }
         }
         
@@ -212,10 +213,14 @@ namespace HzzGrader
 
             }
             finally{
-                start_stress_test_btn.IsEnabled = true;
+                finally_();
             }
         }
-        
-        
+
+
+        private void MainWindow_titleBar_OnPreviewMouseDoubleClick(object sender, MouseButtonEventArgs e){
+
+            MessageBox.Show("Yo");
+        }
     }
 }
