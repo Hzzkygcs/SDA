@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace HzzGrader
+namespace HzzGrader.JavaRelated
 {
     public static class JavaMiniParserUtil
     {

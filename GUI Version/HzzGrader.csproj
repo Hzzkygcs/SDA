@@ -67,6 +67,10 @@
       <HintPath>packages\DotNetZip.1.15.0\lib\net40\DotNetZip.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ICSharpCode.AvalonEdit, Version=6.1.2.30, Culture=neutral, PublicKeyToken=9cc39be672370310">
+      <HintPath>packages\AvalonEdit.6.1.2.30\lib\net45\ICSharpCode.AvalonEdit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -149,9 +153,18 @@
     <Compile Include="DownloadTestcaseWindow.xaml.cs">
       <DependentUpon>DownloadTestcaseWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ExecuteStresstest\CommandPromptRelated.cs" />
+    <Compile Include="ExecuteStresstest\native_stresstest.cs" />
+    <Compile Include="ExecuteStresstest\non_native_stresstest.cs" />
+    <Compile Include="JavaRelated\JavaExecute.cs" />
+    <Compile Include="JavaRelated\JavaMiniParser.cs" />
+    <Compile Include="JavaRelated\JavaMiniParserUtil.cs" />
     <Compile Include="ScrollviewForLargeTextTextbox.cs" />
     <Compile Include="updater\UpdateInformation.cs" />
     <Compile Include="updater\Updater.cs" />
+    <Compile Include="Windows\ExtendedEditor.xaml.cs">
+      <DependentUpon>ExtendedEditor.xaml</DependentUpon>
+    </Compile>
     <Page Include="DownloadTestcaseWindow.xaml" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -161,16 +174,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CommandPromptRelated.cs" />
-    <Compile Include="JavaMiniParserUtil.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\ExtendedEditor.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="JavaMiniParser.cs" />
-    <Compile Include="JavaExecute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -179,6 +189,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ExecuteStresstest\HzzGrader.java" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -188,9 +199,6 @@
     <None Include="App.config" />
     <None Include="HzzGrader_TemporaryKey.pfx" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="HzzGrader.java" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7">

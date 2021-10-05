@@ -1,12 +1,15 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using HzzGrader.Windows;
+using ICSharpCode.AvalonEdit;
 using TextBox = System.Windows.Controls.TextBox;
 
 
@@ -16,6 +19,7 @@ namespace HzzGrader
     {
         public List<string> lines;
         public TextBox text_box;
+        private TextEditor _extended_editor;
         private int _line_pos;  // current line position
         private int line_count = 20;  // current line position
 
@@ -37,15 +41,34 @@ namespace HzzGrader
             }
 
             set{
+                if (_extended_editor != null){
+                    _extended_editor.Text = value;
+                }
+                
                 lines = new List<string>(value.Split('\n'));
                 line_pos = line_pos;  // update the content of the TextBox
             }
         }
+        public TextEditor extended_editor{
+            get{
+                return _extended_editor;
+            }
+            set{
+                _extended_editor = value;
+                _extended_editor.Text = Text;
+                Window.GetWindow(_extended_editor).Closed += (sender, args) =>
+                {
+                    this._extended_editor = null;
+                };
+            }
+        }
         
-        public TextboxLargeContent(TextBox text_box, int line_count=50){
+        
+        public TextboxLargeContent(TextBox text_box, TextEditor extended_editor=null, int line_count=50){
             _line_pos = 0;
             lines = new List<string>(10);
             this.text_box = text_box;
+            this._extended_editor = extended_editor;
             this.line_count = line_count;
         }
         
