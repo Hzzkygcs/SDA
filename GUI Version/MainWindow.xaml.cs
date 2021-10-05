@@ -1,4 +1,9 @@
-﻿using System;
+﻿// #define AUTO_UPDATE
+
+
+
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -25,7 +30,7 @@ using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace HzzGrader
 {
-// #define AUTO_UPDATE
+
 
 
     public partial class MainWindow
