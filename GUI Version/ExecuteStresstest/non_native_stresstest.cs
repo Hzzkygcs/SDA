@@ -13,7 +13,7 @@ namespace HzzGrader
             if (!await test_if_javac_and_java_is_available())
                 return false;
 
-            string source_file_path = file_path.Text;
+            string source_file_path = java_file_path.Text;
             if (!await compile_java_source_code(compile_dir_path, source_file_path))
                 return false;
 
@@ -134,7 +134,7 @@ namespace HzzGrader
                 throw e;
             }
             finally{
-                start_stress_test_btn.IsEnabled = true;
+                finally_();
             }
 
             return true;

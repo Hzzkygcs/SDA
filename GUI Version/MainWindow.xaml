@@ -7,11 +7,11 @@
         xmlns:l="clr-namespace:Converters"
         
         mc:Ignorable="d"
-        Title="HzzGrader" Height="500" Width="700" MinHeight="400" MinWidth="600">
+        Title="HzzGrader" Height="500" Width="700" MinHeight="400" MinWidth="600"
+        PreviewMouseDoubleClick="MainWindow_titleBar_OnPreviewMouseDoubleClick">
     
     <Window.Resources>
         <l:VisibilityConverter x:Key="Visibility_converter" />
-        
         
         <Color x:Key="background1_color">#181818</Color>
         <Color x:Key="background2_color">#2b2e2e</Color>
@@ -110,7 +110,9 @@
                                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                                     <DockPanel>
                                         <DockPanel DockPanel.Dock="Top" LastChildFill="True" MaxWidth="500">
-                                            <Button DockPanel.Dock="Right" Name="pick_java_file_btn"  
+                                            <Button 
+                                                    Name="pick_java_file_btn"
+                                                    DockPanel.Dock="Right"   
                                                     Click="ButtonBase_get_path_OnClick" 
                                                     Margin="0 5" Background="{StaticResource color_b}" 
                                                     Foreground="{StaticResource foreground1}" Cursor="Hand" 
@@ -123,12 +125,16 @@
                                                             <Setter.Value>
                                                                 <ControlTemplate TargetType="{x:Type Button}">
                                                                     <Border x:Name="Border" Background="{TemplateBinding Background}">
-                                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                                        <ContentPresenter x:Name="content_presenter" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                                     </Border>
                                                                     <ControlTemplate.Triggers>
                                                                         <Trigger Property="IsMouseOver" Value="True">
                                                                             <Setter Property="Background" 
                                                                                 Value="{StaticResource color_b2}" TargetName="Border" />
+                                                                        </Trigger>
+                                                                        <Trigger Property="IsEnabled" Value="False">
+                                                                            <Setter Property="Background" Value="{StaticResource background3}" TargetName="Border"/>
+                                                                            <Setter Property="TextElement.Foreground" Value="Black" TargetName="content_presenter"/>
                                                                         </Trigger>
                                                                     </ControlTemplate.Triggers>
                                                                 </ControlTemplate>
@@ -144,15 +150,17 @@
                                                 Width="{Binding ElementName=label_testcase_folder, Path=ActualWidth}"
                                                 Content="Your java file: " ></Label>
                                             
-                                            <TextBox Name="file_path" MinWidth="200" 
+                                            <TextBox Name="java_file_path" MinWidth="200" 
                                                      Margin="5 5" Background="{StaticResource background2}"
                                                      Foreground="{StaticResource foreground1}" BorderThickness="0"></TextBox>
                                             
                                         </DockPanel>
                                     
                                         <DockPanel DockPanel.Dock="Top" Name="tc_source_panel" MaxWidth="500" >
-                                            <Button DockPanel.Dock="Right" Click="ButtonBase_get_tc_folder_OnClick"
-                                                    
+                                            <Button 
+                                                    Name="pick_testcase_folder"
+                                                    DockPanel.Dock="Right" 
+                                                    Click="ButtonBase_get_tc_folder_OnClick"
                                                     Margin="0 5" Background="{StaticResource color_b}" 
                                                     Foreground="{StaticResource foreground1}" Cursor="Hand" 
                                                     BorderThickness="0" 
@@ -165,14 +173,19 @@
                                                             <Setter.Value>
                                                                 <ControlTemplate TargetType="{x:Type Button}">
                                                                     <Border x:Name="Border" Background="{TemplateBinding Background}">
-                                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                                        <ContentPresenter x:Name="content_presenter" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                                     </Border>
                                                                     <ControlTemplate.Triggers>
                                                                         <Trigger Property="IsMouseOver" Value="True">
                                                                             <Setter Property="Background" 
                                                                                 Value="{StaticResource color_b2}" TargetName="Border" />
                                                                         </Trigger>
-                                                                    </ControlTemplate.Triggers>
+                                                                        
+                                                                        <Trigger Property="IsEnabled" Value="False">
+                                                                            <Setter Property="Background" Value="{StaticResource background3}" TargetName="Border"/>
+                                                                            <Setter Property="TextElement.Foreground" Value="Black" TargetName="content_presenter"/>
+                                                                        </Trigger>
+                                                                        </ControlTemplate.Triggers>
                                                                 </ControlTemplate>
                                                             </Setter.Value>
                                                         </Setter>
@@ -214,7 +227,6 @@
                                                             <Trigger Property="IsEnabled" Value="False">
                                                                 <Setter Property="Background" Value="{StaticResource background3}" TargetName="Border"/>
                                                                 <Setter Property="TextElement.Foreground" Value="Black" TargetName="content_presenter"/>
-                                                                <!--<Setter Property="TextElement.FontWeight" Value="Bold" TargetName="content_presenter"/>-->
                                                             </Trigger>
                                                         </ControlTemplate.Triggers>
                                                     </ControlTemplate>
@@ -224,7 +236,7 @@
                                     </Button.Style>
                                 </Button>
                                 <CheckBox Name="native_hzzgrader_chb" DockPanel.Dock="Top" IsChecked="True" MaxWidth="300"
-                                          Content="Use fast native HzzGrader (faster)"
+                                          Content="Use fast native HzzGrader"
                                           Foreground="{StaticResource foreground1}"></CheckBox>
                             </StackPanel>
                         </Border>

@@ -64,10 +64,11 @@ namespace HzzGrader.Windows
             
             Topmost = !Topmost;
             if (Title.EndsWith(status_title))
-                Title = Title.Substring(0, status_title.Length - status_title.Length);
+                Title = Title.Substring(0, Title.Length - status_title.Length);
             else{
                 Title += status_title;
             }
         }
+        
     }
 }

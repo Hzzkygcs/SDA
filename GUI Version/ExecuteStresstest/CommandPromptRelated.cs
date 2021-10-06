@@ -82,17 +82,6 @@ namespace HzzGrader
             if (extra_stdin != null)
                 started_process.StandardInput.Write(extra_stdin);
             
-
-            /*if (time_limit < 0)
-                started_process.WaitForInputIdle();
-                // await WaitForExitAsync(started_process);
-            else{
-                started_process.WaitForInputIdle();
-                /*var task = WaitForExitAsync(started_process);
-                if (await Task.WhenAny(task, Task.Delay(time_limit)) != task) {
-                    throw new TimeoutException();
-                }#1#
-            }*/
             
             string error =  started_process.StandardError.ReadToEnd();
             string output = started_process.StandardOutput.ReadToEnd();
@@ -105,9 +94,9 @@ namespace HzzGrader
                 var res = await execute_cmd("javac --version");
 
                 if (!res.Item1.Trim().StartsWith("javac")){
-                    var is_cancel = MessageBox.Show("There's an error when running javac --version\ndo you want to cancel the operation?", "",
+                    var is_cancel = MessageBox.Show("There's an error when running javac --version\nDo you wish to continue?", "",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Error);
-                    if (is_cancel == System.Windows.Forms.DialogResult.Yes){
+                    if (is_cancel == System.Windows.Forms.DialogResult.No){
                         information_label.Content = "ERROR javac not found";
                         input.Text = res.Item2;
                         program_output.Text = "";
@@ -121,9 +110,9 @@ namespace HzzGrader
                 var res = await execute_cmd("java --version");
                 string temp = res.Item1.Trim().ToLower();
                 if (!(temp.StartsWith("java") || temp.StartsWith("openjdk"))){
-                    var is_cancel = MessageBox.Show("There's an error when running java --version\ndo you want to cancel the operation?", "",
+                    var is_cancel = MessageBox.Show("There's an error when running java --version\nDo you wish to continue?", "",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Error);
-                    if (is_cancel == System.Windows.Forms.DialogResult.Yes){
+                    if (is_cancel == System.Windows.Forms.DialogResult.No){
                         information_label.Content = "ERROR java not found";
                         input.Text = res.Item2;
                         program_output.Text = "";
