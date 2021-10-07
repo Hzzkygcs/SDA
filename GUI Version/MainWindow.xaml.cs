@@ -16,6 +16,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Media;
 using HzzGrader.JavaRelated;
 using HzzGrader.updater;
 using HzzGrader.Windows;
@@ -79,7 +80,7 @@ namespace HzzGrader
         }
 
 
-        public void write_log(string str){
+        public static void write_log(string str){
             File.AppendAllText(log_file, str + "\n");
         }
 
@@ -93,9 +94,8 @@ namespace HzzGrader
         public MainWindow(){
             InitializeComponent();
 
-
-
             File.AppendAllText(log_file, "\n\n============= started on " + DateTime.Now.ToString("dd-MM-yyyy hh:mm") + " =============\n");
+            Dispatcher.Invoke(MainExternalTestcaseHandler.initial_caching);
 
 #if AUTO_UPDATE
             Updater.log_updater = write_log;
@@ -191,6 +191,7 @@ namespace HzzGrader
             pick_java_file_btn.IsEnabled = false;
             testcase_folder.IsEnabled = false;
             pick_testcase_folder.IsEnabled = false;
+            pick_testcase_zip_btn.IsEnabled = false;
 
             information_label.Content = "start stresstesting";
             input_content.Text = "";
@@ -253,15 +254,20 @@ namespace HzzGrader
 
         private ExtendedEditor extended_editor = null;
         private void label_input_panel_OnMouseUp__open_ExtendedEditor(object sender, MouseButtonEventArgs e){
-            if (extended_editor == null  ||  extended_editor.is_closed)
+            if (extended_editor == null  ||  extended_editor.is_closed){
                 extended_editor = new ExtendedEditor();
+                input_content.extended_editor = extended_editor.input_editor;
+                program_output_content.extended_editor = extended_editor.program_output_editor;
+                expected_output_content.extended_editor = extended_editor.expected_output_editor;
+                extended_editor.Show();
+            }
+
+            Dispatcher.Invoke(async () =>
+            {
+                await extended_editor.equalize_number_of_line();
+                await extended_editor?.update_differences_colouring();
+            });
             
-            input_content.extended_editor = extended_editor.input_editor;
-            program_output_content.extended_editor = extended_editor.program_output_editor;
-            expected_output_content.extended_editor = extended_editor.expected_output_editor;
-            
-            
-            extended_editor.Show();
             extended_editor.Activate();
         }
 
@@ -274,9 +280,84 @@ namespace HzzGrader
             start_stress_test_btn.IsEnabled = true;
             native_hzzgrader_chb.IsEnabled = true;
             java_file_path.IsEnabled = true;
-            testcase_folder.IsEnabled = true;
+            pick_java_file_btn.IsEnabled = true;
             testcase_folder.IsEnabled = true;
             pick_testcase_folder.IsEnabled = true;
+            pick_testcase_zip_btn.IsEnabled = true;
+
+            extended_editor.equalize_number_of_line();
+            extended_editor?.update_differences_colouring();
+        }
+        
+        
+        private void Label_testcase_zip_OnMouseUp(object sender, MouseButtonEventArgs e){
+            tc_zip_panel.Visibility = Visibility.Hidden;
+            tc_folder_panel.Visibility = Visibility.Visible;
+        }
+
+        private void Label_testcase_folder_OnMouseUp(object sender, MouseButtonEventArgs e){
+            tc_folder_panel.Visibility = Visibility.Hidden;
+            tc_zip_panel.Visibility = Visibility.Visible;
+        }
+
+        private async void Pick_testcase_zip_btn_OnClick(object sender, RoutedEventArgs e){
+            bool keep_hide = true;
+            pick_testcase_zip_btn.IsEnabled = false;
+            start_stress_test_btn.IsEnabled = false;
+            
+            Action<bool, string> on_done = async (success, url) =>
+            {
+                Action<bool, string> on_testcase_downloaded = async (download_success, new_tc_folder) =>
+                {
+                    testcase_folder.Text = new_tc_folder;
+                    pick_testcase_zip_btn.IsEnabled = true;
+                    start_stress_test_btn.IsEnabled = true;
+                    information_label.Content = "Downloaded and extracted successfully!";
+                };
+                
+                Action<bool, string> on_testcase_download_failed = async (download_success, new_tc_folder) =>
+                {
+                    tc_zip_path.Text = "";
+                    pick_testcase_zip_btn.IsEnabled = true;
+                    start_stress_test_btn.IsEnabled = true;
+                    information_label.Content = "Download or extract failed.";
+                };
+
+
+                this.Show();
+                if (success){
+                    start_stress_test_btn.IsEnabled = false;
+                    information_label.Content = "downloading & processing the testcases";
+                    tc_zip_path.Text = url.Substring(MainExternalTestcaseHandler.root_url.Length);
+                    await MainExternalTestcaseHandler.download_testcase(this,
+                        on_testcase_downloaded,
+                        on_testcase_download_failed);
+                }
+                else{
+                    keep_hide = false;
+                    
+                    pick_testcase_zip_btn.IsEnabled = true;
+                    start_stress_test_btn.IsEnabled = true;
+                }
+            };
+            
+            Action<Exception> on_error = (exception) =>
+            {
+                keep_hide = false;
+                pick_testcase_zip_btn.IsEnabled = true;
+                start_stress_test_btn.IsEnabled = true;
+                
+                write_log("When fetching testcase list information from server, there's an error: \n" + exception.Message);
+                write_log(exception.StackTrace);
+                MessageBox.Show(exception.Message);
+                MessageBox.Show(exception.StackTrace);
+                Show();
+            };
+            
+            
+            await MainExternalTestcaseHandler.start_window(on_done, on_error);
+            if (keep_hide)
+                Hide();
         }
     }
 
