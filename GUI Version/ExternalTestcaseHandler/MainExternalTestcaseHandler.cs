@@ -18,7 +18,7 @@ namespace HzzGrader
     public static class MainExternalTestcaseHandler
     {
         public static Dictionary<string, string[]> cache_dictionary = new Dictionary<string, string[]>();
-        public static readonly string root_url = "http://localhost:8000/root/";
+        public static readonly string root_url = "https://raw.githubusercontent.com/Hzzkygcs/SDA/master/";
         public static readonly string dir_list_file_name = ".testcases";
 
 
