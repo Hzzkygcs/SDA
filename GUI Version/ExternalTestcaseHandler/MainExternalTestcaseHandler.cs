@@ -26,12 +26,14 @@ namespace HzzGrader
         private static DownloadTestcaseWindow download_testcase_window;
 
 
-        public static async Task initial_caching(){
+        public static async Task initial_caching(){  // automatically caching the main root and it's first and last children
             try{
                 string[] daftar = await get_lines(Path.Combine(root_url, dir_list_file_name));
-                await get_lines(root_url + daftar[0]);
-                await get_lines(root_url + daftar[daftar.Length - 1]);
-            }catch(Exception e){}
+                
+                // daftar[0] is the back button. no need to be cached. so daftar[1] is the first
+                await get_lines(root_url + daftar[1] + "/" + dir_list_file_name);
+                await get_lines(root_url + daftar[daftar.Length - 1] + "/" + dir_list_file_name);
+            }catch(Exception e){MainWindow.write_log("initial caching failed: " + e.Message + "\n\n" + e.StackTrace);}
         }
         
         public static async Task start_window(Action<bool, string> on_done, Action<Exception> on_error){
@@ -166,7 +168,6 @@ namespace HzzGrader
 
                     if (Directory.Exists(extract_path))
                         Directory.Delete(extract_path, true);
-                    // Directory.CreateDirectory(extract_path);
                     if (!SevenZip.extract_file(zip_path, extract_path)){
                         on_failure?.Invoke(false, path);
                         return false;

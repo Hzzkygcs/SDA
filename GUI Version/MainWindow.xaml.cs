@@ -324,21 +324,25 @@ namespace HzzGrader
                 };
 
 
-                this.Show();
+            
+                Show();
                 if (success){
                     start_stress_test_btn.IsEnabled = false;
                     information_label.Content = "downloading & processing the testcases";
                     tc_zip_path.Text = url.Substring(MainExternalTestcaseHandler.root_url.Length);
-                    await MainExternalTestcaseHandler.download_testcase(this,
-                        on_testcase_downloaded,
-                        on_testcase_download_failed);
-                }
-                else{
+
+                    Dispatcher.Invoke(async () =>
+                    {
+                        await MainExternalTestcaseHandler.download_testcase(this,
+                            on_testcase_downloaded,
+                            on_testcase_download_failed);
+                    });
+                }else{
                     keep_hide = false;
-                    
                     pick_testcase_zip_btn.IsEnabled = true;
                     start_stress_test_btn.IsEnabled = true;
                 }
+            
             };
             
             Action<Exception> on_error = (exception) =>
