@@ -15,6 +15,7 @@ namespace HzzGrader.Windows
     {
         public bool is_closed = false;
         public Action window_ready;
+        public Action restart_stresstest;
 
         public ExtendedEditor(){
             InitializeComponent();
@@ -156,6 +157,11 @@ namespace HzzGrader.Windows
                 element.TextRunProperties.SetForegroundBrush(Brushes.Red);
             }
         }
-        
+
+        private void Control_OnMouseUp(object sender, MouseButtonEventArgs e){
+            if (e.ChangedButton == MouseButton.Right){
+                restart_stresstest?.Invoke();
+            }
+        }
     }
 }

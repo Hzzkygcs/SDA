@@ -143,9 +143,10 @@
                 Orientation="Horizontal" HorizontalAlignment="Left">
                 <Label Foreground="{StaticResource color_c}"
                        Cursor="Hand"
-                       ToolTip="double click to toggle window pin"
+                       ToolTip="double click to toggle window pin &#x0a;right click to restart testcase checking"
                        ToolTipService.ShowDuration="3000"
-                       MouseDoubleClick="Control_OnMouseDoubleClick">your output</Label>
+                       MouseDoubleClick="Control_OnMouseDoubleClick"
+                       MouseUp="Control_OnMouseUp">your output</Label>
             </StackPanel>
             
             <avalonedit:TextEditor

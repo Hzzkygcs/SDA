@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HzzGrader"
         xmlns:l="clr-namespace:Converters"
-        
+    
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="HzzGrader.MainWindow"
+        SizeChanged="MainWindow_OnSizeChanged"
         
         mc:Ignorable="d"
-        Title="HzzGrader" Height="500" Width="700" MinHeight="400" MinWidth="600">
+        Title="HzzGrader" Height="500" Width="700" 
+        MinHeight="200" MinWidth="300">
 
     <Window.Resources>
         <l:VisibilityConverter x:Key="Visibility_converter" />
@@ -95,7 +97,7 @@
 
 
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" x:Name="main_scroll_viewer">
+    <!--<ScrollViewer VerticalScrollBarVisibility="Auto" x:Name="main_scroll_viewer">-->
 
         <Grid x:Name="outter_panel">
             <Grid.ColumnDefinitions>
@@ -110,6 +112,7 @@
 
 
             <Label FontSize="15" FontWeight="Bold" 
+                   Name="brand_label"
                    Cursor="Hand" Panel.ZIndex="1000"
                    MouseUp="hzzgrader_label_on_mouseUp__open_debug_directory"
                    MouseRightButtonUp="hzzgrader_label_on_right_click__open_log_file"
@@ -120,12 +123,14 @@
                 </StackPanel>
             </Label>
 
-            <Label Grid.Column="2"  FontSize="12" FontWeight="Bold" 
+            <Label Grid.Column="2"
+                   Name="version_label"
+                   FontSize="12" FontWeight="Bold" 
                    Panel.ZIndex="1000">
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Foreground="{StaticResource color_b}" Text="ver "/>
-                    <TextBlock x:Name="version_label"  Foreground="{StaticResource color_a}" Text="0.0.0"/>
+                    <TextBlock x:Name="version_number_label"  Foreground="{StaticResource color_a}" Text="0.0.0"/>
                 </StackPanel>
             </Label>
 
@@ -136,7 +141,9 @@
                        LastChildFill="True"
                        Background="{StaticResource background1}">
 
-                <Grid DockPanel.Dock="Top" VerticalAlignment="Stretch"  Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type UIElement}, Mode=FindAncestor}}">
+                <Grid 
+                    Name="core_grid"
+                    DockPanel.Dock="Top" VerticalAlignment="Stretch"  Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type UIElement}, Mode=FindAncestor}}">
                     <!--background removed-->
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -150,10 +157,13 @@
                             <!--<ColumnDefinition Width="4*"></ColumnDefinition>-->
                         </Grid.ColumnDefinitions>
                         <Border Grid.Column="0" DockPanel.Dock="Top">
-                            <StackPanel Margin="10 10" VerticalAlignment="Center" MaxWidth="1000">
+                            <StackPanel 
+                                Name="header_section_panel"
+                                Margin="10 10" VerticalAlignment="Center" MaxWidth="1000">
                                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                                     <DockPanel>
-                                        <DockPanel DockPanel.Dock="Top" LastChildFill="True" MaxWidth="500">
+                                        <DockPanel DockPanel.Dock="Top" LastChildFill="True" MaxWidth="500"
+                                                   Name="java_source_panel">
                                             <Button 
                                                     x:Name="pick_java_file_btn"
                                                     DockPanel.Dock="Right"   
@@ -237,15 +247,32 @@
                                 </StackPanel>
 
 
-                                <Button DockPanel.Dock="Top" Click="ButtonBase_start_test_OnClick" x:Name="start_stress_test_btn" 
+                                <Button DockPanel.Dock="Top" 
+                                        x:Name="start_stress_test_btn"
+                                        Click="ButtonBase_start_test_OnClick"  
                                         Margin="0 5" MaxWidth="500" Background="{StaticResource color_a}"
                                         Width="{Binding ActualWidth, ElementName=tc_folder_panel}"
                                         Foreground="{StaticResource foreground1}" Cursor="Hand"
                                         Style="{StaticResource tombol_biru}"
                                         Content="Start Test" BorderThickness="0"/>
-                                <CheckBox x:Name="native_hzzgrader_chb" DockPanel.Dock="Top" IsChecked="True" MaxWidth="300"
-                                          Content="Use fast native HzzGrader"
-                                          Foreground="{StaticResource foreground1}"/>
+                                
+                                <DockPanel DockPanel.Dock="Top"
+                                           LastChildFill="False"
+                                           Width="{Binding ElementName=start_stress_test_btn, Path=ActualWidth}">
+                                    <CheckBox x:Name="native_hzzgrader_chb" DockPanel.Dock="Left" IsChecked="True"
+                                              Content="Use fast native HzzGrader"
+                                              Foreground="{StaticResource foreground1}"/>
+                                    
+                                    <CheckBox DockPanel.Dock="Right"
+                                              Name="window_pin_cb"
+                                              IsChecked="False"
+                                              Foreground="{StaticResource foreground1}"
+                                              Checked="Window_pin_cb_check_changed"
+                                              Unchecked="Window_pin_cb_check_changed">
+                                        pin window
+                                    </CheckBox>
+                                </DockPanel>
+                                
                             </StackPanel>
                         </Border>
                     </Grid>
@@ -267,7 +294,9 @@
                                 </StackPanel>
                             </StackPanel>
 
-                            <Border BorderBrush="{StaticResource color_a}" BorderThickness="1" CornerRadius="5" DockPanel.Dock="Top">
+                            <Border BorderBrush="{StaticResource color_a}" BorderThickness="1" CornerRadius="5" 
+                                    DockPanel.Dock="Top"
+                                    Name="border_wrapper__input">
                                 <TextBox x:Name="input" 
                                          TextWrapping="Wrap" 
                                          MinWidth="400"
@@ -284,7 +313,8 @@
                     </Border>
 
 
-                    <Border Grid.Row="2" DockPanel.Dock="Top">
+                    <Border Grid.Row="2" DockPanel.Dock="Top"
+                            Name="program_and_expected_output__outter_border">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"/>
@@ -300,11 +330,6 @@
                                 <Border BorderBrush="{StaticResource color_a}" BorderThickness="1" CornerRadius="5"
                                         DockPanel.Dock="Top">
                                     <DockPanel LastChildFill="True">
-                                        <!--background removed-->
-                                        <!--</ScrollViewer>-->
-                                        <!--<ScrollViewer VerticalScrollBarVisibility="Hidden" DockPanel.Dock="Top"  
-                                                  Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UIElement}}"
-                                                  Name="program_output_scrollview">-->
                                         <TextBox x:Name="program_output" 
                                              TextWrapping="Wrap" 
                                              MinWidth="200"
@@ -327,10 +352,6 @@
 
                                 <Border BorderBrush="{StaticResource color_a}" BorderThickness="1" CornerRadius="5"
                                         DockPanel.Dock="Top">
-                                    <!--background removed-->
-                                    <!--</ScrollViewer>-->
-                                    <!--<ScrollViewer VerticalScrollBarVisibility="Hidden" MaxHeight="300"
-                                               Name="expected_output_scrollview">-->
                                     <TextBox x:Name="expected_output" 
                                          TextWrapping="Wrap" 
                                          MinWidth="200"
@@ -352,7 +373,7 @@
             </DockPanel>
 
         </Grid>
-    </ScrollViewer>
+    <!--</ScrollViewer>-->
 
 
 </Window>

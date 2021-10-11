@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 
 namespace HzzGrader
 {
-    public partial class DownloadTestcaseWindow : Window
+    public partial class DownloadTestcaseWindow
     {
         public Action<int, string> on_selected;
-        private bool add_back_button;
+        private bool _add_back_button;
         private string[] _items;
         public string[] items{
             get{
@@ -30,6 +26,7 @@ namespace HzzGrader
         
         public DownloadTestcaseWindow(string[] daftar_list_box, Action<int, string> on_selected=null, bool add_back_button=true){
             InitializeComponent();
+            _add_back_button = add_back_button;
             
             this.on_selected = on_selected;
             if (!add_back_button)
@@ -43,7 +40,8 @@ namespace HzzGrader
         }
 
         private void List_box_OnSelectionChanged(object sender, SelectionChangedEventArgs e){
-            on_selected?.Invoke(list_box.SelectedIndex, list_box.SelectedItems[0].ToString());
+            on_selected?.Invoke(list_box.SelectedIndex - (_add_back_button? 1:0), 
+                list_box.SelectedItems[0].ToString());
         }
     }
 }

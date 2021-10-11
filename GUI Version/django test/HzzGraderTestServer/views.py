@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseNotFound
-import os
+import os, time
 
 def index_boom(request):
     
@@ -16,6 +16,7 @@ def index_boom(request):
         response['Content-Disposition'] = f'attachment; filename="{os.path.basename(file_location)}"'
         
     except UnicodeDecodeError as e:
+        time.sleep(2)
         with open(file_location, 'rb') as f:
            file_data = f.read()
 

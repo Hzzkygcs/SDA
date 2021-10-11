@@ -18,8 +18,12 @@ namespace HzzGrader
     public static class MainExternalTestcaseHandler
     {
         public static Dictionary<string, string[]> cache_dictionary = new Dictionary<string, string[]>();
+        
         public static readonly string root_url = "https://raw.githubusercontent.com/Hzzkygcs/SDA/master/";
-        public static readonly string dir_list_file_name = ".testcases";
+        // public static readonly string root_url = "http://localhost:8000/root/";
+        
+        
+        public static readonly string dir_list_file_name = ".tc_list";
 
 
 
@@ -50,7 +54,7 @@ namespace HzzGrader
 
             Action<int, string> on_select = async (index, selected_dir_name) =>
             {
-                if (index == 0){  // back to previous window
+                if (index == -1){  // back to previous window
                     on_done?.Invoke(false, "");
                     download_testcase_window.Close();
                     return;
@@ -69,19 +73,39 @@ namespace HzzGrader
         }
 
         public static async Task on_sub_dir(string total_path, Action<bool, string> on_done, Action<Exception> on_error){
-            string[] files;
+            string[] files_raw;
             try{        
-                files = await get_lines(total_path + "/" + dir_list_file_name);
+                files_raw = await get_lines(total_path + "/" + dir_list_file_name);
             } catch (Exception e){
                 on_error?.Invoke(e);
                 return;
             }
 
+            // each testcase has the following format inside file `.testcases`:
+            // Name of the file::version number
+            // where version number is just a regular integer without any dot. name of file will be stripped from 
+            // excess spaces. 
+            
+            // We wan't to split those
+            string[] file_names = new string[files_raw.Length];
+            string[] file_versions = new string[files_raw.Length];
+
+            for (int i = 0; i < files_raw.Length; i++){
+                string[] split = files_raw[i].Split(new[]{"::"}, StringSplitOptions.None);
+                file_names[i] = split[0].Trim();
+                if (split.Length > 1)
+                    file_versions[i] = split[1];
+                else{
+                    file_versions[i] = "";
+                }
+            }
+
+
             Action<int, string> on_select = async (index, selected_dir_name) =>
             {
                 download_testcase_window.Close();
                 
-                if (index == 0){  // back to previous window
+                if (index == -1){  // back to previous window
                     download_testcase_window.Close();
                     await start_window(on_done, on_error);
                     return;
@@ -96,7 +120,7 @@ namespace HzzGrader
                 }
             };
 
-            download_testcase_window = new DownloadTestcaseWindow(files, on_select);
+            download_testcase_window = new DownloadTestcaseWindow(file_names, on_select);
             download_testcase_window.Show();
             download_testcase_window.Activate();
         }
@@ -136,7 +160,7 @@ namespace HzzGrader
         }
         
         
-        public static async Task<bool> download_testcase(MainWindow main_window, 
+        public static async Task download_testcase(MainWindow main_window, 
             Action<bool, string> on_success, Action<bool, string> on_failure, string url=null, int timeout=15000){
             if (url == null)
                 url = root_url + main_window.tc_zip_path.Text;
@@ -156,33 +180,45 @@ namespace HzzGrader
                     path
                 );
                 
-                await Task.WhenAny(Task.Delay(timeout), download);
-                var exception = download.Exception;
-                bool cancelled = exception != null || !download.IsCompleted;
                 
                 
-                if (!cancelled){
-                    string zip_path = path;
-                    string extract_path =
-                        Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path));
+                main_window.information_label.Content = "downloading the testcase";
 
-                    if (Directory.Exists(extract_path))
-                        Directory.Delete(extract_path, true);
-                    if (!SevenZip.extract_file(zip_path, extract_path)){
-                        on_failure?.Invoke(false, path);
-                        return false;
-                    }
+                Task.Run(async () =>
+                {
+                    await Task.WhenAny(Task.Delay(timeout), download);
+                    var exception = download.Exception;
+                    bool cancelled = exception != null || !download.IsCompleted;
+                
+                
+                    if (!cancelled){
+                        string zip_path = path;
+                        string extract_path =
+                            Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path));
+
+                        main_window.Dispatcher.Invoke(() =>
+                        {
+                            main_window.information_label.Content = "extracting the testcase";
+                        });
+                    
+                        if (Directory.Exists(extract_path))
+                            Directory.Delete(extract_path, true);
+                        if (!SevenZip.extract_file(zip_path, extract_path)){
+                            main_window.Dispatcher.Invoke(() => on_failure?.Invoke(false, path));
+                            return;
+                        }
 
                         string testcase_path = extract_path;
-                    while (Directory.GetDirectories(testcase_path).Length == 1){
-                        testcase_path = Path.Combine(testcase_path, Directory.GetDirectories(testcase_path)[0]);
-                    }
+                        while (Directory.GetDirectories(testcase_path).Length == 1){
+                            testcase_path = Path.Combine(testcase_path, Directory.GetDirectories(testcase_path)[0]);
+                        }
                     
-                    on_success?.Invoke(true, testcase_path);
-                }else
-                    on_failure?.Invoke(false, path);
-                
-                return !cancelled;
+                        main_window.Dispatcher.Invoke(() => on_success?.Invoke(true, testcase_path));
+                    }else
+                        main_window.Dispatcher.Invoke(() => on_failure?.Invoke(false, path));
+
+                });
+
             }
             
         }

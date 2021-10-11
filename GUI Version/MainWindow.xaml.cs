@@ -23,6 +23,8 @@ using HzzGrader.Windows;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using Button = System.Windows.Controls.Button;
+using CheckBox = System.Windows.Controls.CheckBox;
 using MessageBox = System.Windows.Forms.MessageBox;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
@@ -36,6 +38,8 @@ namespace HzzGrader
 
     public partial class MainWindow
     {
+        public static double header_section_panel_maxwidth;
+        
         public static readonly String prev_source_code_directory = "prevdir";
         public static readonly String prev_testcase_directory = "tc_prevdir";
         private string __native_hzz_grader_src_code;
@@ -101,10 +105,11 @@ namespace HzzGrader
             Updater.log_updater = write_log;
             version_label.Text = updater.update_information.version;
 #else
-            version_label.Text = Updater.read_embedded_resource("HzzGrader.updater.current_version.txt").Trim();            
+            version_number_label.Text = Updater.read_embedded_resource("HzzGrader.updater.current_version.txt").Trim();            
 #endif
 
             try{
+                header_section_panel_maxwidth = header_section_panel.MaxWidth;
                 
                 if (Directory.Exists(Path.Combine(current_app_dir, "update")))
                     Directory.Delete(Path.Combine(current_app_dir, "update"), true);
@@ -253,14 +258,28 @@ namespace HzzGrader
 
 
         private ExtendedEditor extended_editor = null;
+
+
         private void label_input_panel_OnMouseUp__open_ExtendedEditor(object sender, MouseButtonEventArgs e){
             if (extended_editor == null  ||  extended_editor.is_closed){
+                Action restart_testcase = () =>
+                {
+                    if (!start_stress_test_btn.IsEnabled){
+                        MessageBox.Show("Sorry, we're still running the previous check");
+                        return;
+                    }
+                    start_stress_test_btn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                };
+                
                 extended_editor = new ExtendedEditor();
                 input_content.extended_editor = extended_editor.input_editor;
                 program_output_content.extended_editor = extended_editor.program_output_editor;
                 expected_output_content.extended_editor = extended_editor.expected_output_editor;
+                extended_editor.restart_stresstest = restart_testcase;
                 extended_editor.Show();
             }
+            
+            
 
             Dispatcher.Invoke(async () =>
             {
@@ -328,15 +347,17 @@ namespace HzzGrader
                 Show();
                 if (success){
                     start_stress_test_btn.IsEnabled = false;
-                    information_label.Content = "downloading & processing the testcases";
+                    information_label.Content = "getting the testcases";
                     tc_zip_path.Text = url.Substring(MainExternalTestcaseHandler.root_url.Length);
 
-                    Dispatcher.Invoke(async () =>
-                    {
-                        await MainExternalTestcaseHandler.download_testcase(this,
-                            on_testcase_downloaded,
-                            on_testcase_download_failed);
-                    });
+                    Dispatcher.BeginInvoke((Action)(
+                        async () =>
+                        {
+                            await MainExternalTestcaseHandler.download_testcase(this,
+                                on_testcase_downloaded,
+                                on_testcase_download_failed);
+                        }
+                        ));
                 }else{
                     keep_hide = false;
                     pick_testcase_zip_btn.IsEnabled = true;
@@ -344,6 +365,7 @@ namespace HzzGrader
                 }
             
             };
+            
             
             Action<Exception> on_error = (exception) =>
             {
@@ -362,6 +384,63 @@ namespace HzzGrader
             await MainExternalTestcaseHandler.start_window(on_done, on_error);
             if (keep_hide)
                 Hide();
+        }
+
+        private void Window_pin_cb_check_changed(object sender, RoutedEventArgs e){
+            CheckBox checkBox = sender as CheckBox;
+            if (checkBox == null)
+                return;
+            
+            string extra_label = " (pinned)";
+            if (checkBox.IsChecked == true){
+                Topmost = true;
+                Title += extra_label;
+            }else{
+                Topmost = false;
+                Title = Title.Substring(0, Title.Length - extra_label.Length);
+            }
+        }
+
+
+
+        
+        
+        
+        private void MainWindow_OnSizeChanged(object sender, SizeChangedEventArgs e){
+            if (e.NewSize.Height < 400){
+                core_grid.RowDefinitions[2].Height = new GridLength(0);
+            }
+            else{
+                core_grid.RowDefinitions[2].Height = new GridLength(1, GridUnitType.Star);
+            }
+
+            if (e.NewSize.Height < 300){
+                border_wrapper__input.Visibility = Visibility.Collapsed;
+            }else{
+                border_wrapper__input.Visibility = Visibility.Visible;
+            }
+
+            if (e.NewSize.Width < 450){
+                brand_label.Visibility = Visibility.Collapsed;
+                version_label.Visibility = Visibility.Collapsed;
+
+                java_source_panel.MaxWidth = 250;
+                tc_zip_panel.MaxWidth = 250;
+                tc_folder_panel.MaxWidth = 250;
+            }else{
+                brand_label.Visibility = Visibility.Visible;
+                version_label.Visibility = Visibility.Visible;
+                
+                if (e.NewSize.Width < 700){
+                    java_source_panel.MaxWidth = 300;
+                    tc_zip_panel.MaxWidth = 300;
+                    tc_folder_panel.MaxWidth = 300;
+                }else{
+                    java_source_panel.MaxWidth = 500;
+                    tc_zip_panel.MaxWidth = 500;
+                    tc_folder_panel.MaxWidth = 500;
+                }
+            }
         }
     }
 
