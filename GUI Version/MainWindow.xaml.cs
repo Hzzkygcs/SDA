@@ -1,4 +1,4 @@
-﻿// #define AUTO_UPDATE
+﻿#define AUTO_UPDATE
 
 
 using System;
@@ -94,7 +94,7 @@ namespace HzzGrader
 
 #if AUTO_UPDATE
             Updater.log_updater = write_log;
-            version_label.Text = updater.update_information.version;
+            version_number_label.Text = updater.update_information.version;
 #else
             version_number_label.Text = Updater.read_embedded_resource("HzzGrader.updater.current_version.txt").Trim();            
 #endif

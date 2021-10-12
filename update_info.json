@@ -1,6 +1,6 @@
 {
-  "version": "1.1.0",
-  "path": "https://github.com/Hzzkygcs/SDA/releases/download/1.1.beta0/HzzGrader.GUI.beta.1.1.beta.0.zip",
-  "update_note": "Ditambahkan fitur download dan extract otomatis dari github. Tidak perlu repot-repot mendownload lagi dari github",
+  "version": "1.2.1",
+  "path": "https://github.com/Hzzkygcs/SDA/releases/download/1.2.beta1/HzzGrader.GUI.beta.1.2.beta.1.zip",
+  "update_note": "Fitur download dan extract otomatis dari github (atau local jika belum ada testcase versi terbaru). Fitur right click pada pin window untuk toggle size. etc...",
   "forced": false
 }
