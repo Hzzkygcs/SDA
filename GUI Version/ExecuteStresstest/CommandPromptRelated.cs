@@ -94,14 +94,18 @@ namespace HzzGrader
                 var res = await execute_cmd("javac --version");
 
                 if (!res.Item1.Trim().StartsWith("javac")){
-                    var is_cancel = MessageBox.Show("There's an error when running javac --version\nDo you wish to continue?", "",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Error);
-                    if (is_cancel == System.Windows.Forms.DialogResult.No){
-                        information_label.Content = "ERROR javac not found";
-                        input.Text = res.Item2;
-                        program_output.Text = "";
-                        expected_output.Text = "";
-                        return false;
+                    res = await execute_cmd("java -version");
+                    if (!res.Item1.Trim().StartsWith("javac")){
+                        var is_cancel = MessageBox.Show(
+                            "There's an error when running javac --version\nDo you wish to continue?", "",
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                        if (is_cancel == System.Windows.Forms.DialogResult.No){
+                            information_label.Content = "ERROR javac not found";
+                            input.Text = res.Item2;
+                            program_output.Text = "";
+                            expected_output.Text = "";
+                            return false;
+                        }
                     }
                 }
             }
@@ -110,15 +114,21 @@ namespace HzzGrader
                 var res = await execute_cmd("java --version");
                 string temp = res.Item1.Trim().ToLower();
                 if (!(temp.StartsWith("java") || temp.StartsWith("openjdk"))){
-                    var is_cancel = MessageBox.Show("There's an error when running java --version\nDo you wish to continue?", "",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Error);
-                    if (is_cancel == System.Windows.Forms.DialogResult.No){
-                        information_label.Content = "ERROR java not found";
-                        input.Text = res.Item2;
-                        program_output.Text = "";
-                        expected_output.Text = "";
-                        return false;
+                    temp = (await execute_cmd("java --version")).Item1.Trim().ToLower();
+                    
+                    if (!(temp.StartsWith("java") || temp.StartsWith("openjdk"))){
+                        var is_cancel = MessageBox.Show(
+                            "There's an error when running java --version\nDo you wish to continue?", "",
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                        if (is_cancel == System.Windows.Forms.DialogResult.No){
+                            information_label.Content = "ERROR java not found";
+                            input.Text = res.Item2;
+                            program_output.Text = "";
+                            expected_output.Text = "";
+                            return false;
+                        }
                     }
+                    
                 }
             }
             return true;

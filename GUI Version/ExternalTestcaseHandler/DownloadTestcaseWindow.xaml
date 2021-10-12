@@ -5,6 +5,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:HzzGrader"
         mc:Ignorable="d"
+        
+        Closed="DownloadTestcaseWindow_OnClosed"
         Title="DownloadTestcaseWindow" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
     
     <Window.Resources>
@@ -105,7 +107,8 @@
     <Grid Background="{StaticResource background1}">
         <StackPanel Style="{StaticResource stackpanel_stype}">
             
-            <ListBox Name="list_box" SelectionChanged="List_box_OnSelectionChanged">
+            <ListBox Name="list_box" 
+                     SelectionChanged="List_box_OnSelectionChanged">
             </ListBox>
             
         </StackPanel>

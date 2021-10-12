@@ -144,7 +144,7 @@
                 <Label Foreground="{StaticResource color_c}"
                        Cursor="Hand"
                        ToolTip="double click to toggle window pin &#x0a;right click to restart testcase checking"
-                       ToolTipService.ShowDuration="3000"
+                       ToolTipService.ShowDuration="4000"
                        MouseDoubleClick="Control_OnMouseDoubleClick"
                        MouseUp="Control_OnMouseUp">your output</Label>
             </StackPanel>

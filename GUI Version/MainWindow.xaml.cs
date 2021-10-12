@@ -1,28 +1,19 @@
 ﻿// #define AUTO_UPDATE
 
 
-
-
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Media;
-using HzzGrader.JavaRelated;
 using HzzGrader.updater;
 using HzzGrader.Windows;
-using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
 using CheckBox = System.Windows.Controls.CheckBox;
 using MessageBox = System.Windows.Forms.MessageBox;
@@ -289,8 +280,7 @@ namespace HzzGrader
             
             extended_editor.Activate();
         }
-
-
+        
         private void on_error(){
             finally_();
         }
@@ -307,8 +297,7 @@ namespace HzzGrader
             extended_editor.equalize_number_of_line();
             extended_editor?.update_differences_colouring();
         }
-        
-        
+
         private void Label_testcase_zip_OnMouseUp(object sender, MouseButtonEventArgs e){
             tc_zip_panel.Visibility = Visibility.Hidden;
             tc_folder_panel.Visibility = Visibility.Visible;
@@ -323,15 +312,63 @@ namespace HzzGrader
             bool keep_hide = true;
             pick_testcase_zip_btn.IsEnabled = false;
             start_stress_test_btn.IsEnabled = false;
+
+            string maintain = "";
             
-            Action<bool, string> on_done = async (success, url) =>
+            Action<bool, string, string> on_done = async (success, url, file_version) =>
             {
+                Show();
+                if (!success){
+                    // success doesn't guaranteed to be always true even if we have already had on_error()
+                    // for now, the only case it will be false is when we go back to home/main window.
+                    // it will be false but no error
+
+                    keep_hide = false;
+                    pick_testcase_zip_btn.IsEnabled = true;
+                    start_stress_test_btn.IsEnabled = true;
+                    return;
+                }
+                
+                tc_zip_path.Text = url.Substring(MainExternalTestcaseHandler.root_url.Length);
+                file_version = file_version.Trim();
+                int file_version_int;
+
+                string file_path_from_url_root =
+                    url.Substring(MainExternalTestcaseHandler.root_url.Length).Replace('/', '\\');
+                
+                // different from MainExternalTestcaseHandler.testcase_local_dir, `this_...` refer to a more specific
+                // path instead of MainExternalTestcaseHandler.testcase_local_dir
+                string this_local_testcase_path = Path.Combine(MainExternalTestcaseHandler.testcase_local_dir,
+                    Path.ChangeExtension(file_path_from_url_root, null));
+                string this_local_version_file = Path.Combine(this_local_testcase_path, MainExternalTestcaseHandler.testcase_local_version_filename);
+
+                if (Int32.TryParse(file_version, out file_version_int) &&
+                    File.Exists(this_local_version_file)){
+                    string local_version = File.ReadAllText(this_local_version_file).Trim();
+                    int local_version_int;
+                    if (Int32.TryParse(local_version, out local_version_int)){
+                        if (local_version_int >= file_version_int){
+                            string new_tc_folder = 
+                                MainExternalTestcaseHandler.traverse_one_child_directory(this_local_testcase_path);
+                            testcase_folder.Text = new_tc_folder;
+                            information_label.Content = "The testcase has been downloaded. \nWe have loaded it from local successfully!";
+                            pick_testcase_zip_btn.IsEnabled = true;
+                            start_stress_test_btn.IsEnabled = true;
+                            write_log("testcase loaded from local successfully");
+                            return;
+                        }
+                    }
+                }
+            
+                
                 Action<bool, string> on_testcase_downloaded = async (download_success, new_tc_folder) =>
                 {
                     testcase_folder.Text = new_tc_folder;
                     pick_testcase_zip_btn.IsEnabled = true;
                     start_stress_test_btn.IsEnabled = true;
                     information_label.Content = "Downloaded and extracted successfully!";
+                    File.WriteAllText(this_local_version_file, file_version);
+                    write_log("finished downloading");
                 };
                 
                 Action<bool, string> on_testcase_download_failed = async (download_success, new_tc_folder) =>
@@ -342,41 +379,56 @@ namespace HzzGrader
                     information_label.Content = "Download or extract failed.";
                 };
 
-
             
-                Show();
-                if (success){
-                    start_stress_test_btn.IsEnabled = false;
-                    information_label.Content = "getting the testcases";
-                    tc_zip_path.Text = url.Substring(MainExternalTestcaseHandler.root_url.Length);
+                start_stress_test_btn.IsEnabled = false;
+                information_label.Content = "getting the testcases";
+                
 
-                    Dispatcher.BeginInvoke((Action)(
-                        async () =>
-                        {
-                            await MainExternalTestcaseHandler.download_testcase(this,
-                                on_testcase_downloaded,
-                                on_testcase_download_failed);
-                        }
-                        ));
-                }else{
-                    keep_hide = false;
-                    pick_testcase_zip_btn.IsEnabled = true;
-                    start_stress_test_btn.IsEnabled = true;
-                }
-            
+                Dispatcher.BeginInvoke((Action)(
+                    async () =>
+                    {
+                        await MainExternalTestcaseHandler.download_testcase(this,
+                            on_testcase_downloaded,
+                            on_testcase_download_failed);
+                    }
+                    ));
             };
             
             
             Action<Exception> on_error = (exception) =>
             {
+                bool is_connection_error = false;
+                if (exception is AggregateException){
+                    write_log("on_error download testcase: AggregateException");
+
+                    AggregateException ae = (AggregateException) exception;
+                    ae.Handle((handle_exception =>
+                    {
+                        write_log("======== ae handle ========");
+                        write_log(handle_exception.StackTrace);
+
+                        if (handle_exception is System.Net.WebException)
+                            is_connection_error = true;
+                        return handle_exception is System.Net.WebException;
+                    }));
+                    write_log("======== ae end ========");
+                }
+
+                
+                
                 keep_hide = false;
                 pick_testcase_zip_btn.IsEnabled = true;
                 start_stress_test_btn.IsEnabled = true;
                 
                 write_log("When fetching testcase list information from server, there's an error: \n" + exception.Message);
                 write_log(exception.StackTrace);
-                MessageBox.Show(exception.Message);
-                MessageBox.Show(exception.StackTrace);
+                
+                if (is_connection_error){
+                    MessageBox.Show("Sorry, we couldn't access " + MainExternalTestcaseHandler.root_url);
+                }else{
+                    MessageBox.Show(exception.Message);
+                    MessageBox.Show(exception.StackTrace);
+                }
                 Show();
             };
             
@@ -401,11 +453,6 @@ namespace HzzGrader
             }
         }
 
-
-
-        
-        
-        
         private void MainWindow_OnSizeChanged(object sender, SizeChangedEventArgs e){
             if (e.NewSize.Height < 400){
                 core_grid.RowDefinitions[2].Height = new GridLength(0);
@@ -414,32 +461,73 @@ namespace HzzGrader
                 core_grid.RowDefinitions[2].Height = new GridLength(1, GridUnitType.Star);
             }
 
-            if (e.NewSize.Height < 300){
+            if (e.NewSize.Height < 250){
                 border_wrapper__input.Visibility = Visibility.Collapsed;
             }else{
                 border_wrapper__input.Visibility = Visibility.Visible;
             }
 
-            if (e.NewSize.Width < 450){
+            int LOWER_LIMIT = 450;
+            int MAX_WIDTH_LOWER_LIMIT = 250;
+            if (e.NewSize.Width < LOWER_LIMIT){
                 brand_label.Visibility = Visibility.Collapsed;
                 version_label.Visibility = Visibility.Collapsed;
 
-                java_source_panel.MaxWidth = 250;
-                tc_zip_panel.MaxWidth = 250;
-                tc_folder_panel.MaxWidth = 250;
+                java_source_panel.MaxWidth = MAX_WIDTH_LOWER_LIMIT;
+                tc_zip_panel.MaxWidth = MAX_WIDTH_LOWER_LIMIT;
+                tc_folder_panel.MaxWidth = MAX_WIDTH_LOWER_LIMIT;
             }else{
                 brand_label.Visibility = Visibility.Visible;
                 version_label.Visibility = Visibility.Visible;
                 
-                if (e.NewSize.Width < 700){
-                    java_source_panel.MaxWidth = 300;
-                    tc_zip_panel.MaxWidth = 300;
-                    tc_folder_panel.MaxWidth = 300;
-                }else{
-                    java_source_panel.MaxWidth = 500;
-                    tc_zip_panel.MaxWidth = 500;
-                    tc_folder_panel.MaxWidth = 500;
+                int MAX_WIDTH_UPPER_LIMIT = 500;
+
+                int UPPER_LIMIT = 700;
+                
+                
+                if (e.NewSize.Width < UPPER_LIMIT){
+                    // window's width is between 450 and 700
+                    
+                    // To make it a linear smooth scaling instead of discrete scaling
+                    int temp_size = MAX_WIDTH_LOWER_LIMIT + (MAX_WIDTH_UPPER_LIMIT - MAX_WIDTH_LOWER_LIMIT) 
+                        * ((Int32)(e.NewSize.Width) - LOWER_LIMIT) / (UPPER_LIMIT - LOWER_LIMIT);  
+                    java_source_panel.MaxWidth = temp_size;
+                    tc_zip_panel.MaxWidth = temp_size;
+                    tc_folder_panel.MaxWidth = temp_size;
                 }
+                else{
+                    java_source_panel.MaxWidth = MAX_WIDTH_UPPER_LIMIT;
+                    tc_zip_panel.MaxWidth = MAX_WIDTH_UPPER_LIMIT;
+                    tc_folder_panel.MaxWidth = MAX_WIDTH_UPPER_LIMIT;
+                }
+            }
+        }
+
+        private double? prev_window_width = null;
+        private double? prev_window_height = null;
+        private bool anchor_at_top_left = false; 
+        private void Window_pin_cb_OnMouseUp(object sender, MouseButtonEventArgs e){
+            if (e.ChangedButton == MouseButton.Right){
+                if (prev_window_width == null || prev_window_height == null){
+                    prev_window_height = MinHeight;
+                    prev_window_width = MinWidth;
+                }
+            
+            
+                // we want the window position is anchored at top-right corner when we resize it
+                if (!anchor_at_top_left)
+                    Application.Current.MainWindow.Left += ActualWidth - (double)prev_window_width;
+
+                double current_window_width = ActualWidth;
+                double current_window_height = ActualHeight;
+
+                Application.Current.MainWindow.Height = (double)prev_window_height;
+                Application.Current.MainWindow.Width = (double)prev_window_width;
+
+                prev_window_width = current_window_width;
+                prev_window_height = current_window_height;
+            }else if (e.ChangedButton == MouseButton.Middle){
+                anchor_at_top_left = !anchor_at_top_left;
             }
         }
     }

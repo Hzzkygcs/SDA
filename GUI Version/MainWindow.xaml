@@ -267,8 +267,14 @@
                                               Name="window_pin_cb"
                                               IsChecked="False"
                                               Foreground="{StaticResource foreground1}"
+                                              ToolTip="centang untuk membuat window selalu di atas 
+                                              &#x0a;klik kanan untuk toggle size window otomatis
+                                              &#x0a;klik tengah untuk toggle window anchor position saat toggle size"
+                                              
+                                              ToolTipService.ShowDuration="4000"
                                               Checked="Window_pin_cb_check_changed"
-                                              Unchecked="Window_pin_cb_check_changed">
+                                              Unchecked="Window_pin_cb_check_changed"
+                                              MouseUp="Window_pin_cb_OnMouseUp">
                                         pin window
                                     </CheckBox>
                                 </DockPanel>

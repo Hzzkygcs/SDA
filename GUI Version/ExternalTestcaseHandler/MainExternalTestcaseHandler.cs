@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Text;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Threading;
-using HzzGrader.Models;
-using Newtonsoft.Json;
+using System.Windows;
+
 
 namespace HzzGrader
 {
@@ -28,6 +22,8 @@ namespace HzzGrader
 
 
         private static DownloadTestcaseWindow download_testcase_window;
+        public static readonly string testcase_local_dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testcases");
+        public static readonly string testcase_local_version_filename = "version";
 
 
         public static async Task initial_caching(){  // automatically caching the main root and it's first and last children
@@ -40,7 +36,7 @@ namespace HzzGrader
             }catch(Exception e){MainWindow.write_log("initial caching failed: " + e.Message + "\n\n" + e.StackTrace);}
         }
         
-        public static async Task start_window(Action<bool, string> on_done, Action<Exception> on_error){
+        public static async Task start_window(Action<bool, string, string> on_done, Action<Exception> on_error){
             string path;
             string[] subdirs;
             
@@ -55,24 +51,25 @@ namespace HzzGrader
             Action<int, string> on_select = async (index, selected_dir_name) =>
             {
                 if (index == -1){  // back to previous window
-                    on_done?.Invoke(false, "");
-                    download_testcase_window.Close();
+                    on_done?.Invoke(false, "", "");
+                    download_testcase_window.close_window();
                     return;
                 }
                 
                 
-                download_testcase_window.Close();
+                download_testcase_window.close_window();
                 string current_path = root_url + selected_dir_name;
                 await on_sub_dir(current_path, on_done, on_error);
             
             };
 
-            download_testcase_window = new DownloadTestcaseWindow(subdirs, on_select);
+            download_testcase_window = new DownloadTestcaseWindow(subdirs, on_select, true,
+                DownloadTestcaseWindow.WINDOW_POS_AS_MAIN_WINDOW);
             download_testcase_window.Show();
             download_testcase_window.Activate();
         }
 
-        public static async Task on_sub_dir(string total_path, Action<bool, string> on_done, Action<Exception> on_error){
+        public static async Task on_sub_dir(string total_path, Action<bool, string, string> on_done, Action<Exception> on_error){
             string[] files_raw;
             try{        
                 files_raw = await get_lines(total_path + "/" + dir_list_file_name);
@@ -86,7 +83,7 @@ namespace HzzGrader
             // where version number is just a regular integer without any dot. name of file will be stripped from 
             // excess spaces. 
             
-            // We wan't to split those
+            // We wan't to split those two
             string[] file_names = new string[files_raw.Length];
             string[] file_versions = new string[files_raw.Length];
 
@@ -103,30 +100,31 @@ namespace HzzGrader
 
             Action<int, string> on_select = async (index, selected_dir_name) =>
             {
-                download_testcase_window.Close();
+                download_testcase_window.close_window();
                 
                 if (index == -1){  // back to previous window
-                    download_testcase_window.Close();
+                    download_testcase_window.close_window();
                     await start_window(on_done, on_error);
                     return;
                 }
                 
                 try{
                     string current_path = total_path + "/" + selected_dir_name;
-                    await on_choose_testcase(current_path, on_done, on_error);
+                    await on_choose_testcase(current_path, file_versions[index], on_done, on_error);
                 } catch (Exception e){
                     on_error?.Invoke(e);
                     return;
                 }
             };
 
-            download_testcase_window = new DownloadTestcaseWindow(file_names, on_select);
+            download_testcase_window = new DownloadTestcaseWindow(file_names, on_select, true, DownloadTestcaseWindow.WINDOW_POS_AS_MAIN_WINDOW);
             download_testcase_window.Show();
             download_testcase_window.Activate();
         }
 
-        public static async Task on_choose_testcase(string total_path, Action<bool, string> on_done, Action<Exception> on_error){
-            on_done?.Invoke(true, total_path);
+        public static async Task on_choose_testcase(string total_path, string version, Action<bool, string, string> on_done, 
+            Action<Exception> on_error){
+            on_done?.Invoke(true, total_path, version);
         }
 
 
@@ -166,7 +164,7 @@ namespace HzzGrader
                 url = root_url + main_window.tc_zip_path.Text;
 
             string path;
-            path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testcases", 
+            path = Path.Combine(testcase_local_dir, 
                 Path.GetDirectoryName(main_window.tc_zip_path.Text));
             Directory.CreateDirectory(path);
 
@@ -179,9 +177,7 @@ namespace HzzGrader
                 var download = web_client.DownloadFileTaskAsync(url, 
                     path
                 );
-                
-                
-                
+
                 main_window.information_label.Content = "downloading the testcase";
 
                 Task.Run(async () =>
@@ -189,8 +185,7 @@ namespace HzzGrader
                     await Task.WhenAny(Task.Delay(timeout), download);
                     var exception = download.Exception;
                     bool cancelled = exception != null || !download.IsCompleted;
-                
-                
+
                     if (!cancelled){
                         string zip_path = path;
                         string extract_path =
@@ -207,20 +202,25 @@ namespace HzzGrader
                             main_window.Dispatcher.Invoke(() => on_failure?.Invoke(false, path));
                             return;
                         }
+                        File.Delete(zip_path);
 
-                        string testcase_path = extract_path;
-                        while (Directory.GetDirectories(testcase_path).Length == 1){
-                            testcase_path = Path.Combine(testcase_path, Directory.GetDirectories(testcase_path)[0]);
-                        }
-                    
+                        string testcase_path = traverse_one_child_directory(extract_path);
                         main_window.Dispatcher.Invoke(() => on_success?.Invoke(true, testcase_path));
                     }else
                         main_window.Dispatcher.Invoke(() => on_failure?.Invoke(false, path));
-
                 });
-
             }
-            
         }
+
+        public static string traverse_one_child_directory(string testcase_path){
+            // traverse the directory root until it has no subdir or it has more than one subdirs.
+            // after finishes, it returns the new path, where the path's number of subdir is guaranteed != 1 
+            string new_path = testcase_path;
+            while (Directory.GetDirectories(new_path).Length == 1){
+                new_path = Path.Combine(new_path, Directory.GetDirectories(new_path)[0]);
+            }
+            return new_path;
+        }
+        
     }
 }
