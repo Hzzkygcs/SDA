@@ -130,6 +130,9 @@ namespace HzzGrader
         }
 
         public TextboxLargeContent get_textbox_large_content(TextBox textbox){
+            if (textbox == null)
+                return null;
+            
             if (textbox.Equals(input))
                 return input_content;
             
@@ -155,7 +158,15 @@ namespace HzzGrader
                 });
             }
         }
-        
+
+
+
+        private void on_dblclick__large_input_textbox(object sender, MouseButtonEventArgs e){
+            TextBox textbox = sender as TextBox;
+            TextboxLargeContent content = get_textbox_large_content(textbox);
+            if (content == null) return;
+            Clipboard.SetText(content.Text);
+        }
 
         private void on_key_down__large_input_textbox(object sender, KeyEventArgs e){
             TextBox textbox = sender as TextBox;

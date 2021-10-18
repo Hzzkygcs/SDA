@@ -45,7 +45,9 @@ public class HzzGrader {
             while (in_file.isFile()){
                 File out_file = new File("{{TARGET_DIRECTORY}}" + String.format("/out_%02d.txt", i));
                 assert (out_file.isFile());
-                old_stdout.println(i);
+                
+                if (i%2 == 1)
+                    old_stdout.println(i);  // output tanggapan setiap setelah 2 testcase berhasil dijalankan
                 
                 
                 try (var in_fstream = new FileInputStream(in_file)){

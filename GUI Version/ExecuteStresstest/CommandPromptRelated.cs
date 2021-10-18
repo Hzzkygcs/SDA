@@ -100,7 +100,7 @@ namespace HzzGrader
                             "There's an error when running javac --version\nDo you wish to continue?", "",
                             MessageBoxButtons.YesNo, MessageBoxIcon.Error);
                         if (is_cancel == System.Windows.Forms.DialogResult.No){
-                            information_label.Content = "ERROR javac not found";
+                            information_label_set_str_content("ERROR javac not found"); 
                             input.Text = res.Item2;
                             program_output.Text = "";
                             expected_output.Text = "";
@@ -121,7 +121,7 @@ namespace HzzGrader
                             "There's an error when running java --version\nDo you wish to continue?", "",
                             MessageBoxButtons.YesNo, MessageBoxIcon.Error);
                         if (is_cancel == System.Windows.Forms.DialogResult.No){
-                            information_label.Content = "ERROR java not found";
+                            information_label_set_str_content("ERROR java not found");
                             input.Text = res.Item2;
                             program_output.Text = "";
                             expected_output.Text = "";
@@ -162,7 +162,7 @@ namespace HzzGrader
                     write_log(result.Item2);
                     write_log(command_compile + "\n\n");
 
-                    information_label.Content = "unexpected error";
+                    information_label_set_str_content("unexpected error");
                     input.Text = "";
                     program_output.Text = "";
                     expected_output.Text = "";
@@ -170,6 +170,10 @@ namespace HzzGrader
                 }
             }
             return true;
+        }
+
+        public void information_label_set_str_content(string content){
+            information_label.Text = content;
         }
     }
 }

@@ -25,7 +25,7 @@ namespace HzzGrader
                 java_mini_parser.parse();
                 if (java_mini_parser.has_package_statement()){
                     MessageBox.Show("Please remove any package statement");
-                    information_label.Content = "Please remove any package statement";
+                    information_label_set_str_content("Please remove any package statement");
                     return false;
                 }
             }
@@ -48,7 +48,7 @@ namespace HzzGrader
                         File.WriteAllText(files[file_num], program_input);
                     }
 
-                    information_label.Content = Path.GetFileName(files[file_num]);
+                    information_label_set_str_content(Path.GetFileName(files[file_num]));
                     string input_file_name_without_input_prefix = Path.GetFileName(files[file_num]).Substring(
                         input_file_name_prefix.Length
                     );
@@ -59,7 +59,7 @@ namespace HzzGrader
 
                     if (!File.Exists(exp_output_file_dir)){
                         MessageBox.Show("File output testcase not found: " + exp_output_file_dir);
-                        information_label.Content = "File output testcase not found: " + exp_output_file_dir;
+                        information_label_set_str_content("File output testcase not found: " + exp_output_file_dir);
                         input_content.Text = "";
                         program_output_content.Text = "";
                         expected_output_content.Text = "";
@@ -93,7 +93,7 @@ namespace HzzGrader
                         MessageBox.Show("Unexpected error");
                         MessageBox.Show(result.Item2);
                         MessageBox.Show(command_run);
-                        information_label.Content = "unexpected error";
+                        information_label_set_str_content("unexpected error");
                         program_output_content.Text = "";
                         expected_output_content.Text = "";
                         return false;
@@ -111,7 +111,7 @@ namespace HzzGrader
                     string comparison_res = compare_two_list_of_string(prog_output_trimmed, exp_output_trimmed);
 
                     if (comparison_res.Length != 0){
-                        information_label.Content = Path.GetFileName(files[file_num]) + " -- " + (comparison_res);
+                        information_label_set_str_content(Path.GetFileName(files[file_num]) + " -- " + (comparison_res));
                         input_content.Text = program_input;
                         program_output_content.Text = String.Join("\n", prog_output_trimmed);
                         expected_output_content.Text = String.Join("\n", exp_output_trimmed);
@@ -123,7 +123,7 @@ namespace HzzGrader
                 MessageBox.Show("java command time out");
                 MessageBox.Show(result.Item1);
                 MessageBox.Show(result.Item2);
-                information_label.Content = "java command time out";
+                information_label_set_str_content("java command time out");
                 input_content.Text = command_run;
                 program_output_content.Text = result.Item1;
                 expected_output_content.Text = "";

@@ -23,15 +23,35 @@ namespace HzzGrader.Windows
         }
 
         private void left_splitter_doubleClick(object sender, MouseButtonEventArgs e){
+            GridLength prev1 = main_grid.ColumnDefinitions[0].Width;
+            GridLength prev2 = main_grid.ColumnDefinitions[2].Width;
+            GridLength prev3 = main_grid.ColumnDefinitions[4].Width;
+
             main_grid.ColumnDefinitions[0].Width = new GridLength(1, GridUnitType.Star);
             main_grid.ColumnDefinitions[2].Width = new GridLength(1, GridUnitType.Star);
             main_grid.ColumnDefinitions[4].Width = new GridLength(0, GridUnitType.Star);
+
+            if (prev1 == main_grid.ColumnDefinitions[0].Width 
+                && prev2 == main_grid.ColumnDefinitions[2].Width
+                && prev3 == main_grid.ColumnDefinitions[4].Width){  // back to the normal 3-panel mode
+                main_grid.ColumnDefinitions[4].Width = new GridLength(1, GridUnitType.Star);
+            }
         }
         
         private void right_splitter_doubleClick(object sender, MouseButtonEventArgs e){
+            GridLength prev1 = main_grid.ColumnDefinitions[0].Width;
+            GridLength prev2 = main_grid.ColumnDefinitions[2].Width;
+            GridLength prev3 = main_grid.ColumnDefinitions[4].Width;
+            
             main_grid.ColumnDefinitions[0].Width = new GridLength(0, GridUnitType.Star);
             main_grid.ColumnDefinitions[2].Width = new GridLength(1, GridUnitType.Star);
             main_grid.ColumnDefinitions[4].Width = new GridLength(1, GridUnitType.Star);
+            
+            if (prev1 == main_grid.ColumnDefinitions[0].Width 
+                && prev2 == main_grid.ColumnDefinitions[2].Width
+                && prev3 == main_grid.ColumnDefinitions[4].Width){  // back to the normal 3-panel mode
+                main_grid.ColumnDefinitions[0].Width = new GridLength(1, GridUnitType.Star);
+            }
         }
 
         private void Expected_output_editor_OnMouseWheel(object sender, MouseWheelEventArgs e){

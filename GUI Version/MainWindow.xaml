@@ -293,10 +293,13 @@
                                         Cursor="Hand"
                                         Padding="1"
                                         HorizontalAlignment="Center" Foreground="{StaticResource foreground1}"
-                                        ToolTip="Click to open up editor window" 
+                                        ToolTip="Click to open up additional window" 
                                         ToolTipService.ShowDuration="5000" 
                                         MouseUp="label_input_panel_OnMouseUp__open_ExtendedEditor" Content="input"/>
-                                    <Label x:Name="information_label" HorizontalAlignment="Center" Foreground="{StaticResource foreground1}"/>
+                                    <TextBlock x:Name="information_label" 
+                                           HorizontalAlignment="Center" 
+                                           Foreground="{StaticResource foreground1}"
+                                           TextAlignment="Center"/>
                                 </StackPanel>
                             </StackPanel>
 
@@ -311,9 +314,12 @@
                                          Background="{StaticResource background2}"
                                          Foreground="{StaticResource foreground1}"
                                          BorderThickness="0" 
+                                         ToolTip="double click to copy whole content to the clipboard"
                                          PreviewMouseWheel="on_scroll__large_input_textbox"
                                          PreviewMouseDown="on_click__large_input_textbox"
-                                         PreviewKeyDown="on_key_down__large_input_textbox"/>
+                                         PreviewKeyDown="on_key_down__large_input_textbox"
+                                         PreviewMouseDoubleClick="on_dblclick__large_input_textbox"
+                                         />
                             </Border>
                         </DockPanel>
                     </Border>
@@ -344,9 +350,11 @@
                                              Background="{StaticResource background2}"
                                              Foreground="{StaticResource foreground1}"
                                              BorderThickness="0" 
+                                             ToolTip="double click to copy whole content to the clipboard"
                                              PreviewMouseWheel="on_scroll__large_input_textbox"
                                              PreviewMouseDown="on_click__large_input_textbox"
-                                             PreviewKeyDown="on_key_down__large_input_textbox"/>
+                                             PreviewKeyDown="on_key_down__large_input_textbox"
+                                             PreviewMouseDoubleClick="on_dblclick__large_input_textbox"/>
                                     </DockPanel>
                                 </Border>
                             </DockPanel>
@@ -366,9 +374,13 @@
                                          Background="{StaticResource background2}"
                                          Foreground="{StaticResource foreground1}"
                                          BorderThickness="0"
+                                         
+                                         ToolTip="double click to copy whole content to the clipboard"
+                                         
                                          PreviewMouseWheel="on_scroll__large_input_textbox"
                                          PreviewMouseDown="on_click__large_input_textbox"
-                                         PreviewKeyDown="on_key_down__large_input_textbox"/>
+                                         PreviewKeyDown="on_key_down__large_input_textbox"
+                                         PreviewMouseDoubleClick="on_dblclick__large_input_textbox"/>
                                 </Border>
                             </DockPanel>
                         </Grid>

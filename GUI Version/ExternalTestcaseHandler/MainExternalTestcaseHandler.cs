@@ -178,7 +178,7 @@ namespace HzzGrader
                     path
                 );
 
-                main_window.information_label.Content = "downloading the testcase";
+                main_window.information_label_set_str_content("downloading the testcase");
 
                 Task.Run(async () =>
                 {
@@ -193,7 +193,7 @@ namespace HzzGrader
 
                         main_window.Dispatcher.Invoke(() =>
                         {
-                            main_window.information_label.Content = "extracting the testcase";
+                            main_window.information_label_set_str_content("extracting the testcase");
                         });
                     
                         if (Directory.Exists(extract_path))

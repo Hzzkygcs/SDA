@@ -17,7 +17,7 @@ namespace HzzGrader
             try{
                 if (!await test_if_javac_and_java_is_available())
                     return;
-                information_label.Content = "check if there is any compile-time error";
+                information_label_set_str_content("check if there is any compile-time error");
 
                 // just to check whether the syntax is valid or not
                 string old_source_file_path = java_file_path.Text;
@@ -36,7 +36,7 @@ namespace HzzGrader
                 write_log("no syntax error was found. Parsing java source file");
 
 
-                information_label.Content = "parsing and wrapping your copied java source file";
+                information_label_set_str_content("parsing and wrapping your copied java source file");
                 JavaMiniParser java_mini_parser = new JavaMiniParser(File.ReadAllText(new_source_file_path));
                 java_mini_parser.parse();
                 java_mini_parser.parse_tokenized_splitted();
@@ -48,8 +48,8 @@ namespace HzzGrader
                     0){
                     MessageBox.Show("All static fields must belong to the public class and " +
                                     "should be put before any inner classes");
-                    information_label.Content = "All static fields must belong to the public class and " +
-                                                "should be put before any inner classes";
+                    information_label_set_str_content("All static fields must belong to the public class and " +
+                                                "should be put before any inner classes");
                     return;
                 }
 
@@ -67,7 +67,7 @@ namespace HzzGrader
 
                 if (java_mini_parser.has_package_statement()){
                     MessageBox.Show("Please remove any package statement");
-                    information_label.Content = "Please remove any package statement";
+                    information_label_set_str_content("Please remove any package statement");
                     return;
                 }
 
@@ -109,7 +109,7 @@ namespace HzzGrader
                     end_token);
 
 
-                information_label.Content = "compiling your java source code";
+                information_label_set_str_content("compiling your java source code");
                 File.WriteAllText(new_source_file_path, java_mini_parser.unparse());
                 File.WriteAllText(native_hzz_grader_path, hzz_grader_code);
 
@@ -120,7 +120,7 @@ namespace HzzGrader
                     return;
                 }
 
-                information_label.Content = "running your java source code";
+                information_label_set_str_content("running your java source code");
                 write_log("executing HzzGrader.java");
                 await execute_stress_test_native(new_source_file_path, information_token, input_token,
                     program_output_token,
@@ -159,8 +159,10 @@ namespace HzzGrader
 
                 {
                     while (wait){
-                        information_label.Content =
-                            String.Format("running ({0})", java_execute.number_of_received_output);
+                        information_label_set_str_content(
+                            // kali 2 karena pada HzzGrader.java kita akan memberikan respon setiap
+                            // 2 testcase selesai
+                            String.Format("running ({0})", java_execute.number_of_received_output * 2));
                         await Task.Delay(30);
                     }
                 }
@@ -179,7 +181,7 @@ namespace HzzGrader
                     File.AppendAllText(log_file, "Unexpected error is found\n" + result.Item2 +
                                                  "\n" + command_run + "\n\n\n");
 
-                    information_label.Content = "Unexpected error is found";
+                    information_label_set_str_content("Unexpected error is found");
                     input_content.Text = "";
                     program_output_content.Text = "";
                     expected_output_content.Text = "";
@@ -194,12 +196,12 @@ namespace HzzGrader
                     }, StringSplitOptions.RemoveEmptyEntries);
                     if (temp.Length < 5){
                         MessageBox.Show("error outputted value is not recognized");
-                        information_label.Content = "error outputted value is not recognized";
+                        information_label_set_str_content("error outputted value is not recognized");
                         MessageBox.Show(item1);
                         MessageBox.Show(command_run);
                         return;
                     }
-                    information_label.Content = temp[1].Trim();
+                    information_label_set_str_content(temp[1].Trim());
                     input_content.Text = temp[2].Trim();
                     program_output_content.Text = temp[3].Trim();
                     expected_output_content.Text = temp[4].Trim();
@@ -223,5 +225,7 @@ namespace HzzGrader
 
             MessageBox.Show("Yo");
         }
+
+        
     }
 }

@@ -189,7 +189,7 @@ namespace HzzGrader
             pick_testcase_folder.IsEnabled = false;
             pick_testcase_zip_btn.IsEnabled = false;
 
-            information_label.Content = "start stresstesting";
+            information_label_set_str_content("start stresstesting");
             input_content.Text = "";
             program_output_content.Text = "";
             expected_output_content.Text = "";
@@ -351,7 +351,7 @@ namespace HzzGrader
                             string new_tc_folder = 
                                 MainExternalTestcaseHandler.traverse_one_child_directory(this_local_testcase_path);
                             testcase_folder.Text = new_tc_folder;
-                            information_label.Content = "The testcase has been downloaded. \nWe have loaded it from local successfully!";
+                            information_label_set_str_content("The testcase has been downloaded. \nWe have loaded it from local storage successfully");
                             pick_testcase_zip_btn.IsEnabled = true;
                             start_stress_test_btn.IsEnabled = true;
                             write_log("testcase loaded from local successfully");
@@ -366,7 +366,7 @@ namespace HzzGrader
                     testcase_folder.Text = new_tc_folder;
                     pick_testcase_zip_btn.IsEnabled = true;
                     start_stress_test_btn.IsEnabled = true;
-                    information_label.Content = "Downloaded and extracted successfully!";
+                    information_label_set_str_content("Downloaded and extracted successfully!");
                     File.WriteAllText(this_local_version_file, file_version);
                     write_log("finished downloading");
                 };
@@ -376,12 +376,12 @@ namespace HzzGrader
                     tc_zip_path.Text = "";
                     pick_testcase_zip_btn.IsEnabled = true;
                     start_stress_test_btn.IsEnabled = true;
-                    information_label.Content = "Download or extract failed.";
+                    information_label_set_str_content("Download or extract failed.");
                 };
 
             
                 start_stress_test_btn.IsEnabled = false;
-                information_label.Content = "getting the testcases";
+                information_label_set_str_content("getting the testcases");
                 
 
                 Dispatcher.BeginInvoke((Action)(
