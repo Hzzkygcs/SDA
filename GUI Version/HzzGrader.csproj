@@ -362,4 +362,8 @@
     <Error Condition="!Exists('packages\Costura.Fody.5.6.0\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Costura.Fody.5.6.0\build\Costura.Fody.targets'))" />
   </Target>
   <Import Project="packages\Costura.Fody.5.6.0\build\Costura.Fody.targets" Condition="Exists('packages\Costura.Fody.5.6.0\build\Costura.Fody.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>cd "$(SolutionDir)bin/"
+py.exe cleanup_binaries.py</PostBuildEvent>
+  </PropertyGroup>
 </Project>
