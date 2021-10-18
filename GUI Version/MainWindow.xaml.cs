@@ -1,4 +1,4 @@
-﻿#define AUTO_UPDATE
+﻿// #define AUTO_UPDATE
 
 
 using System;

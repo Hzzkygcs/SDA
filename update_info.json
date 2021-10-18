@@ -1,6 +1,6 @@
 {
-  "version": "1.2.1",
-  "path": "https://github.com/Hzzkygcs/SDA/releases/download/1.2.beta1/HzzGrader.GUI.beta.1.2.beta.1.zip",
-  "update_note": "Fitur download dan extract otomatis dari github (atau local jika belum ada testcase versi terbaru). Fitur right click pada pin window untuk toggle size. etc...",
+  "version": "1.2.2",
+  "path": "https://github.com/Hzzkygcs/SDA/releases/download/1.2.beta2/HzzGrader.GUI.beta.1.2.beta.2.zip",
+  "update_note": "minor improvement and small feature added. Cleaner binary files (removed unnecessary pdb, dll, and xml files from the executable directory)",
   "forced": false
 }
