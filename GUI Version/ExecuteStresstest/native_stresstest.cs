@@ -12,7 +12,6 @@ namespace HzzGrader
 {
     public partial class MainWindow
     {
-        
         public async Task compile_stress_test_native(){
             try{
                 if (!await test_if_javac_and_java_is_available())
@@ -49,7 +48,7 @@ namespace HzzGrader
                     MessageBox.Show("All static fields must belong to the public class and " +
                                     "should be put before any inner classes");
                     information_label_set_str_content("All static fields must belong to the public class and " +
-                                                "should be put before any inner classes");
+                                                      "should be put before any inner classes");
                     return;
                 }
 
@@ -132,8 +131,8 @@ namespace HzzGrader
                 finally_();
             }
         }
-        
-        
+
+
         public async Task execute_stress_test_native(string new_source_file_path, string information_token,
             string input_token, string program_output_token, string expected_output_token, string end_token){
 
@@ -225,7 +224,5 @@ namespace HzzGrader
 
             MessageBox.Show("Yo");
         }
-
-        
     }
 }

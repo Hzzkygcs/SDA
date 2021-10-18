@@ -5,10 +5,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:HzzGrader"
         mc:Ignorable="d"
-        
+
         Closed="DownloadTestcaseWindow_OnClosed"
         Title="DownloadTestcaseWindow" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
-    
+
     <Window.Resources>
         <Color x:Key="background1_color">#181818</Color>
         <Color x:Key="background2_color">#2b2e2e</Color>
@@ -17,7 +17,7 @@
         <Color x:Key="color_b_color">#ff304f</Color>
         <Color x:Key="color_b2_color">#f84c4c</Color>
         <Color x:Key="color_c_color">#ffffff</Color>
-        
+
         <SolidColorBrush x:Key="background1" Color="{StaticResource background2_color}" />
         <SolidColorBrush x:Key="background2" Color="{StaticResource background1_color}" />
         <SolidColorBrush x:Key="color_a" Color="{StaticResource color_a2_color}" />
@@ -28,64 +28,70 @@
         <SolidColorBrush x:Key="foreground1">
             <SolidColorBrush.Color>#ffffff</SolidColorBrush.Color>
         </SolidColorBrush>
-        
-        
+
+
         <Style x:Key="button_style" TargetType="{x:Type Button}">
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="DarkGoldenrod"/>
+                    <Setter Property="Background" Value="DarkGoldenrod" />
                 </Trigger>
             </Style.Triggers>
         </Style>
-        
-        
-        
+
+
         <Style TargetType="{x:Type ListBoxItem}" x:Key="remove_listbox_item_background_on_hover">
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-        <Setter Property="Padding" Value="2,0,0,0"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                    <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
-                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsSelected" Value="true">
-                            <Setter Property="Background" TargetName="Bd" Value="{StaticResource background2}"/>
-                            <Setter Property="Foreground" Value="{StaticResource color_b}"/>
-                        </Trigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsSelected" Value="true"/>
-                                <Condition Property="Selector.IsSelectionActive" Value="false"/>
-                            </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="Bd" Value="{StaticResource background2}"/>
-                            <Setter Property="Foreground" Value="{StaticResource color_b}"/>
-                        </MultiTrigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="{StaticResource color_b}"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-        
-        <Style x:Key="my_list_box_item" BasedOn="{StaticResource remove_listbox_item_background_on_hover}" 
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="HorizontalContentAlignment"
+                    Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+            <Setter Property="VerticalContentAlignment"
+                    Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+            <Setter Property="Padding" Value="2,0,0,0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}"
+                                SnapsToDevicePixels="true">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource background2}" />
+                                <Setter Property="Foreground" Value="{StaticResource color_b}" />
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="true" />
+                                    <Condition Property="Selector.IsSelectionActive" Value="false" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource background2}" />
+                                <Setter Property="Foreground" Value="{StaticResource color_b}" />
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{StaticResource color_b}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="my_list_box_item" BasedOn="{StaticResource remove_listbox_item_background_on_hover}"
                TargetType="ListBoxItem">
-            <Setter Property="Margin" Value="2 2"/>
-            <Setter Property="Padding" Value="2 2"/>
+            <Setter Property="Margin" Value="2 2" />
+            <Setter Property="Padding" Value="2 2" />
             <Setter Property="Foreground" Value="{StaticResource color_a}" />
             <Setter Property="Background" Value="{StaticResource background1}" />
             <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="FontSize" Value="14" />
-            
+
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property ="Foreground" Value="{StaticResource color_b}"/>
-                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="{StaticResource color_b}" />
+                    <Setter Property="Background" Value="Transparent" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -96,21 +102,20 @@
             <Style.Resources>
                 <Style TargetType="ListBoxItem" BasedOn="{StaticResource my_list_box_item}" />
                 <Style TargetType="ListBox">
-                    <Setter Property="Background" Value="{StaticResource background1}"></Setter>
+                    <Setter Property="Background" Value="{StaticResource background1}" />
                     <Setter Property="Border.BorderThickness" Value="0" />
                 </Style>
             </Style.Resources>
         </Style>
     </Window.Resources>
-    
-    
+
+
     <Grid Background="{StaticResource background1}">
         <StackPanel Style="{StaticResource stackpanel_stype}">
-            
-            <ListBox Name="list_box" 
-                     SelectionChanged="List_box_OnSelectionChanged">
-            </ListBox>
-            
+
+            <ListBox Name="list_box"
+                     SelectionChanged="List_box_OnSelectionChanged" />
+
         </StackPanel>
     </Grid>
 </Window>

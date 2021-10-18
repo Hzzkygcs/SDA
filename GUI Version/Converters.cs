@@ -6,20 +6,17 @@ using System.Windows.Forms.VisualStyles;
 
 namespace Converters
 {
-
     public class VisibilityConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, 
+        public object Convert(object value, Type targetType,
             object parameter, CultureInfo culture){
             if (value.Equals(Visibility.Visible)) return Visibility.Hidden;
             return Visibility.Visible;
         }
- 
-        public object ConvertBack(object value, Type targetType, 
+
+        public object ConvertBack(object value, Type targetType,
             object parameter, CultureInfo culture){
             return null;
         }
     }
-    
-    
 }

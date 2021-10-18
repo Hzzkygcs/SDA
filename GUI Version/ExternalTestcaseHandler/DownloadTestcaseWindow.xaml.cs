@@ -25,11 +25,12 @@ namespace HzzGrader
             }
         }
 
-        
 
         public static readonly Tuple<double, double> WINDOW_POS_AS_MAIN_WINDOW = new Tuple<double, double>(-999, -999);
+
         public DownloadTestcaseWindow(string[] daftar_list_box,
-            Action<int, string> on_selected = null, bool add_back_button = true, Tuple<double, double> window_pos = null){
+            Action<int, string> on_selected = null, bool add_back_button = true,
+            Tuple<double, double> window_pos = null){
 
             InitializeComponent();
             _add_back_button = add_back_button;
@@ -49,7 +50,7 @@ namespace HzzGrader
                     window_pos = new Tuple<double, double>(Application.Current.MainWindow.Left,
                         Application.Current.MainWindow.Top);
                 }
-                
+
                 Left = window_pos.Item1;
                 Top = window_pos.Item2;
             }
@@ -64,9 +65,9 @@ namespace HzzGrader
                     await Task.Delay(30);
                     Dispatcher.Invoke(
                         () => on_selected?.Invoke(list_box.SelectedIndex - (_add_back_button ? 1 : 0),
-                                                  list_box.SelectedItems[0].ToString())
-                        );
-                    
+                            list_box.SelectedItems[0].ToString())
+                    );
+
                 }
             );
         }
@@ -78,6 +79,7 @@ namespace HzzGrader
         }
 
         public bool is_closed_by_red_x_button = true;
+
         private void DownloadTestcaseWindow_OnClosed(object sender, EventArgs e){
             if (is_closed_by_red_x_button)
                 Application.Current.Shutdown();

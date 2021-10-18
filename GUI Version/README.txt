@@ -1,0 +1,1 @@
+﻿required .NET Framework version 4.7 or above

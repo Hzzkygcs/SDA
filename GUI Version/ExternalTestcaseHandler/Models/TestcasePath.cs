@@ -3,6 +3,5 @@
     public abstract class TestcasePath
     {
         public string name;
-        
     }
 }

@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Mime;
 using System.Text;
@@ -20,8 +19,8 @@ namespace HzzGrader
         public List<string> lines;
         public TextBox text_box;
         private TextEditor _extended_editor;
-        private int _line_pos;  // current line position
-        private int line_count = 20;  // current line position
+        private int _line_pos; // current line position
+        private int line_count = 20; // current line position
 
         public int line_pos{
             get{
@@ -44,9 +43,9 @@ namespace HzzGrader
                 if (_extended_editor != null){
                     _extended_editor.Text = value;
                 }
-                
+
                 lines = new List<string>(value.Split('\n'));
-                line_pos = line_pos;  // update the content of the TextBox
+                line_pos = line_pos; // update the content of the TextBox
             }
         }
         public TextEditor extended_editor{
@@ -56,26 +55,23 @@ namespace HzzGrader
             set{
                 _extended_editor = value;
                 _extended_editor.Text = Text;
-                Window.GetWindow(_extended_editor).Closed += (sender, args) =>
-                {
-                    this._extended_editor = null;
-                };
+                Window.GetWindow(_extended_editor).Closed += (sender, args) => { this._extended_editor = null; };
             }
         }
-        
-        
-        public TextboxLargeContent(TextBox text_box, TextEditor extended_editor=null, int line_count=50){
+
+
+        public TextboxLargeContent(TextBox text_box, TextEditor extended_editor = null, int line_count = 50){
             _line_pos = 0;
             lines = new List<string>(10);
             this.text_box = text_box;
             this._extended_editor = extended_editor;
             this.line_count = line_count;
         }
-        
+
         public void update_textbox_line(int line_index, int line_count = 50){
             TextBox text_box = this.text_box;
             List<string> lines = this.lines;
-            
+
             StringBuilder stringBuilder = new StringBuilder(line_count * 50);
 
             for (int i = line_index; i < line_index + line_count && i < lines.Count; i++){
@@ -85,8 +81,6 @@ namespace HzzGrader
 
             text_box.Text = stringBuilder.ToString();
         }
-        
-        
     }
 
 
@@ -107,6 +101,7 @@ namespace HzzGrader
 
 
         public static int scroll_line_distance = 4;
+
         private void on_scroll__large_input_textbox(object event_sender, MouseWheelEventArgs e){
             TextBox textbox = event_sender as TextBox;
             if (textbox == null)
@@ -120,8 +115,8 @@ namespace HzzGrader
             int prev_pos = content.line_pos;
             content.line_pos += (e.Delta < 0) ? scroll_line_distance : -scroll_line_distance;
 
-            write_log("scrolled: prev="+prev_pos + "  current=" + content.line_pos);
-            
+            write_log("scrolled: prev=" + prev_pos + "  current=" + content.line_pos);
+
             if (prev_pos != content.line_pos)
                 e.Handled = true;
             else{
@@ -132,13 +127,13 @@ namespace HzzGrader
         public TextboxLargeContent get_textbox_large_content(TextBox textbox){
             if (textbox == null)
                 return null;
-            
+
             if (textbox.Equals(input))
                 return input_content;
-            
+
             if (textbox.Equals(program_output))
                 return program_output_content;
-            
+
             if (textbox.Equals(expected_output))
                 return expected_output_content;
             return null;
@@ -158,7 +153,6 @@ namespace HzzGrader
                 });
             }
         }
-
 
 
         private void on_dblclick__large_input_textbox(object sender, MouseButtonEventArgs e){
@@ -184,19 +178,18 @@ namespace HzzGrader
                 TextboxLargeContent content = get_textbox_large_content(textbox);
                 content.line_pos = content.lines.Count - 5;
             }
-            
+
             if (e.Key == Key.Home){
                 TextboxLargeContent content = get_textbox_large_content(textbox);
                 content.line_pos = 0;
             }
         }
 
-        
-        public static T get_child_of_type<T>(DependencyObject dependency_object) where T: DependencyObject{
+
+        public static T get_child_of_type<T>(DependencyObject dependency_object) where T : DependencyObject{
             if (dependency_object == null) return null;
 
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(dependency_object); i++)
-            {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(dependency_object); i++){
                 var child = VisualTreeHelper.GetChild(dependency_object, i);
 
                 var result = (child as T) ?? get_child_of_type<T>(child);
@@ -204,23 +197,20 @@ namespace HzzGrader
             }
             return null;
         }
-        
-        public static List<T> get_all_child_of_type<T>(DependencyObject dependency_object) where T: DependencyObject{
+
+        public static List<T> get_all_child_of_type<T>(DependencyObject dependency_object) where T : DependencyObject{
             if (dependency_object == null)
                 return null;
             List<T> ret = new List<T>(5);
-            
+
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(dependency_object); i++){
                 var child = VisualTreeHelper.GetChild(dependency_object, i);
                 var child_as_T = child as T;
-                if (child_as_T != null) 
+                if (child_as_T != null)
                     ret.Add(child_as_T);
             }
-            
+
             return ret;
         }
     }
-
-    
-    
 }

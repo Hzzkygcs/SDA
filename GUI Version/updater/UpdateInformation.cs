@@ -21,15 +21,15 @@ namespace HzzGrader.updater
         public override string ToString(){
             return String.Format(
                 "UpdateInformation(version=\"{0}\", path=\"{1}\", update_note=\"{2}\", forced=\"{3}\")",
-                version,path, update_note, forced
-                );
+                version, path, update_note, forced
+            );
         }
 
         public int CompareTo(UpdateInformation other){
             return version_comparator(version, other.version);
         }
-        
-        
+
+
         public static int version_comparator(string version1, string version2){
             string[] temp1 = version1.Split('.');
             string[] temp2 = version2.Split('.');

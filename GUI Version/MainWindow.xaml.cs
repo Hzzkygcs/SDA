@@ -20,17 +20,12 @@ using MessageBox = System.Windows.Forms.MessageBox;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 
-
-
 namespace HzzGrader
 {
-
-
-
     public partial class MainWindow
     {
         public static double header_section_panel_maxwidth;
-        
+
         public static readonly String prev_source_code_directory = "prevdir";
         public static readonly String prev_testcase_directory = "tc_prevdir";
         private string __native_hzz_grader_src_code;
@@ -43,7 +38,7 @@ namespace HzzGrader
 
         public readonly string src_code_backup_dir_path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "backup");
         public readonly string compile_dir_path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bin");
-        
+
 #if AUTO_UPDATE
         public Updater updater = new Updater();
 #endif
@@ -80,28 +75,30 @@ namespace HzzGrader
         }
 
         public void copy_to_debug_directory(string source_directory){
-            foreach(var file in Directory.GetFiles(debug_directory))
+            foreach (var file in Directory.GetFiles(debug_directory))
                 File.Delete(file);
-            foreach(var file in Directory.GetFiles(source_directory))
+            foreach (var file in Directory.GetFiles(source_directory))
                 File.Copy(file, Path.Combine(debug_directory, Path.GetFileName(file)));
             write_log("the resulting files:  \"" + source_directory + "\"   has been copied to " + debug_directory);
         }
+
         public MainWindow(){
             InitializeComponent();
 
-            File.AppendAllText(log_file, "\n\n============= started on " + DateTime.Now.ToString("dd-MM-yyyy hh:mm") + " =============\n");
+            File.AppendAllText(log_file,
+                "\n\n============= started on " + DateTime.Now.ToString("dd-MM-yyyy hh:mm") + " =============\n");
             Dispatcher.Invoke(MainExternalTestcaseHandler.initial_caching);
 
 #if AUTO_UPDATE
             Updater.log_updater = write_log;
             version_number_label.Text = updater.update_information.version;
 #else
-            version_number_label.Text = Updater.read_embedded_resource("HzzGrader.updater.current_version.txt").Trim();            
+            version_number_label.Text = Updater.read_embedded_resource("HzzGrader.updater.current_version.txt").Trim();
 #endif
 
             try{
                 header_section_panel_maxwidth = header_section_panel.MaxWidth;
-                
+
                 if (Directory.Exists(Path.Combine(current_app_dir, "update")))
                     Directory.Delete(Path.Combine(current_app_dir, "update"), true);
 
@@ -142,7 +139,8 @@ namespace HzzGrader
                     // jangan lupa set HzzGrader/HzzGrader.java jadi bertipe EmbededFile
                     __native_hzz_grader_src_code = stream_reader.ReadToEnd();
                 }
-            }catch (Exception e){
+            }
+            catch (Exception e){
                 write_log("AN ERROR WAS FOUND WHEN RUNNING THE APPS");
                 write_log("======   message   ======");
                 write_log(e.Message);
@@ -154,12 +152,12 @@ namespace HzzGrader
 
         private void ButtonBase_get_path_OnClick(object sender, RoutedEventArgs e){
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            
+
             openFileDialog.InitialDirectory = Path.GetDirectoryName(default_source_code_directory);
             openFileDialog.Filter = "java files (*.java)|*.java|All files (*.*)|*.*";
             openFileDialog.FilterIndex = 0;
             openFileDialog.RestoreDirectory = false;
-            
+
             if (openFileDialog.ShowDialog() == true){
                 //Get the path of specified file
                 string filePath = openFileDialog.FileName;
@@ -168,7 +166,7 @@ namespace HzzGrader
             }
         }
 
-        
+
         private void ButtonBase_get_tc_folder_OnClick(object sender, RoutedEventArgs e){
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
             dialog.IsFolderPicker = true;
@@ -204,14 +202,14 @@ namespace HzzGrader
                 on_error();
                 return;
             }
-            
+
             if (!Directory.Exists(testcase_folder.Text)){
                 MessageBox.Show("Your testcase folder is not found!", "File Not Found",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 on_error();
                 return;
             }
-            
+
             if (native_hzzgrader_chb.IsChecked.Value)
                 Dispatcher.Invoke(compile_stress_test_native);
             else{
@@ -220,7 +218,7 @@ namespace HzzGrader
         }
 
 
-        private void Testcase_folder_OnLostFocus(object sender, RoutedEventArgs e) {
+        private void Testcase_folder_OnLostFocus(object sender, RoutedEventArgs e){
             if (!testcase_folder.Text.Equals(default_testcase_directory))
                 default_testcase_directory = testcase_folder.Text;
         }
@@ -231,7 +229,8 @@ namespace HzzGrader
         }
 
         private void hzzgrader_label_on_right_click__open_log_file(object sender, MouseButtonEventArgs e){
-            string edit = (string)Registry.GetValue(@"HKEY_CLASSES_ROOT\SystemFileAssociations\text\shell\edit\command", null, null);
+            string edit = (string)Registry.GetValue(@"HKEY_CLASSES_ROOT\SystemFileAssociations\text\shell\edit\command",
+                null, null);
             edit = edit.Replace("%1", log_file);
 
             ProcessStartInfo process_start_info = new ProcessStartInfo("cmd.exe", "/c " + edit);
@@ -252,7 +251,7 @@ namespace HzzGrader
 
 
         private void label_input_panel_OnMouseUp__open_ExtendedEditor(object sender, MouseButtonEventArgs e){
-            if (extended_editor == null  ||  extended_editor.is_closed){
+            if (extended_editor == null || extended_editor.is_closed){
                 Action restart_testcase = () =>
                 {
                     if (!start_stress_test_btn.IsEnabled){
@@ -261,7 +260,7 @@ namespace HzzGrader
                     }
                     start_stress_test_btn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 };
-                
+
                 extended_editor = new ExtendedEditor();
                 input_content.extended_editor = extended_editor.input_editor;
                 program_output_content.extended_editor = extended_editor.program_output_editor;
@@ -269,23 +268,23 @@ namespace HzzGrader
                 extended_editor.restart_stresstest = restart_testcase;
                 extended_editor.Show();
             }
-            
-            
+
 
             Dispatcher.Invoke(async () =>
             {
                 await extended_editor.equalize_number_of_line();
                 await extended_editor?.update_differences_colouring();
             });
-            
+
             extended_editor.Activate();
         }
-        
+
         private void on_error(){
             finally_();
         }
-        
-        private void finally_(){  // might be called twice or more
+
+        private void finally_(){
+            // might be called twice or more
             start_stress_test_btn.IsEnabled = true;
             native_hzzgrader_chb.IsEnabled = true;
             java_file_path.IsEnabled = true;
@@ -314,7 +313,7 @@ namespace HzzGrader
             start_stress_test_btn.IsEnabled = false;
 
             string maintain = "";
-            
+
             Action<bool, string, string> on_done = async (success, url, file_version) =>
             {
                 Show();
@@ -328,19 +327,20 @@ namespace HzzGrader
                     start_stress_test_btn.IsEnabled = true;
                     return;
                 }
-                
+
                 tc_zip_path.Text = url.Substring(MainExternalTestcaseHandler.root_url.Length);
                 file_version = file_version.Trim();
                 int file_version_int;
 
                 string file_path_from_url_root =
                     url.Substring(MainExternalTestcaseHandler.root_url.Length).Replace('/', '\\');
-                
+
                 // different from MainExternalTestcaseHandler.testcase_local_dir, `this_...` refer to a more specific
                 // path instead of MainExternalTestcaseHandler.testcase_local_dir
                 string this_local_testcase_path = Path.Combine(MainExternalTestcaseHandler.testcase_local_dir,
                     Path.ChangeExtension(file_path_from_url_root, null));
-                string this_local_version_file = Path.Combine(this_local_testcase_path, MainExternalTestcaseHandler.testcase_local_version_filename);
+                string this_local_version_file = Path.Combine(this_local_testcase_path,
+                    MainExternalTestcaseHandler.testcase_local_version_filename);
 
                 if (Int32.TryParse(file_version, out file_version_int) &&
                     File.Exists(this_local_version_file)){
@@ -348,10 +348,11 @@ namespace HzzGrader
                     int local_version_int;
                     if (Int32.TryParse(local_version, out local_version_int)){
                         if (local_version_int >= file_version_int){
-                            string new_tc_folder = 
+                            string new_tc_folder =
                                 MainExternalTestcaseHandler.traverse_one_child_directory(this_local_testcase_path);
                             testcase_folder.Text = new_tc_folder;
-                            information_label_set_str_content("The testcase has been downloaded. \nWe have loaded it from local storage successfully");
+                            information_label_set_str_content(
+                                "The testcase has been downloaded. \nWe have loaded it from local storage successfully");
                             pick_testcase_zip_btn.IsEnabled = true;
                             start_stress_test_btn.IsEnabled = true;
                             write_log("testcase loaded from local successfully");
@@ -359,8 +360,8 @@ namespace HzzGrader
                         }
                     }
                 }
-            
-                
+
+
                 Action<bool, string> on_testcase_downloaded = async (download_success, new_tc_folder) =>
                 {
                     testcase_folder.Text = new_tc_folder;
@@ -370,7 +371,7 @@ namespace HzzGrader
                     File.WriteAllText(this_local_version_file, file_version);
                     write_log("finished downloading");
                 };
-                
+
                 Action<bool, string> on_testcase_download_failed = async (download_success, new_tc_folder) =>
                 {
                     tc_zip_path.Text = "";
@@ -379,10 +380,10 @@ namespace HzzGrader
                     information_label_set_str_content("Download or extract failed.");
                 };
 
-            
+
                 start_stress_test_btn.IsEnabled = false;
                 information_label_set_str_content("getting the testcases");
-                
+
 
                 Dispatcher.BeginInvoke((Action)(
                     async () =>
@@ -391,17 +392,17 @@ namespace HzzGrader
                             on_testcase_downloaded,
                             on_testcase_download_failed);
                     }
-                    ));
+                ));
             };
-            
-            
+
+
             Action<Exception> on_error = (exception) =>
             {
                 bool is_connection_error = false;
                 if (exception is AggregateException){
                     write_log("on_error download testcase: AggregateException");
 
-                    AggregateException ae = (AggregateException) exception;
+                    AggregateException ae = (AggregateException)exception;
                     ae.Handle((handle_exception =>
                     {
                         write_log("======== ae handle ========");
@@ -414,25 +415,26 @@ namespace HzzGrader
                     write_log("======== ae end ========");
                 }
 
-                
-                
+
                 keep_hide = false;
                 pick_testcase_zip_btn.IsEnabled = true;
                 start_stress_test_btn.IsEnabled = true;
-                
-                write_log("When fetching testcase list information from server, there's an error: \n" + exception.Message);
+
+                write_log("When fetching testcase list information from server, there's an error: \n" +
+                          exception.Message);
                 write_log(exception.StackTrace);
-                
+
                 if (is_connection_error){
                     MessageBox.Show("Sorry, we couldn't access " + MainExternalTestcaseHandler.root_url);
-                }else{
+                }
+                else{
                     MessageBox.Show(exception.Message);
                     MessageBox.Show(exception.StackTrace);
                 }
                 Show();
             };
-            
-            
+
+
             await MainExternalTestcaseHandler.start_window(on_done, on_error);
             if (keep_hide)
                 Hide();
@@ -442,12 +444,13 @@ namespace HzzGrader
             CheckBox checkBox = sender as CheckBox;
             if (checkBox == null)
                 return;
-            
+
             string extra_label = " (pinned)";
             if (checkBox.IsChecked == true){
                 Topmost = true;
                 Title += extra_label;
-            }else{
+            }
+            else{
                 Topmost = false;
                 Title = Title.Substring(0, Title.Length - extra_label.Length);
             }
@@ -463,7 +466,8 @@ namespace HzzGrader
 
             if (e.NewSize.Height < 250){
                 border_wrapper__input.Visibility = Visibility.Collapsed;
-            }else{
+            }
+            else{
                 border_wrapper__input.Visibility = Visibility.Visible;
             }
 
@@ -476,21 +480,22 @@ namespace HzzGrader
                 java_source_panel.MaxWidth = MAX_WIDTH_LOWER_LIMIT;
                 tc_zip_panel.MaxWidth = MAX_WIDTH_LOWER_LIMIT;
                 tc_folder_panel.MaxWidth = MAX_WIDTH_LOWER_LIMIT;
-            }else{
+            }
+            else{
                 brand_label.Visibility = Visibility.Visible;
                 version_label.Visibility = Visibility.Visible;
-                
+
                 int MAX_WIDTH_UPPER_LIMIT = 500;
 
                 int UPPER_LIMIT = 700;
-                
-                
+
+
                 if (e.NewSize.Width < UPPER_LIMIT){
                     // window's width is between 450 and 700
-                    
+
                     // To make it a linear smooth scaling instead of discrete scaling
-                    int temp_size = MAX_WIDTH_LOWER_LIMIT + (MAX_WIDTH_UPPER_LIMIT - MAX_WIDTH_LOWER_LIMIT) 
-                        * ((Int32)(e.NewSize.Width) - LOWER_LIMIT) / (UPPER_LIMIT - LOWER_LIMIT);  
+                    int temp_size = MAX_WIDTH_LOWER_LIMIT + (MAX_WIDTH_UPPER_LIMIT - MAX_WIDTH_LOWER_LIMIT)
+                        * ((Int32)(e.NewSize.Width) - LOWER_LIMIT) / (UPPER_LIMIT - LOWER_LIMIT);
                     java_source_panel.MaxWidth = temp_size;
                     tc_zip_panel.MaxWidth = temp_size;
                     tc_folder_panel.MaxWidth = temp_size;
@@ -505,15 +510,16 @@ namespace HzzGrader
 
         private double? prev_window_width = null;
         private double? prev_window_height = null;
-        private bool anchor_at_top_left = false; 
+        private bool anchor_at_top_left = false;
+
         private void Window_pin_cb_OnMouseUp(object sender, MouseButtonEventArgs e){
             if (e.ChangedButton == MouseButton.Right){
                 if (prev_window_width == null || prev_window_height == null){
                     prev_window_height = MinHeight;
                     prev_window_width = MinWidth;
                 }
-            
-            
+
+
                 // we want the window position is anchored at top-right corner when we resize it
                 if (!anchor_at_top_left)
                     Application.Current.MainWindow.Left += ActualWidth - (double)prev_window_width;
@@ -526,10 +532,10 @@ namespace HzzGrader
 
                 prev_window_width = current_window_width;
                 prev_window_height = current_window_height;
-            }else if (e.ChangedButton == MouseButton.Middle){
+            }
+            else if (e.ChangedButton == MouseButton.Middle){
                 anchor_at_top_left = !anchor_at_top_left;
             }
         }
     }
-
 }

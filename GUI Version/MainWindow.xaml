@@ -1,17 +1,18 @@
 ﻿<Window
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:HzzGrader"
-        xmlns:l="clr-namespace:Converters"
-    
-        xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="HzzGrader.MainWindow"
-        SizeChanged="MainWindow_OnSizeChanged"
-        
-        mc:Ignorable="d"
-        Title="HzzGrader" Height="500" Width="700" 
-        MinHeight="200" MinWidth="300">
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:HzzGrader"
+    xmlns:l="clr-namespace:Converters"
+
+    xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
+    x:Class="HzzGrader.MainWindow"
+    SizeChanged="MainWindow_OnSizeChanged"
+
+    mc:Ignorable="d"
+    Title="HzzGrader" Height="500" Width="700"
+    MinHeight="200" MinWidth="300">
 
     <Window.Resources>
         <l:VisibilityConverter x:Key="Visibility_converter" />
@@ -35,27 +36,27 @@
         <SolidColorBrush x:Key="color_b2" Color="{StaticResource color_b2_color}" />
         <SolidColorBrush x:Key="color_c" Color="{StaticResource color_c_color}" />
         <SolidColorBrush x:Key="color_d" Color="{StaticResource color_d_color}" />
-        <SolidColorBrush x:Key="foreground1" Color="#ffffff"/>
+        <SolidColorBrush x:Key="foreground1" Color="#ffffff" />
 
 
-
-        <Style x:Key="tombol_merah"  TargetType="{x:Type Button}">
+        <Style x:Key="tombol_merah" TargetType="{x:Type Button}">
             <!-- mengatur warna saat hover -->
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border x:Name="Border" Background="{TemplateBinding Background}">
-                            <ContentPresenter x:Name="content_presenter" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <ContentPresenter x:Name="content_presenter" HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" 
-                                    Value="{StaticResource color_b2}" TargetName="Border" />
+                                <Setter Property="Background"
+                                        Value="{StaticResource color_b2}" TargetName="Border" />
                             </Trigger>
 
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Background" Value="{StaticResource background3}" TargetName="Border"/>
-                                <Setter Property="TextElement.Foreground" Value="Black" TargetName="content_presenter"/>
+                                <Setter Property="Background" Value="{StaticResource background3}" TargetName="Border" />
+                                <Setter Property="TextElement.Foreground" Value="Black" TargetName="content_presenter" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -70,16 +71,17 @@
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border x:Name="Border" Background="{TemplateBinding Background}"
                                 Padding="2">
-                            <ContentPresenter x:Name="content_presenter" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <ContentPresenter x:Name="content_presenter" HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" 
+                                <Setter Property="Background"
                                         Value="{StaticResource color_a2}" TargetName="Border" />
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Background" Value="{StaticResource background3}" TargetName="Border"/>
-                                <Setter Property="TextElement.Foreground" Value="Black" TargetName="content_presenter"/>
+                                <Setter Property="Background" Value="{StaticResource background3}" TargetName="Border" />
+                                <Setter Property="TextElement.Foreground" Value="Black" TargetName="content_presenter" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -87,310 +89,305 @@
             </Setter>
         </Style>
 
-        
-
 
     </Window.Resources>
 
 
-
-
-
-
     <!--<ScrollViewer VerticalScrollBarVisibility="Auto" x:Name="main_scroll_viewer">-->
 
-        <Grid x:Name="outter_panel">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+    <Grid x:Name="outter_panel">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
 
-            <Label FontSize="15" FontWeight="Bold" 
-                   Name="brand_label"
-                   Cursor="Hand" Panel.ZIndex="1000"
-                   MouseUp="hzzgrader_label_on_mouseUp__open_debug_directory"
-                   MouseRightButtonUp="hzzgrader_label_on_right_click__open_log_file"
-                   MouseLeftButtonUp="hzzgrader_label_on_click__open_repository">
-                <StackPanel Orientation="Horizontal" x:Name="hzzgrader_panel">
-                    <TextBlock Foreground="{StaticResource color_a}" Text="Hzz"/>
-                    <TextBlock Foreground="{StaticResource color_b}" Text="Grader"/>
-                </StackPanel>
-            </Label>
+        <Label FontSize="15" FontWeight="Bold"
+               Name="brand_label"
+               Cursor="Hand" Panel.ZIndex="1000"
+               MouseUp="hzzgrader_label_on_mouseUp__open_debug_directory"
+               MouseRightButtonUp="hzzgrader_label_on_right_click__open_log_file"
+               MouseLeftButtonUp="hzzgrader_label_on_click__open_repository">
+            <StackPanel Orientation="Horizontal" x:Name="hzzgrader_panel">
+                <TextBlock Foreground="{StaticResource color_a}" Text="Hzz" />
+                <TextBlock Foreground="{StaticResource color_b}" Text="Grader" />
+            </StackPanel>
+        </Label>
 
-            <Label Grid.Column="2"
-                   Name="version_label"
-                   FontSize="12" FontWeight="Bold" 
-                   Panel.ZIndex="1000">
+        <Label Grid.Column="2"
+               Name="version_label"
+               FontSize="12" FontWeight="Bold"
+               Panel.ZIndex="1000">
 
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Foreground="{StaticResource color_b}" Text="ver "/>
-                    <TextBlock x:Name="version_number_label"  Foreground="{StaticResource color_a}" Text="0.0.0"/>
-                </StackPanel>
-            </Label>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Foreground="{StaticResource color_b}" Text="ver " />
+                <TextBlock x:Name="version_number_label" Foreground="{StaticResource color_a}" Text="0.0.0" />
+            </StackPanel>
+        </Label>
 
 
-            <DockPanel Grid.ColumnSpan="3" Grid.RowSpan="2" x:Name="main_panel"
-                       HorizontalAlignment="Stretch" 
-                       VerticalAlignment="Stretch"
-                       LastChildFill="True"
-                       Background="{StaticResource background1}">
+        <DockPanel Grid.ColumnSpan="3" Grid.RowSpan="2" x:Name="main_panel"
+                   HorizontalAlignment="Stretch"
+                   VerticalAlignment="Stretch"
+                   LastChildFill="True"
+                   Background="{StaticResource background1}">
 
-                <Grid 
-                    Name="core_grid"
-                    DockPanel.Dock="Top" VerticalAlignment="Stretch"  Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type UIElement}, Mode=FindAncestor}}">
-                    <!--background removed-->
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                    </Grid.RowDefinitions>
+            <Grid
+                Name="core_grid"
+                DockPanel.Dock="Top" VerticalAlignment="Stretch"
+                Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type UIElement}, Mode=FindAncestor}}">
+                <!--background removed-->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <!--<ColumnDefinition Width="4*"></ColumnDefinition>-->
-                        </Grid.ColumnDefinitions>
-                        <Border Grid.Column="0" DockPanel.Dock="Top">
-                            <StackPanel 
-                                Name="header_section_panel"
-                                Margin="10 10" VerticalAlignment="Center" MaxWidth="1000">
-                                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                                    <DockPanel>
-                                        <DockPanel DockPanel.Dock="Top" LastChildFill="True" MaxWidth="500"
-                                                   Name="java_source_panel">
-                                            <Button 
-                                                    x:Name="pick_java_file_btn"
-                                                    DockPanel.Dock="Right"   
-                                                    Click="ButtonBase_get_path_OnClick" 
-                                                    Margin="0 5" Background="{StaticResource color_b}" 
-                                                    Foreground="{StaticResource foreground1}" Cursor="Hand" 
-                                                    BorderThickness="0" 
-                                                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                                    Style="{StaticResource tombol_merah}"
-                                                    Content="" />
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <!--<ColumnDefinition Width="4*"></ColumnDefinition>-->
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" DockPanel.Dock="Top">
+                        <StackPanel
+                            Name="header_section_panel"
+                            Margin="10 10" VerticalAlignment="Center" MaxWidth="1000">
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                <DockPanel>
+                                    <DockPanel DockPanel.Dock="Top" LastChildFill="True" MaxWidth="500"
+                                               Name="java_source_panel">
+                                        <Button
+                                            x:Name="pick_java_file_btn"
+                                            DockPanel.Dock="Right"
+                                            Click="ButtonBase_get_path_OnClick"
+                                            Margin="0 5" Background="{StaticResource color_b}"
+                                            Foreground="{StaticResource foreground1}" Cursor="Hand"
+                                            BorderThickness="0"
+                                            Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                            Style="{StaticResource tombol_merah}"
+                                            Content="" />
 
-                                            <Label 
-                                                x:Name="label_java_souce_file"
-                                                Foreground="{StaticResource foreground1}"
-                                                Width="{Binding ActualWidth, ElementName=label_testcase_folder}"
-                                                Content="Your java file: " />
+                                        <Label
+                                            x:Name="label_java_souce_file"
+                                            Foreground="{StaticResource foreground1}"
+                                            Width="{Binding ActualWidth, ElementName=label_testcase_folder}"
+                                            Content="Your java file: " />
 
-                                            <TextBox x:Name="java_file_path" MinWidth="200" 
-                                                     Margin="5 5" Background="{StaticResource background2}"
-                                                     Foreground="{StaticResource foreground1}" BorderThickness="0"/>
+                                        <TextBox x:Name="java_file_path" MinWidth="200"
+                                                 Margin="5 5" Background="{StaticResource background2}"
+                                                 Foreground="{StaticResource foreground1}" BorderThickness="0" />
 
+                                    </DockPanel>
+
+                                    <Grid DockPanel.Dock="Top">
+                                        <DockPanel x:Name="tc_folder_panel" MaxWidth="500" Visibility="Hidden">
+                                            <Button
+                                                x:Name="pick_testcase_folder"
+                                                DockPanel.Dock="Right"
+                                                Click="ButtonBase_get_tc_folder_OnClick"
+                                                Margin="0 5" Background="{StaticResource color_b}"
+                                                Foreground="{StaticResource foreground1}" Cursor="Hand"
+                                                BorderThickness="0"
+                                                Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                                Height="{Binding ActualHeight, ElementName=pick_java_file_btn}"
+                                                Style="{StaticResource tombol_merah}"
+                                                Content="" />
+
+                                            <Label x:Name="label_testcase_folder"
+                                                   Foreground="{StaticResource foreground1}"
+                                                   MouseUp="Label_testcase_folder_OnMouseUp"
+                                                   ToolTip="switch between two testcase mode"
+                                                   Cursor="Hand"
+                                                   Content="Testcase folder: " />
+
+                                            <TextBox DockPanel.Dock="Top" x:Name="testcase_folder" MinWidth="200"
+                                                     Margin="5 5" LostFocus="Testcase_folder_OnLostFocus"
+                                                     Background="{StaticResource background2}"
+                                                     Foreground="{StaticResource foreground1}" BorderThickness="0" />
                                         </DockPanel>
 
-                                        <Grid DockPanel.Dock="Top">
-                                            <DockPanel x:Name="tc_folder_panel" MaxWidth="500" Visibility="Hidden">
-                                                <Button 
-                                                        x:Name="pick_testcase_folder"
-                                                        DockPanel.Dock="Right" 
-                                                        Click="ButtonBase_get_tc_folder_OnClick"
-                                                        Margin="0 5" Background="{StaticResource color_b}" 
-                                                        Foreground="{StaticResource foreground1}" Cursor="Hand" 
-                                                        BorderThickness="0" 
-                                                        Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                                        Height="{Binding ActualHeight, ElementName=pick_java_file_btn}"
-                                                        Style="{StaticResource tombol_merah}"
-                                                        Content=""/>
 
-                                                <Label x:Name="label_testcase_folder"
-                                                    Foreground="{StaticResource foreground1}"
-                                                    MouseUp="Label_testcase_folder_OnMouseUp"
-                                                    ToolTip="switch between two testcase mode"
-                                                    Cursor="Hand"
-                                                    Content="Testcase folder: "/>
-
-                                                <TextBox DockPanel.Dock="Top" x:Name="testcase_folder" MinWidth="200" 
-                                                         Margin="5 5" LostFocus="Testcase_folder_OnLostFocus" Background="{StaticResource background2}"
-                                                         Foreground="{StaticResource foreground1}" BorderThickness="0"/>
+                                        <DockPanel DockPanel.Dock="Top" x:Name="tc_zip_panel" MaxWidth="500">
+                                            <DockPanel Width="{Binding Width, ElementName=label_java_souce_file}"
+                                                       LastChildFill="False">
+                                                <Label x:Name="label_testcase_zip"
+                                                       Foreground="{StaticResource foreground1}"
+                                                       MouseUp="Label_testcase_zip_OnMouseUp"
+                                                       ToolTip="switch between two testcase mode"
+                                                       Cursor="Hand"
+                                                       Content="Testcase type: " />
                                             </DockPanel>
 
+                                            <Button
+                                                x:Name="pick_testcase_zip_btn"
+                                                DockPanel.Dock="Right"
+                                                Click="Pick_testcase_zip_btn_OnClick"
+                                                Margin="0 5" Background="{StaticResource color_b}"
+                                                Foreground="{StaticResource foreground1}" Cursor="Hand"
+                                                BorderThickness="0"
+                                                Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                                Style="{StaticResource tombol_merah}"
+                                                Content="" />
 
-                                            <DockPanel DockPanel.Dock="Top" x:Name="tc_zip_panel" MaxWidth="500">
-                                                <DockPanel Width="{Binding Width, ElementName=label_java_souce_file}" 
-                                                           LastChildFill="False">
-                                                    <Label x:Name="label_testcase_zip"
-                                                           Foreground="{StaticResource foreground1}"
-                                                           MouseUp="Label_testcase_zip_OnMouseUp"
-                                                           ToolTip="switch between two testcase mode"
-                                                           Cursor="Hand"
-                                                           Content="Testcase type: "/>
-                                                </DockPanel>
-                                                
-                                                <Button 
-                                                    x:Name="pick_testcase_zip_btn"
-                                                    DockPanel.Dock="Right"   
-                                                    Click="Pick_testcase_zip_btn_OnClick" 
-                                                    Margin="0 5" Background="{StaticResource color_b}" 
-                                                    Foreground="{StaticResource foreground1}" Cursor="Hand" 
-                                                    BorderThickness="0" 
-                                                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
-                                                    Style="{StaticResource tombol_merah}"
-                                                    Content=""/>
-                                                
-                                                <TextBox x:Name="tc_zip_path" MinWidth="200" 
-                                                         IsReadOnly="True"
-                                                         Margin="5 5" Background="{StaticResource background2}"
-                                                         Foreground="{StaticResource foreground1}" BorderThickness="0"/>
-                                            </DockPanel>
+                                            <TextBox x:Name="tc_zip_path" MinWidth="200"
+                                                     IsReadOnly="True"
+                                                     Margin="5 5" Background="{StaticResource background2}"
+                                                     Foreground="{StaticResource foreground1}" BorderThickness="0" />
+                                        </DockPanel>
 
-                                        </Grid>
-                                    </DockPanel>
-                                </StackPanel>
+                                    </Grid>
+                                </DockPanel>
+                            </StackPanel>
 
 
-                                <Button DockPanel.Dock="Top" 
-                                        x:Name="start_stress_test_btn"
-                                        Click="ButtonBase_start_test_OnClick"  
-                                        Margin="0 5" MaxWidth="500" Background="{StaticResource color_a}"
-                                        Width="{Binding ActualWidth, ElementName=tc_folder_panel}"
-                                        Foreground="{StaticResource foreground1}" Cursor="Hand"
-                                        Style="{StaticResource tombol_biru}"
-                                        Content="Start Test" BorderThickness="0"/>
-                                
-                                <DockPanel DockPanel.Dock="Top"
-                                           LastChildFill="False"
-                                           Width="{Binding ElementName=start_stress_test_btn, Path=ActualWidth}">
-                                    <CheckBox x:Name="native_hzzgrader_chb" DockPanel.Dock="Left" IsChecked="True"
-                                              Content="Use fast native HzzGrader"
-                                              Foreground="{StaticResource foreground1}"/>
-                                    
-                                    <CheckBox DockPanel.Dock="Right"
-                                              Name="window_pin_cb"
-                                              IsChecked="False"
-                                              Foreground="{StaticResource foreground1}"
-                                              ToolTip="centang untuk membuat window selalu di atas 
+                            <Button DockPanel.Dock="Top"
+                                    x:Name="start_stress_test_btn"
+                                    Click="ButtonBase_start_test_OnClick"
+                                    Margin="0 5" MaxWidth="500" Background="{StaticResource color_a}"
+                                    Width="{Binding ActualWidth, ElementName=tc_folder_panel}"
+                                    Foreground="{StaticResource foreground1}" Cursor="Hand"
+                                    Style="{StaticResource tombol_biru}"
+                                    Content="Start Test" BorderThickness="0" />
+
+                            <DockPanel DockPanel.Dock="Top"
+                                       LastChildFill="False"
+                                       Width="{Binding ElementName=start_stress_test_btn, Path=ActualWidth}">
+                                <CheckBox x:Name="native_hzzgrader_chb" DockPanel.Dock="Left" IsChecked="True"
+                                          Content="Use fast native HzzGrader"
+                                          Foreground="{StaticResource foreground1}" />
+
+                                <CheckBox DockPanel.Dock="Right"
+                                          Name="window_pin_cb"
+                                          IsChecked="False"
+                                          Foreground="{StaticResource foreground1}"
+                                          ToolTip="centang untuk membuat window selalu di atas 
                                               &#x0a;klik kanan untuk toggle size window otomatis
                                               &#x0a;klik tengah untuk toggle window anchor position saat toggle size"
-                                              
-                                              ToolTipService.ShowDuration="4000"
-                                              Checked="Window_pin_cb_check_changed"
-                                              Unchecked="Window_pin_cb_check_changed"
-                                              MouseUp="Window_pin_cb_OnMouseUp">
-                                        pin window
-                                    </CheckBox>
-                                </DockPanel>
-                                
-                            </StackPanel>
-                        </Border>
-                    </Grid>
 
+                                          ToolTipService.ShowDuration="4000"
+                                          Checked="Window_pin_cb_check_changed"
+                                          Unchecked="Window_pin_cb_check_changed"
+                                          MouseUp="Window_pin_cb_OnMouseUp">
+                                    pin window
+                                </CheckBox>
+                            </DockPanel>
 
-                    <Border Grid.Row="1" DockPanel.Dock="Top">
-                        <DockPanel Margin="10 5">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  DockPanel.Dock="Top">
-                                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                                    <Label 
-                                        x:Name="label_input_panel"
-                                        Cursor="Hand"
-                                        Padding="1"
-                                        HorizontalAlignment="Center" Foreground="{StaticResource foreground1}"
-                                        ToolTip="Click to open up additional window" 
-                                        ToolTipService.ShowDuration="5000" 
-                                        MouseUp="label_input_panel_OnMouseUp__open_ExtendedEditor" Content="input"/>
-                                    <TextBlock x:Name="information_label" 
-                                           HorizontalAlignment="Center" 
-                                           Foreground="{StaticResource foreground1}"
-                                           TextAlignment="Center"/>
-                                </StackPanel>
-                            </StackPanel>
-
-                            <Border BorderBrush="{StaticResource color_a}" BorderThickness="1" CornerRadius="5" 
-                                    DockPanel.Dock="Top"
-                                    Name="border_wrapper__input">
-                                <TextBox x:Name="input" 
-                                         TextWrapping="Wrap" 
-                                         MinWidth="400"
-                                         MinHeight="60"
-                                         IsReadOnly="True"
-                                         Background="{StaticResource background2}"
-                                         Foreground="{StaticResource foreground1}"
-                                         BorderThickness="0" 
-                                         ToolTip="double click to copy whole content to the clipboard"
-                                         PreviewMouseWheel="on_scroll__large_input_textbox"
-                                         PreviewMouseDown="on_click__large_input_textbox"
-                                         PreviewKeyDown="on_key_down__large_input_textbox"
-                                         PreviewMouseDoubleClick="on_dblclick__large_input_textbox"
-                                         />
-                            </Border>
-                        </DockPanel>
+                        </StackPanel>
                     </Border>
+                </Grid>
 
 
-                    <Border Grid.Row="2" DockPanel.Dock="Top"
-                            Name="program_and_expected_output__outter_border">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="1*"/>
-                            </Grid.ColumnDefinitions>
+                <Border Grid.Row="1" DockPanel.Dock="Top">
+                    <DockPanel Margin="10 5">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" DockPanel.Dock="Top">
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                <Label
+                                    x:Name="label_input_panel"
+                                    Cursor="Hand"
+                                    Padding="1"
+                                    HorizontalAlignment="Center" Foreground="{StaticResource foreground1}"
+                                    ToolTip="Click to open up additional window"
+                                    ToolTipService.ShowDuration="5000"
+                                    MouseUp="label_input_panel_OnMouseUp__open_ExtendedEditor" Content="input" />
+                                <TextBlock x:Name="information_label"
+                                           HorizontalAlignment="Center"
+                                           Foreground="{StaticResource foreground1}"
+                                           TextAlignment="Center" />
+                            </StackPanel>
+                        </StackPanel>
 
-                            <DockPanel Grid.Column="0" Margin="15 5">
-                                <StackPanel Margin="15 5" Orientation="Horizontal" HorizontalAlignment="Center"
-                                            DockPanel.Dock="Top">
-                                    <Label Foreground="{StaticResource foreground1}" Content="program output"/>
-                                </StackPanel>
+                        <Border BorderBrush="{StaticResource color_a}" BorderThickness="1" CornerRadius="5"
+                                DockPanel.Dock="Top"
+                                Name="border_wrapper__input">
+                            <TextBox x:Name="input"
+                                     TextWrapping="Wrap"
+                                     MinWidth="400"
+                                     MinHeight="60"
+                                     IsReadOnly="True"
+                                     Background="{StaticResource background2}"
+                                     Foreground="{StaticResource foreground1}"
+                                     BorderThickness="0"
+                                     ToolTip="double click to copy whole content to the clipboard"
+                                     PreviewMouseWheel="on_scroll__large_input_textbox"
+                                     PreviewMouseDown="on_click__large_input_textbox"
+                                     PreviewKeyDown="on_key_down__large_input_textbox"
+                                     PreviewMouseDoubleClick="on_dblclick__large_input_textbox" />
+                        </Border>
+                    </DockPanel>
+                </Border>
 
-                                <Border BorderBrush="{StaticResource color_a}" BorderThickness="1" CornerRadius="5"
+
+                <Border Grid.Row="2" DockPanel.Dock="Top"
+                        Name="program_and_expected_output__outter_border">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+
+                        <DockPanel Grid.Column="0" Margin="15 5">
+                            <StackPanel Margin="15 5" Orientation="Horizontal" HorizontalAlignment="Center"
                                         DockPanel.Dock="Top">
-                                    <DockPanel LastChildFill="True">
-                                        <TextBox x:Name="program_output" 
-                                             TextWrapping="Wrap" 
+                                <Label Foreground="{StaticResource foreground1}" Content="program output" />
+                            </StackPanel>
+
+                            <Border BorderBrush="{StaticResource color_a}" BorderThickness="1" CornerRadius="5"
+                                    DockPanel.Dock="Top">
+                                <DockPanel LastChildFill="True">
+                                    <TextBox x:Name="program_output"
+                                             TextWrapping="Wrap"
                                              MinWidth="200"
                                              MinHeight="60"
                                              IsReadOnly="True"
                                              Background="{StaticResource background2}"
                                              Foreground="{StaticResource foreground1}"
-                                             BorderThickness="0" 
+                                             BorderThickness="0"
                                              ToolTip="double click to copy whole content to the clipboard"
                                              PreviewMouseWheel="on_scroll__large_input_textbox"
                                              PreviewMouseDown="on_click__large_input_textbox"
                                              PreviewKeyDown="on_key_down__large_input_textbox"
-                                             PreviewMouseDoubleClick="on_dblclick__large_input_textbox"/>
-                                    </DockPanel>
-                                </Border>
-                            </DockPanel>
-                            <DockPanel Grid.Column="1" Margin="15 5">
-                                <StackPanel Margin="15 5" Orientation="Horizontal" HorizontalAlignment="Center"
-                                            DockPanel.Dock="Top">
-                                    <Label Foreground="{StaticResource foreground1}" Content="expected output"/>
-                                </StackPanel>
-
-                                <Border BorderBrush="{StaticResource color_a}" BorderThickness="1" CornerRadius="5"
+                                             PreviewMouseDoubleClick="on_dblclick__large_input_textbox" />
+                                </DockPanel>
+                            </Border>
+                        </DockPanel>
+                        <DockPanel Grid.Column="1" Margin="15 5">
+                            <StackPanel Margin="15 5" Orientation="Horizontal" HorizontalAlignment="Center"
                                         DockPanel.Dock="Top">
-                                    <TextBox x:Name="expected_output" 
-                                         TextWrapping="Wrap" 
+                                <Label Foreground="{StaticResource foreground1}" Content="expected output" />
+                            </StackPanel>
+
+                            <Border BorderBrush="{StaticResource color_a}" BorderThickness="1" CornerRadius="5"
+                                    DockPanel.Dock="Top">
+                                <TextBox x:Name="expected_output"
+                                         TextWrapping="Wrap"
                                          MinWidth="200"
                                          MinHeight="60"
                                          IsReadOnly="True"
                                          Background="{StaticResource background2}"
                                          Foreground="{StaticResource foreground1}"
                                          BorderThickness="0"
-                                         
+
                                          ToolTip="double click to copy whole content to the clipboard"
-                                         
+
                                          PreviewMouseWheel="on_scroll__large_input_textbox"
                                          PreviewMouseDown="on_click__large_input_textbox"
                                          PreviewKeyDown="on_key_down__large_input_textbox"
-                                         PreviewMouseDoubleClick="on_dblclick__large_input_textbox"/>
-                                </Border>
-                            </DockPanel>
-                        </Grid>
-                    </Border>
+                                         PreviewMouseDoubleClick="on_dblclick__large_input_textbox" />
+                            </Border>
+                        </DockPanel>
+                    </Grid>
+                </Border>
 
-                </Grid>
+            </Grid>
 
-            </DockPanel>
+        </DockPanel>
 
-        </Grid>
+    </Grid>
     <!--</ScrollViewer>-->
 
 

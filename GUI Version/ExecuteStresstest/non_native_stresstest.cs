@@ -111,7 +111,8 @@ namespace HzzGrader
                     string comparison_res = compare_two_list_of_string(prog_output_trimmed, exp_output_trimmed);
 
                     if (comparison_res.Length != 0){
-                        information_label_set_str_content(Path.GetFileName(files[file_num]) + " -- " + (comparison_res));
+                        information_label_set_str_content(Path.GetFileName(files[file_num]) + " -- " +
+                                                          (comparison_res));
                         input_content.Text = program_input;
                         program_output_content.Text = String.Join("\n", prog_output_trimmed);
                         expected_output_content.Text = String.Join("\n", exp_output_trimmed);
@@ -139,8 +140,8 @@ namespace HzzGrader
 
             return true;
         }
-        
-        
+
+
         private string compare_two_list_of_string(string[] list1, string[] list2, bool one_based = true){
             if (list1.Length != list2.Length)
                 return "Line length is not the same";

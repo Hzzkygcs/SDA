@@ -19,25 +19,26 @@ namespace HzzGrader.updater
     {
         public static readonly string SPECIAL_REMOVE_FILE_NAME = "remove list.txt";
         public static readonly string SPECIAL_COPY_FILE_NAME = "copy to.txt";
-        
+
         public string version_check_url = "http://localhost:8000/root/update_info.json";
+
         public UpdateInformation update_information = new UpdateInformation(
             "", "", "");
 
         public static Action<string> log_updater;
         public string working_directory;
-        
-        public Updater(string working_directory=null){
+
+        public Updater(string working_directory = null){
             if (working_directory == null)
                 working_directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "update");
 
             update_information.version = read_embedded_resource("HzzGrader.updater.current_version.txt").Trim();
             version_check_url = read_embedded_resource("HzzGrader.updater.version_check_url.txt").Trim();
-            
+
             this.working_directory = working_directory;
         }
 
-        public async Task manage_update(int timeout=15000){
+        public async Task manage_update(int timeout = 15000){
             log_updater?.Invoke("Checking for update");
             try{
                 var check_update = await check_for_update();
@@ -77,7 +78,8 @@ namespace HzzGrader.updater
 
 
                     List<string> dirs_to_be_removed = Directory.GetDirectories(current_app_files).ToList();
-                    for (int i = dirs_to_be_removed.Count - 1; i >= 0; i--){  // don't remove itself's directory
+                    for (int i = dirs_to_be_removed.Count - 1; i >= 0; i--){
+                        // don't remove itself's directory
                         if (extract_path.ToLower().Trim().StartsWith(dirs_to_be_removed[i].ToLower().Trim())){
                             dirs_to_be_removed.RemoveAt(i);
                         }
@@ -111,33 +113,37 @@ namespace HzzGrader.updater
 
                 return new Tuple<bool, UpdateInformation>(new_update_information.CompareTo(update_information) > 0,
                     new_update_information);
-            }catch (WebException e){
+            }
+            catch (WebException e){
                 log_updater?.Invoke("error on checking updates: WebException " + e.Status + "   " + e.Message);
                 return new Tuple<bool, UpdateInformation>(false, null);
-            }catch (Exception e){
+            }
+            catch (Exception e){
                 log_updater?.Invoke("error on checking updates: Exception " + e);
                 return new Tuple<bool, UpdateInformation>(false, null);
             }
         }
-        public async Task<bool> download_update(UpdateInformation update_information, string save_path, int timeout=15000){
+
+        public async Task<bool> download_update(UpdateInformation update_information, string save_path,
+            int timeout = 15000){
             Directory.CreateDirectory(Path.GetDirectoryName(save_path));
-            
+
             using (WebClient web_client = new WebClient()){
-                var download = web_client.DownloadFileTaskAsync(update_information.path, 
+                var download = web_client.DownloadFileTaskAsync(update_information.path,
                     save_path
                 );
-                
+
                 await Task.WhenAny(Task.Delay(timeout), download);
                 var exception = download.Exception;
                 bool cancelled = exception != null || !download.IsCompleted;
-                
+
 
                 return !cancelled;
             }
         }
 
-        public async Task<bool> install_update(string zip_file_path, string extract_path, 
-                    List<string> dirs_to_be_removed, string current_app_pos, bool notify_user=true){
+        public async Task<bool> install_update(string zip_file_path, string extract_path,
+            List<string> dirs_to_be_removed, string current_app_pos, bool notify_user = true){
             try{
                 ZipFile zip_file = new ZipFile(zip_file_path);
 
@@ -168,7 +174,10 @@ namespace HzzGrader.updater
                     start_info = new ProcessStartInfo();
                     start_info.WindowStyle = ProcessWindowStyle.Normal;
                     start_info.FileName = "cmd.exe";
-                    start_info.Arguments = String.Format("/C  echo \"We're updating. Your program should be ready within a few seconds\" & timeout 7 & exit", new_exe_path);
+                    start_info.Arguments =
+                        String.Format(
+                            "/C  echo \"We're updating. Your program should be ready within a few seconds\" & timeout 7 & exit",
+                            new_exe_path);
                     process.StartInfo = start_info;
                     process.Start();
                 }
@@ -201,7 +210,6 @@ namespace HzzGrader.updater
         }
 
 
-
         public static void handle_remove_and_copy_to_requirements(){
 
             string current_app_path = AppDomain.CurrentDomain.BaseDirectory;
@@ -211,27 +219,30 @@ namespace HzzGrader.updater
 
 
             bool close_this_app_and_run_copied_app = false;
-            
-            
-            if (File.Exists(remove_indicator)){  // should be run only if we're currently working on the new version
-                
+
+
+            if (File.Exists(remove_indicator)){
+                // should be run only if we're currently working on the new version
+
                 string[] list_of_dirs = File.ReadAllText(remove_indicator).Split('\n');
                 File.Move(remove_indicator, Path.Combine(Path.GetDirectoryName(remove_indicator),
                     "old " + Path.GetFileName(remove_indicator)));
-                
-                
+
+
                 foreach (string dir_path_or_file_path in list_of_dirs){
-                    if (File.Exists(dir_path_or_file_path)){  // it is a file
+                    if (File.Exists(dir_path_or_file_path)){
+                        // it is a file
                         File.Delete(dir_path_or_file_path);
-                    }else{
+                    }
+                    else{
                         Debug.Assert(Directory.Exists(dir_path_or_file_path));
                         Directory.Delete(dir_path_or_file_path, true);
                     }
                 }
-                
+
             }
 
-            
+
             if (File.Exists(copy_indicator)){
                 string copy_to = File.ReadAllText(copy_indicator);
                 File.Move(copy_indicator, Path.Combine(Path.GetDirectoryName(copy_indicator),
@@ -247,8 +258,8 @@ namespace HzzGrader.updater
                 startInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 startInfo.FileName = "cmd.exe";
                 startInfo.Arguments = String.Format("/C timeout 2 & \"{0}\"", new_exe_path);
-                
-                
+
+
                 process.StartInfo = startInfo;
                 process.Start();
                 Application.Current.Shutdown();
@@ -257,18 +268,18 @@ namespace HzzGrader.updater
 
         }
 
-        public static void CopyFilesRecursively(DirectoryInfo source, DirectoryInfo target) {
+        public static void CopyFilesRecursively(DirectoryInfo source, DirectoryInfo target){
             // credit: https://stackoverflow.com/a/58779/7069108
-            
+
             foreach (DirectoryInfo dir in source.GetDirectories())
                 CopyFilesRecursively(dir, target.CreateSubdirectory(dir.Name));
             foreach (FileInfo file in source.GetFiles())
                 file.CopyTo(Path.Combine(target.FullName, file.Name));
         }
 
-        
-        
-        public static void remove_parent_dir_with_only_single_subdir(string source_root, string move_to=null, string dir_name=null){
+
+        public static void remove_parent_dir_with_only_single_subdir(string source_root, string move_to = null,
+            string dir_name = null){
             if (move_to == null || dir_name == null){
                 move_to = Path.GetDirectoryName(source_root);
                 dir_name = Path.GetFileName(source_root);
@@ -276,12 +287,12 @@ namespace HzzGrader.updater
 
             var files = Directory.GetFiles(source_root);
             var directories = Directory.GetDirectories(source_root);
-            
-            
+
+
             if (files.Length == 0 && directories.Length == 1){
                 remove_parent_dir_with_only_single_subdir(
                     Path.Combine(source_root, Directory.GetDirectories(source_root)[0]
-                ), move_to, dir_name);
+                    ), move_to, dir_name);
             }
             else{
                 if (source_root != Path.Combine(move_to, dir_name)){
@@ -294,7 +305,6 @@ namespace HzzGrader.updater
         }
 
 
-
         public static T[] concat_array<T>(T[] arr1, T[] arr2){
             T[] ret = new T[arr1.Length + arr2.Length];
             arr1.CopyTo(ret, 0);
@@ -303,9 +313,9 @@ namespace HzzGrader.updater
         }
 
         public static async Task<string> get_request(string url){
-            HttpWebRequest http_request = (HttpWebRequest) WebRequest.Create(url);
+            HttpWebRequest http_request = (HttpWebRequest)WebRequest.Create(url);
             http_request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
-            
+
             using (HttpWebResponse web_response = (HttpWebResponse)await http_request.GetResponseAsync()){
                 if (web_response.StatusCode == HttpStatusCode.OK){
                     using (Stream stream = web_response.GetResponseStream())
@@ -313,13 +323,14 @@ namespace HzzGrader.updater
                         return stream_reader.ReadToEnd();
                     }
                 }
-                
+
                 return null;
             }
         }
 
 
         private static Random random = new Random();
+
         public static string random_string(int length){
             const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
             return new string(Enumerable.Repeat(chars, length)

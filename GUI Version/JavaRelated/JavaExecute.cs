@@ -5,19 +5,18 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace HzzGrader.JavaRelated{
-    
-
+namespace HzzGrader.JavaRelated
+{
     class JavaExecute
     {
         public Action<JavaExecute> on_unblocked;
 
         public int number_of_received_output = 0;
-        
+
         public Process process;
         public string directory;
         private bool _blocked;
-        public StringBuilder program_output = new StringBuilder(0x_FFFFF);  // ~2 mega bytes buffer
+        public StringBuilder program_output = new StringBuilder(0x_FFFFF); // ~2 mega bytes buffer
         public StringBuilder program_error = new StringBuilder(400);
         private string start_token = null;
         private string termination_token = null;
@@ -26,7 +25,7 @@ namespace HzzGrader.JavaRelated{
         public static readonly string COMMAND_EXTERNAL_STDIN = "java \"{0}\" < \"{1}\"";
         public static readonly string COMMAND_CUSTOM_ARG = "java {0} \"{1}\"";
         public static readonly string TERMINATION_CMD = "& echo. & echo {0}";
-        
+
         public JavaExecute(Process cmd_process, string directory){
             process = cmd_process;
             process.ErrorDataReceived += error_handler;
@@ -45,59 +44,59 @@ namespace HzzGrader.JavaRelated{
 
         public void execute_external_stdin(string java_class_name, string stdin_file_path){
             if (termination_token != null) throw new SynchronizationLockException();
-            
+
             // indicate from which line (and up to what line) the output listener should listen to.
             // Every cmd's output between the starting and termination line will be captured
             // and stored to the string builder
             start_token = random_string(16);
             termination_token = random_string(16);
             number_of_received_output = 0;
-            
+
             string cmd = String.Format(START_CMD, start_token)
                          + String.Format(COMMAND_EXTERNAL_STDIN, java_class_name, stdin_file_path)
                          + String.Format(TERMINATION_CMD, termination_token);
             process.StandardInput.WriteLine(cmd);
-            
+
         }
-        
-        public void execute_custom_java_args(string java_class_name, string flag=""){
+
+        public void execute_custom_java_args(string java_class_name, string flag = ""){
             if (termination_token != null) throw new SynchronizationLockException();
-            
+
             // indicate from which line (and up to what line) the output listener should listen to.
             // Every cmd's output between the starting and termination line will be captured
             // and stored to the string builder
             start_token = random_string(16);
             termination_token = random_string(16);
             number_of_received_output = 0;
-            
+
             string cmd = String.Format(START_CMD, start_token)
                          + String.Format(COMMAND_CUSTOM_ARG, flag, java_class_name)
                          + String.Format(TERMINATION_CMD, termination_token);
             process.StandardInput.WriteLine(cmd);
         }
-        
+
         public void execute_arbitrary_cmd(string command){
             if (termination_token != null) throw new SynchronizationLockException();
-            
+
             // indicate from which line (and up to what line) the output listener should listen to.
             // Every cmd's output between the starting and termination line will be captured
             // and stored to the string builder
             start_token = random_string(16);
             termination_token = random_string(16);
             number_of_received_output = 0;
-            
+
             string cmd = String.Format(START_CMD, start_token)
                          + command
                          + String.Format(TERMINATION_CMD, termination_token);
             process.StandardInput.WriteLine(cmd);
         }
-        
+
 
         public bool is_blocked(){
             return termination_token != null;
         }
 
-        
+
         public void output_handler(object sendingProcess, DataReceivedEventArgs data){
 
             if (data.Data == null)
@@ -114,7 +113,7 @@ namespace HzzGrader.JavaRelated{
                 Task.Run(async () => on_unblocked(this));
                 return;
             }
-            
+
             number_of_received_output++;
             program_output.AppendLine(data.Data);
         }
@@ -132,12 +131,11 @@ namespace HzzGrader.JavaRelated{
 
 
         private static Random random = new Random();
-        public static string random_string(int length)
-        {
+
+        public static string random_string(int length){
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             return new string(Enumerable.Repeat(chars, length)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
-
 }
