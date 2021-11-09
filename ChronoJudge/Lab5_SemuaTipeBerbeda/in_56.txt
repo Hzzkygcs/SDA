@@ -1,0 +1,7 @@
+4
+WABI 12 1
+QE 6 2
+BO 5 3
+PAJA 19 4
+1
+BELI 2 9

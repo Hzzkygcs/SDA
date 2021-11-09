@@ -1,0 +1,5 @@
+1
+LI 1 1
+2
+BELI 5 8
+STOCK GE 14 2

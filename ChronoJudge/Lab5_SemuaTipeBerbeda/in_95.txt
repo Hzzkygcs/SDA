@@ -1,0 +1,7 @@
+4
+WO 11 1
+QEVU 1 2
+RO 5 3
+DOYI 15 4
+1
+BELI 9 10

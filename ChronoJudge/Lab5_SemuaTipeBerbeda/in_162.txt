@@ -1,0 +1,7 @@
+4
+LEPU 4 1
+HE 4 2
+YANA 6 3
+VA 13 4
+1
+BELI 3 6

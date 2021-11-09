@@ -1,0 +1,9 @@
+5
+WE 19 1
+SE 3 2
+HA 2 3
+LULO 8 4
+SA 3 5
+2
+BELI 2 6
+STOCK LU 1 6

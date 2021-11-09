@@ -1,0 +1,5 @@
+1
+SETE 13 1
+2
+BELI 2 3
+STOCK KI 5 2

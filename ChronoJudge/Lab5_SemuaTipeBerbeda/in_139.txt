@@ -1,0 +1,6 @@
+1
+ZI 2 1
+3
+BELI 8 8
+STOCK CEFU 8 2
+BELI 9 9

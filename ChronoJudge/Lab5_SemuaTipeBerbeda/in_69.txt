@@ -1,0 +1,7 @@
+2
+NE 2 1
+HOSU 13 2
+3
+BELI 7 9
+BELI 3 3
+BELI 6 10
