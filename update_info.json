@@ -1,6 +1,6 @@
 {
-  "version": "1.2.2",
-  "path": "https://github.com/Hzzkygcs/SDA/releases/download/1.2.beta2/HzzGrader.GUI.beta.1.2.beta.2.zip",
-  "update_note": "minor improvement and small feature added. Cleaner binary files (removed unnecessary pdb, dll, and xml files from the executable directory)",
+  "version": "1.2.3",
+  "path": "https://github.com/Hzzkygcs/SDA/releases/download/1.2.beta3/HzzGrader.1.2.beta.3.zip",
+  "update_note": "Major bug fixed:\nbug salah mendeteksi wrong answer untuk beberapa jenis kode telah diperbaiki\n\nMinor bug fixed:\nbug tidak dapat mendeteksi syntax error telah diperbaiki",
   "forced": false
 }
