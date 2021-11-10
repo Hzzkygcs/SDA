@@ -264,6 +264,7 @@
     <Compile Include="ExecuteStresstest\CommandPromptRelated.cs" />
     <Compile Include="ExecuteStresstest\native_stresstest.cs" />
     <Compile Include="ExecuteStresstest\non_native_stresstest.cs" />
+    <Compile Include="ExecuteStresstest\Utility.cs" />
     <Compile Include="ExternalTestcaseHandler\DownloadTestcaseWindow.xaml.cs">
       <DependentUpon>DownloadTestcaseWindow.xaml</DependentUpon>
     </Compile>

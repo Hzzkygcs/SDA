@@ -100,7 +100,7 @@ namespace HzzGrader
         }
 
 
-        public static int scroll_line_distance = 4;
+        public static int scroll_line_distance = 3;
 
         private void on_scroll__large_input_textbox(object event_sender, MouseWheelEventArgs e){
             TextBox textbox = event_sender as TextBox;
@@ -140,8 +140,8 @@ namespace HzzGrader
         }
 
         private void on_click__large_input_textbox(object sender, MouseButtonEventArgs e){
+            TextBox textbox = sender as TextBox;
             if (e.ButtonState == MouseButtonState.Pressed){
-                TextBox textbox = sender as TextBox;
                 if (textbox == null) return;
                 // textbox.Select(0, textbox.Text.Length);
                 textbox.SelectAll();
@@ -152,7 +152,14 @@ namespace HzzGrader
                     textbox.SelectAll();
                 });
             }
+
+            if (e.ChangedButton == MouseButton.Right){
+                TextboxLargeContent content = get_textbox_large_content(textbox);
+                if (content == null) return;
+                Clipboard.SetText(content.Text);
+            }
         }
+        
 
 
         private void on_dblclick__large_input_textbox(object sender, MouseButtonEventArgs e){

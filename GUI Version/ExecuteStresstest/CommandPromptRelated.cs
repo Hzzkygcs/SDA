@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HzzGrader.JavaRelated;
 
 namespace HzzGrader
 {
@@ -152,12 +154,16 @@ namespace HzzGrader
 
 
                 input.Text = command_compile;
-                result = await execute_cmd(command_compile);
+                result = await run_cmd_asynchronously(command_compile);
+                // result = await execute_cmd(command_compile);
 
                 if (result.Item2.Length > 0 && !result.Item2.Contains("warning") || result.Item2.Contains("error")){
-                    MessageBox.Show("Unexpected error (compiling java source code)");
-                    MessageBox.Show(result.Item2);
-                    MessageBox.Show(command_compile);
+                    MessageBox.Show("Unexpected compile-time error");
+                    string err_msg = result.Item2.Replace("       ^", "\n");
+                    err_msg = String.Join("\n\n", Utility.TakeLastLines(err_msg, 2));
+                    err_msg = Regex.Replace(err_msg, "   +", "  ");
+                    MessageBox.Show(err_msg);
+                    // MessageBox.Show(command_compile);
 
                     write_log("Unexpected error (compiling java source code)");
                     write_log(result.Item2);
@@ -176,5 +182,26 @@ namespace HzzGrader
         public void information_label_set_str_content(string content){
             information_label.Text = content;
         }
+
+        public async Task<Tuple<string,string>> run_cmd_asynchronously(string cmd_command){
+            // result = await execute_cmd_optimized(command_run, command_prompt_run_process, 4000, null);
+            JavaExecute java_execute = new JavaExecute(initialize_cmd_process(new Process()), compile_dir_path);
+            bool wait = true;
+            java_execute.on_unblocked = execute => { wait = false; };
+            java_execute.start();
+            java_execute.execute_arbitrary_cmd(cmd_command);
+
+            while (wait){
+                /*if (JavaExecute.debug != null && !JavaExecute.debug.Equals("")){
+                    program_output_content.Text += JavaExecute.debug;
+                    JavaExecute.debug = "";
+                }*/
+                await Task.Delay(50);
+            }
+            return java_execute.flush();
+        }
+        
     }
+
+    
 }
