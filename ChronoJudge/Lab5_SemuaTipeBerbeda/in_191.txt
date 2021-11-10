@@ -1,0 +1,6 @@
+2
+ZE 2 1
+BE 20 2
+2
+BELI 7 10
+STOCK VU 10 3

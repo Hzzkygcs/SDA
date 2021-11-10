@@ -1,0 +1,7 @@
+4
+RI 13 1
+FI 20 2
+HE 17 3
+BA 13 4
+1
+SOLD_OUT BA

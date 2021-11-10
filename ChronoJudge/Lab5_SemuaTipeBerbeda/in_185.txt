@@ -1,0 +1,9 @@
+5
+QU 5 1
+QO 20 2
+FI 3 3
+FO 12 4
+WE 3 5
+2
+STOCK KA 10 6
+BELI 4 5

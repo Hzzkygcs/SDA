@@ -1,0 +1,8 @@
+4
+YU 19 1
+MO 8 2
+HO 12 3
+GO 4 4
+2
+BELI 3 8
+BELI 2 9

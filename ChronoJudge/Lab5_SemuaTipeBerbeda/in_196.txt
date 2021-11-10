@@ -1,0 +1,5 @@
+2
+LELO 11 1
+JA 20 2
+1
+SOLD_OUT JA

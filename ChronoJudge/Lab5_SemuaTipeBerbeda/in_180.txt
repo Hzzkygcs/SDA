@@ -1,0 +1,6 @@
+3
+ZEFI 2 1
+WE 2 2
+SUME 10 3
+1
+BELI 8 9

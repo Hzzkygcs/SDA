@@ -1,0 +1,6 @@
+3
+SU 4 1
+VO 11 2
+VIJA 15 3
+1
+STOCK GE 1 4
