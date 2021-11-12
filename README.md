@@ -2,6 +2,15 @@
 
 ~~Latihanku buat mempersiapkan matkul SDA nanti~~. Semoga bisa membantu teman-teman semua juga :D
 
+## FAQ
+
+- IOException
+
+  Teman-teman coba periksa kembali apakah ada `final` pada variabel IO (seperti `in` atau `out` misalnya). Jika ada, teman-teman bisa menghapus keyword final pada variabel tersebut.
+
+
+
+
 ## Download HzzGrader
 
 Teman-teman bisa mendownload versi terbaru aplikasinya [disini](https://github.com/Hzzkygcs/SDA/releases)
