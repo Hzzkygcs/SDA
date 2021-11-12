@@ -7,3 +7,9 @@ Lab5_SemuaTipeBerbeda
 TP1_NoDeploy
 TP1_DeployOnly
 TP2_UnifikasiPisah
+TP2_UnifikasiPisahSweeping
+TP2_RiseQuake
+TP2_StabilizeCrumble
+TP2_RiseQuakeStabilizeCrumble
+TP2_GerakTebasTeleportasi
+TP2_All
