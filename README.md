@@ -7,6 +7,10 @@ Semoga bisa membantu teman-teman semua juga :D
 
   Teman-teman coba periksa kembali apakah ada `final` pada variabel IO (seperti `in` atau `out` misalnya). Jika ada, teman-teman bisa menghapus keyword final pada variabel tersebut.
 
+- Stuck di "parsing and wrapping your copied ..."
+
+  Biasanya ini karena HzzGrader tidak bisa membaca/menulis ke folder `HzzGrader/bin/`. Merestart laptop atau kill process `java.exe` dan `javaw.exe` biasanya menjadi solusi umum. Pastikan juga tidak ada dua/lebih window HzzGrader yang terbuka secara bersamaan.
+
 - Membuka file log.txt
 
   File log.txt dapat dibuka dengan cara klik kanan pada tulisan/logo HzzGrader (di pojok kiri atas)
