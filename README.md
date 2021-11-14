@@ -1,12 +1,15 @@
-# SDA
-
-~~Latihanku buat mempersiapkan matkul SDA nanti~~. Semoga bisa membantu teman-teman semua juga :D
+~~Latihanku buat mempersiapkan matkul SDA nanti~~. 
+Semoga bisa membantu teman-teman semua juga :D
 
 ## FAQ
 
 - IOException
 
   Teman-teman coba periksa kembali apakah ada `final` pada variabel IO (seperti `in` atau `out` misalnya). Jika ada, teman-teman bisa menghapus keyword final pada variabel tersebut.
+
+- Membuka file log.txt
+
+  File log.txt dapat dibuka dengan cara klik kanan pada tulisan/logo HzzGrader (di pojok kiri atas)
 
 
 
@@ -28,3 +31,10 @@ Cara memakai-nya cukup mudah. Teman-teman cukup mendownload dan menginstall apli
 ### masalah untuk yang auto update
 
 Ketika mendownload yang *auto update*, beberapa antivirus mungkin akan menganggap virus. Kadang juga saat mau menginstall update, instalasinya diblokir oleh antivirus. Namun sebenarnya teman-teman tidak perlu khawatir. Program yang di-upload ini transparan dan source-codenya dapat dilihat pada folder `GUI Version/`. Jadi teman-teman bisa menambahkan whitelist pada antivirus untuk HzzGrader ini. Tapi teman-teman juga tetap dibebaskan memilih versi yang tidak diimplementasikan auto update.
+
+
+
+## Saweria
+
+[https://saweria.co/HzzHzz](https://saweria.co/HzzHzz) 
+Terima kasih atas dukungan teman-teman semua :D
