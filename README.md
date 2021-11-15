@@ -13,6 +13,19 @@ Semoga bisa membantu teman-teman semua juga :D
 - Membuka file log.txt
 
   File log.txt dapat dibuka dengan cara klik kanan pada tulisan/logo HzzGrader (di pojok kiri atas)
+  
+- Program dijalankan melalui HzzGrader hasilnya berbeda dari VSCode/Intellij
+
+  Jika hal ini terjadi, coba inisiasikan semua static variable pada awal-awal fungsi main(). Misal jika kita punya:  `public static int my_variable;`, maka tambahkan: 
+
+  ```java
+  public static void main(String[] args) {
+  	my_variable = 0;
+  	// kode anda
+  }
+  ```
+
+  
 
 
 
