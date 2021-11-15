@@ -4,6 +4,7 @@ Lab3
 Lab4
 Lab4_Hard
 Lab5_SemuaTipeBerbeda
+Lab6
 TP1_NoDeploy
 TP1_DeployOnly
 TP2_UnifikasiPisah
