@@ -37,7 +37,7 @@ Ketika mendownload yang *auto update*, beberapa antivirus mungkin akan mengangga
 
 
 
-## Saweria
+## Donation
 
-[https://saweria.co/HzzHzz](https://saweria.co/HzzHzz) 
+Kalau teman-teman merasa aplikasi ini sangat berguna dan ingin memberikan sedikit donasi, teman-teman bisa mengirimkannya ke [https://saweria.co/HzzHzz](https://saweria.co/HzzHzz) 
 Terima kasih atas dukungan teman-teman semua :D
