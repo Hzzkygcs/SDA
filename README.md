@@ -1,7 +1,7 @@
 Semoga bisa membantu teman-teman semua juga :D
 
 
-<details> <summary>## FAQ</summary>
+<details> <summary><h2>FAQ</h2></summary>
 
 
 - IOException
