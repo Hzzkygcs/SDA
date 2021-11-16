@@ -66,7 +66,7 @@ public class HzzGrader {
                                 
                                 
                                 start_time.set(System.nanoTime());
-                                Solusi.main(parameter);
+                                {{NAMA_CLASS}}.main(parameter);
                                 end_time.set(System.nanoTime());
                                 return null;
                             }
