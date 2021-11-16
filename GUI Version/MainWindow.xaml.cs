@@ -26,8 +26,10 @@ namespace HzzGrader
     {
         public static double header_section_panel_maxwidth;
 
-        public static readonly String prev_source_code_directory = "prevdir";
-        public static readonly String prev_testcase_directory = "tc_prevdir";
+        public static readonly String prev_source_code_directory = ".configurations/prevdir";
+        public static readonly String prev_testcase_directory = ".configurations/tc_prevdir";
+        public static readonly String time_limit_file_directory = ".configurations/time_limit_in_ms.txt";
+        
         private string __native_hzz_grader_src_code;
         private string __default_source_code_directory = AppDomain.CurrentDomain.BaseDirectory;
         private string __default_testcase_directory = AppDomain.CurrentDomain.BaseDirectory;
@@ -127,9 +129,17 @@ namespace HzzGrader
                 }
 
 
-                if (Directory.Exists(compile_dir_path))
-                    Directory.Delete(compile_dir_path, true);
-                Directory.CreateDirectory(compile_dir_path);
+                if (Directory.Exists(compile_dir_path)){
+                    try{
+                        write_log("deleting " + compile_dir_path);
+                        Directory.Delete(compile_dir_path, true);
+                    }
+                    catch (IOException e){
+                        write_log("can't delete " + compile_dir_path + " because of " + e.Message);
+                    }
+                }
+                if (!Directory.Exists(compile_dir_path))
+                    Directory.CreateDirectory(compile_dir_path);
                 Directory.CreateDirectory(src_code_backup_dir_path);
                 Directory.CreateDirectory(debug_directory);
 

@@ -14,29 +14,35 @@ namespace HzzGrader
     {
         public async Task compile_stress_test_native(){
             try{
+                write_log("");
+                clear_bin_folder();
+                
+                string compile_path = "";
+                while (compile_path == "" || Directory.Exists(compile_path)) 
+                    compile_path = Path.Combine(compile_dir_path, JavaExecute.random_string(8));
+                Directory.CreateDirectory(compile_path);
+                
                 if (time_limited_chb.IsChecked == true)
                     __native_hzz_grader_src_code = Utility.read_embedded_resource("HzzGrader.ExecuteStresstest.HzzGraderTimeLimited.java");
                 else
                     __native_hzz_grader_src_code = Utility.read_embedded_resource("HzzGrader.ExecuteStresstest.HzzGrader.java");
-                
-                
-                
+
                 if (!await test_if_javac_and_java_is_available())
                     return;
                 information_label_set_str_content("check if there is any compile-time error");
 
                 // just to check whether the syntax is valid or not
                 string old_source_file_path = java_file_path.Text;
-                string new_source_file_path = Path.Combine(compile_dir_path, Path.GetFileName(old_source_file_path));
+                string new_source_file_path = Path.Combine(compile_path, Path.GetFileName(old_source_file_path));
 
-                string native_hzz_grader_path = Path.Combine(compile_dir_path, "HzzGrader.java");
+                string native_hzz_grader_path = Path.Combine(compile_path, "HzzGrader.java");
                 File.Copy(old_source_file_path, new_source_file_path, true);
                 File.Copy(old_source_file_path,
                     Path.Combine(src_code_backup_dir_path, Path.GetFileName(old_source_file_path)), true);
 
                 write_log("checking for the original source syntax");
-                if (!await compile_java_source_code(compile_dir_path, new_source_file_path)){
-                    copy_to_debug_directory(compile_dir_path);
+                if (!await compile_java_source_code(compile_path, new_source_file_path)){
+                    copy_to_debug_directory(compile_path);
                     return;
                 }
                 write_log("no syntax error was found. Parsing java source file");
@@ -50,12 +56,11 @@ namespace HzzGrader
                 write_log("finished parsing");
                 string input_reader_untuk_hzzgrader = "";
 
-                if (JavaMiniParserUtil.get_static_assigned_var_dec_not_in_public_class(java_mini_parser).Count >
-                    0){
-                    MessageBox.Show("All static fields must belong to the public class and " +
-                                    "should be put before any inner classes");
-                    information_label_set_str_content("All static fields must belong to the public class and " +
-                                                      "should be put before any inner classes");
+                if (JavaMiniParserUtil.get_static_assigned_var_dec_not_in_public_class(java_mini_parser).Count > 0){
+                    string msg = "Variabel static hanya boleh dimiliki oleh public class, dan harus dideklarasikan " +
+                                 "sebelum nested class (inner class). ";
+                    MessageBox.Show(msg);
+                    information_label_set_str_content(msg);
                     return;
                 }
 
@@ -68,7 +73,7 @@ namespace HzzGrader
                     if (variable.is_final)
                         continue;
                     static_field_reinitialization +=
-                        String.Format("\n{0}={1};", variable.name, variable.assigned_value);
+                        String.Format("{0}={1};", variable.name, variable.assigned_value);
                 }
 
                 if (java_mini_parser.has_package_statement()){
@@ -95,7 +100,23 @@ namespace HzzGrader
                 string program_output_token = JavaMiniParser.random_string(48);
                 string expected_output_token = JavaMiniParser.random_string(48);
                 string end_token = JavaMiniParser.random_string(48);
-                string time_limit_ms = "7000";
+                string time_limit_ms = "6000";
+                try{
+                    write_log("reading " + time_limit_file_directory);
+                    string temp = File.ReadAllText(time_limit_file_directory);
+                    int n;
+                    bool isNumeric = int.TryParse(temp, out n);
+                    if (!isNumeric || n <= 0){
+                        write_log("Invalid content: " + time_limit_file_directory);
+                        MessageBox.Show(time_limit_file_directory + " must be a positive integer.");
+                    }else
+                        time_limit_ms = temp;
+                }
+                catch (IOException e){
+                    string str = "error: " + time_limit_file_directory + "    " + e.Message;
+                    write_log(str);
+                    MessageBox.Show("error: " + time_limit_file_directory + " \n" + e.Message);
+                }
 
 
                 string hzz_grader_code = __native_hzz_grader_src_code.Replace("{{NAMA_CLASS}}",
@@ -125,17 +146,17 @@ namespace HzzGrader
 
                 write_log(new_source_file_path + "  and  " + native_hzz_grader_path + "  has been generated");
                 if (!await compile_java_source_code(new string[] { "-Xlint:unchecked" },
-                    compile_dir_path, native_hzz_grader_path, new_source_file_path)){
-                    copy_to_debug_directory(compile_dir_path);
+                    compile_path, native_hzz_grader_path, new_source_file_path)){
+                    copy_to_debug_directory(compile_path);
                     return;
                 }
 
                 information_label_set_str_content("running your java source code");
                 write_log("executing HzzGrader.java");
-                await execute_stress_test_native(new_source_file_path, information_token, input_token,
+                await execute_stress_test_native(compile_path, information_token, input_token,
                     program_output_token,
                     expected_output_token, end_token);
-                copy_to_debug_directory(compile_dir_path);
+                copy_to_debug_directory(compile_path);
                 write_log("Done!");
             }
             finally{
@@ -144,7 +165,7 @@ namespace HzzGrader
         }
 
 
-        public async Task execute_stress_test_native(string new_source_file_path, string information_token,
+        public async Task execute_stress_test_native(string compile_path, string information_token,
             string input_token, string program_output_token, string expected_output_token, string end_token){
 
             try{
@@ -161,7 +182,7 @@ namespace HzzGrader
                 */
                 string command_run = "command run: JavaExecute() ~";
                 Process process = initialize_cmd_process(new Process());
-                JavaExecute java_execute = new JavaExecute(process, compile_dir_path);
+                JavaExecute java_execute = new JavaExecute(process, compile_path);
                 java_execute.start();
                 bool wait = true;
                 java_execute.on_unblocked = execute => { wait = false; };
@@ -170,9 +191,7 @@ namespace HzzGrader
                 {
                     while (wait){
                         information_label_set_str_content(
-                            // kali 2 karena pada HzzGrader.java kita akan memberikan respon setiap
-                            // 2 testcase selesai
-                            String.Format("running ({0})", java_execute.number_of_received_output * 2));
+                            String.Format("running ({0})", java_execute.number_of_received_output));
                         await Task.Delay(30);
                     }
                 }
@@ -212,9 +231,9 @@ namespace HzzGrader
                         return;
                     }
                     information_label_set_str_content(temp[1].Trim());
-                    input_content.Text = temp[2].Trim();
-                    program_output_content.Text = temp[3].Trim();
-                    expected_output_content.Text = temp[4].Trim();
+                    input_content.Text = temp[2].Trim() + "\n";
+                    program_output_content.Text = temp[3].Trim() + "\n";
+                    expected_output_content.Text = temp[4].Trim() + "\n";
 
                     return;
                 }
@@ -231,11 +250,21 @@ namespace HzzGrader
         }
 
 
-        private void MainWindow_titleBar_OnPreviewMouseDoubleClick(object sender, MouseButtonEventArgs e){
+        public void clear_bin_folder(){
+            string folder = compile_dir_path;
+            string[] directories = Directory.GetDirectories(folder);
 
-            MessageBox.Show("Yo");
+            foreach (var directory in directories){
+                try{
+                    write_log("deleting " + directory);
+                    Directory.Delete(directory, true);
+                }
+                catch (IOException e){
+                    write_log("can't delete " + directory + " because of " + e.Message);
+                }
+            }
         }
-
+        
         private void Native_hzzgrader_chb_changed(object sender, RoutedEventArgs e){
             if (native_hzzgrader_chb.IsChecked == true){
                 if (time_limited_chb != null)

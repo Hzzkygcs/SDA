@@ -139,13 +139,25 @@
                 Margin="0 3"
                 DockPanel.Dock="Top"
                 Orientation="Horizontal" HorizontalAlignment="Left">
-                <Label Foreground="{StaticResource color_c}"
+                <Label 
                        Cursor="Hand"
                        ToolTip="double click to toggle window pin &#x0a;right click to restart testcase checking"
                        ToolTipService.ShowDuration="4000"
                        MouseDoubleClick="Control_OnMouseDoubleClick"
                        MouseUp="Control_OnMouseUp">
                     your output
+                    
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="Foreground" Value="{StaticResource color_c}" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Foreground" Value="{StaticResource color_a}" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                    
                 </Label>
             </StackPanel>
 

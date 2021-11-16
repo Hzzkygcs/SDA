@@ -43,16 +43,9 @@ public class HzzGrader {
     
         ExecutorService executor = Executors.newCachedThreadPool();
         Future<Object> future = null;
-        Callable<Object> task = new Callable<Object>() {
-            public Object call() {
-                start_time.set(System.nanoTime());
-                {{NAMA_CLASS}}.main(parameter);
-                end_time.set(System.nanoTime());
-                return null;
-            }
-        };
+        Callable<Object> task;
         
-        final long time_limit_ms = {{TIME_LIMIT_MS}};
+        final long time_limit_ms = {{TIME_LIMIT_MS}}L; 
         
         try {
             int i = 0;
@@ -62,13 +55,23 @@ public class HzzGrader {
                 assert (out_file.isFile());
     
                 
-                old_stdout.println(i);
-                future = executor.submit(task);
+               old_stdout.println(i);
                 
                 try (var in_fstream = new FileInputStream(in_file)){
                     try (PrintStream print_stream = new PrintStream(baos)){
-                        System.setOut(print_stream);
-                        System.setIn(in_fstream);
+                        task = new Callable<Object>() {
+                            public Object call() {
+                                System.setOut(print_stream);
+                                System.setIn(in_fstream);
+                                
+                                
+                                start_time.set(System.nanoTime());
+                                Solusi.main(parameter);
+                                end_time.set(System.nanoTime());
+                                return null;
+                            }
+                        };
+                        future = executor.submit(task);
     
                         try{
                             future.get(time_limit_ms, TimeUnit.MILLISECONDS);
@@ -81,11 +84,12 @@ public class HzzGrader {
                             System.out.println("{{INPUT_DELIMITER_TOKEN}}");
                             System.out.println(Files.readString(in_file.getAbsoluteFile().toPath()));
                             System.out.println("{{PROGRAM_OUTPUT_DELIMITER_TOKEN}}");
-                            System.out.println("Time Limit Exceeded  > " + time_limit_ms + "ms");
+                            System.out.println("\nTime Limit Exceeded  > " + time_limit_ms + " ms\n");
                             System.out.println("{{EXPECTED_OUTPUT_TOKEN}}");
                             System.out.println(Files.readString(out_file.getAbsoluteFile().toPath()));
     
                             System.out.println("{{END_DELIMITER_TOKEN}}");
+                            System.exit(0);
                             return;
                         }catch (InterruptedException ignored){
                         }
@@ -107,7 +111,8 @@ public class HzzGrader {
                         System.out.println("{{EXPECTED_OUTPUT_TOKEN}}");
                         System.out.println(Files.readString(out_file.getAbsoluteFile().toPath()));
                         
-                        System.out.println("{{END_DELIMITER_TOKEN}}");
+                        System.out.println("{{END_DELIMITER_TOKEN}}"); 
+                        System.exit(0);
                         return;
                     }finally{
                         if (future != null)
@@ -140,6 +145,7 @@ public class HzzGrader {
                             System.out.println(expected_output);
                             System.out.println("{{END_DELIMITER_TOKEN}}");
                         }
+                        System.exit(0);
                         return;
                     }
                   
@@ -172,6 +178,7 @@ public class HzzGrader {
         } finally {
             System.setOut(old_stdout);
             System.setIn(old_stdin);
+            System.exit(0);
         }
     }
     
