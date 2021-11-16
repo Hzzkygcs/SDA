@@ -199,11 +199,22 @@
                                                 Content="" />
 
                                             <Label x:Name="label_testcase_folder"
-                                                   Foreground="{StaticResource foreground1}"
-                                                   MouseUp="Label_testcase_folder_OnMouseUp"
-                                                   ToolTip="switch between two testcase mode"
-                                                   Cursor="Hand"
-                                                   Content="Testcase folder: " />
+                                                       MouseUp="Label_testcase_folder_OnMouseUp"
+                                                       ToolTip="switch between two testcase mode"
+                                                       Cursor="Hand"
+                                                       Content="Testcase folder: ">
+                                                
+                                                <Label.Style>
+                                                    <Style TargetType="Label">
+                                                        <Setter Property="Foreground" Value="{StaticResource foreground1}" />
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Foreground" Value="{StaticResource color_b}" />
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Label.Style>
+                                            </Label>
 
                                             <TextBox DockPanel.Dock="Top" x:Name="testcase_folder" MinWidth="200"
                                                      Margin="5 5" LostFocus="Testcase_folder_OnLostFocus"
@@ -216,11 +227,23 @@
                                             <DockPanel Width="{Binding Width, ElementName=label_java_souce_file}"
                                                        LastChildFill="False">
                                                 <Label x:Name="label_testcase_zip"
-                                                       Foreground="{StaticResource foreground1}"
-                                                       MouseUp="Label_testcase_zip_OnMouseUp"
-                                                       ToolTip="switch between two testcase mode"
-                                                       Cursor="Hand"
-                                                       Content="Testcase type: " />
+                                                           MouseUp="Label_testcase_zip_OnMouseUp"
+                                                           ToolTip="switch between two testcase mode"
+                                                           Cursor="Hand"
+                                                           Content="Testcase name: ">
+                                                    
+                                                    <Label.Style>
+                                                        <Style TargetType="Label">
+                                                            <Setter Property="Foreground" Value="{StaticResource foreground1}" />
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Foreground" Value="{StaticResource color_b}" />
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Label.Style>
+                                                </Label>
+                                                
                                             </DockPanel>
 
                                             <Button
@@ -254,14 +277,37 @@
                                     Style="{StaticResource tombol_biru}"
                                     Content="Start Test" BorderThickness="0" />
 
-                            <DockPanel DockPanel.Dock="Top"
-                                       LastChildFill="False"
+                            <Grid DockPanel.Dock="Top"
                                        Width="{Binding ElementName=start_stress_test_btn, Path=ActualWidth}">
-                                <CheckBox x:Name="native_hzzgrader_chb" DockPanel.Dock="Left" IsChecked="True"
-                                          Content="Use fast native HzzGrader"
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                
+                                <DockPanel Grid.Column="0">
+                                <CheckBox x:Name="native_hzzgrader_chb"
+                                          Grid.Column="0" 
+                                          DockPanel.Dock="Left" 
+                                          IsChecked="True"
+                                          Content="Fast native"
+                                          Checked="Native_hzzgrader_chb_changed"
+                                          Unchecked="Native_hzzgrader_chb_changed"
                                           Foreground="{StaticResource foreground1}" />
+                                </DockPanel>
+                                
+                                <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                                <CheckBox x:Name="time_limited_chb"
+                                          Grid.Column="1" 
+                                          DockPanel.Dock="Left" 
+                                          IsChecked="True"
+                                          Content="Time Limit"
+                                          Foreground="{StaticResource foreground1}" />
+                                </StackPanel>
 
-                                <CheckBox DockPanel.Dock="Right"
+                                <StackPanel Grid.Column="2" HorizontalAlignment="Right">
+                                <CheckBox Grid.Column="2" 
+                                          DockPanel.Dock="Right"
                                           Name="window_pin_cb"
                                           IsChecked="False"
                                           Foreground="{StaticResource foreground1}"
@@ -275,7 +321,9 @@
                                           MouseUp="Window_pin_cb_OnMouseUp">
                                     pin window
                                 </CheckBox>
-                            </DockPanel>
+                                </StackPanel>
+                            </Grid>
+                           
 
                         </StackPanel>
                     </Border>
@@ -286,14 +334,26 @@
                     <DockPanel Margin="10 5">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" DockPanel.Dock="Top">
                             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                                <Label
-                                    x:Name="label_input_panel"
-                                    Cursor="Hand"
-                                    Padding="1"
-                                    HorizontalAlignment="Center" Foreground="{StaticResource foreground1}"
-                                    ToolTip="Click to open up additional window"
-                                    ToolTipService.ShowDuration="5000"
-                                    MouseUp="label_input_panel_OnMouseUp__open_ExtendedEditor" Content="input" />
+                                <Label x:Name="label_input_panel"
+                                        Cursor="Hand"
+                                        Padding="1"
+                                        HorizontalAlignment="Center" 
+                                        
+                                        ToolTip="Click to open up additional window"
+                                        ToolTipService.ShowDuration="5000"
+                                        MouseUp="label_input_panel_OnMouseUp__open_ExtendedEditor"
+                                        Content="input" >
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Setter Property="Foreground" Value="{StaticResource foreground1}" />
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Foreground" Value="{StaticResource color_b}" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
                                 <TextBlock x:Name="information_label"
                                            HorizontalAlignment="Center"
                                            Foreground="{StaticResource foreground1}"

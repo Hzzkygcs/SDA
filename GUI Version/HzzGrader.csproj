@@ -281,6 +281,7 @@
     </Compile>
     <Compile Include="updater\UpdateInformation.cs" />
     <Compile Include="updater\Updater.cs" />
+    <Compile Include="Utility.cs" />
     <Compile Include="Windows\ExtendedEditor.xaml.cs">
       <DependentUpon>ExtendedEditor.xaml</DependentUpon>
     </Compile>
@@ -348,6 +349,7 @@
     <Content Include="7zip\7zxa.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="ExecuteStresstest\HzzGraderTimeLimited.java" />
     <Content Include="README.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

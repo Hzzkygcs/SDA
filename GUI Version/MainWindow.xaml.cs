@@ -93,7 +93,7 @@ namespace HzzGrader
             Updater.log_updater = write_log;
             version_number_label.Text = updater.update_information.version;
 #else
-            version_number_label.Text = Updater.read_embedded_resource("HzzGrader.updater.current_version.txt").Trim();
+            version_number_label.Text = Utility.read_embedded_resource("HzzGrader.updater.current_version.txt").Trim();
 #endif
 
             try{
@@ -133,12 +133,7 @@ namespace HzzGrader
                 Directory.CreateDirectory(src_code_backup_dir_path);
                 Directory.CreateDirectory(debug_directory);
 
-                var assembly = Assembly.GetExecutingAssembly();
-                using (var temp = assembly.GetManifestResourceStream("HzzGrader.ExecuteStresstest.HzzGrader.java"))
-                using (StreamReader stream_reader = new StreamReader(temp)){
-                    // jangan lupa set HzzGrader/HzzGrader.java jadi bertipe EmbededFile
-                    __native_hzz_grader_src_code = stream_reader.ReadToEnd();
-                }
+                __native_hzz_grader_src_code = Utility.read_embedded_resource("HzzGrader.ExecuteStresstest.HzzGrader.java");
             }
             catch (Exception e){
                 write_log("AN ERROR WAS FOUND WHEN RUNNING THE APPS");

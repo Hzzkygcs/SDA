@@ -14,6 +14,13 @@ namespace HzzGrader
     {
         public async Task compile_stress_test_native(){
             try{
+                if (time_limited_chb.IsChecked == true)
+                    __native_hzz_grader_src_code = Utility.read_embedded_resource("HzzGrader.ExecuteStresstest.HzzGraderTimeLimited.java");
+                else
+                    __native_hzz_grader_src_code = Utility.read_embedded_resource("HzzGrader.ExecuteStresstest.HzzGrader.java");
+                
+                
+                
                 if (!await test_if_javac_and_java_is_available())
                     return;
                 information_label_set_str_content("check if there is any compile-time error");
@@ -88,6 +95,7 @@ namespace HzzGrader
                 string program_output_token = JavaMiniParser.random_string(48);
                 string expected_output_token = JavaMiniParser.random_string(48);
                 string end_token = JavaMiniParser.random_string(48);
+                string time_limit_ms = "7000";
 
 
                 string hzz_grader_code = __native_hzz_grader_src_code.Replace("{{NAMA_CLASS}}",
@@ -106,6 +114,9 @@ namespace HzzGrader
                     expected_output_token);
                 hzz_grader_code = hzz_grader_code.Replace("{{END_DELIMITER_TOKEN}}",
                     end_token);
+                hzz_grader_code = hzz_grader_code.Replace("{{TIME_LIMIT_MS}}",
+                    time_limit_ms);
+                
 
 
                 information_label_set_str_content("compiling your java source code");
@@ -223,6 +234,17 @@ namespace HzzGrader
         private void MainWindow_titleBar_OnPreviewMouseDoubleClick(object sender, MouseButtonEventArgs e){
 
             MessageBox.Show("Yo");
+        }
+
+        private void Native_hzzgrader_chb_changed(object sender, RoutedEventArgs e){
+            if (native_hzzgrader_chb.IsChecked == true){
+                if (time_limited_chb != null)
+                    time_limited_chb.Visibility = Visibility.Visible;
+            }
+            else{
+                if (time_limited_chb != null)
+                    time_limited_chb.Visibility = Visibility.Hidden;
+            }
         }
     }
 }

@@ -32,8 +32,8 @@ namespace HzzGrader.updater
             if (working_directory == null)
                 working_directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "update");
 
-            update_information.version = read_embedded_resource("HzzGrader.updater.current_version.txt").Trim();
-            version_check_url = read_embedded_resource("HzzGrader.updater.version_check_url.txt").Trim();
+            update_information.version = Utility.read_embedded_resource("HzzGrader.updater.current_version.txt").Trim();
+            version_check_url = Utility.read_embedded_resource("HzzGrader.updater.version_check_url.txt").Trim();
 
             this.working_directory = working_directory;
         }
@@ -335,22 +335,6 @@ namespace HzzGrader.updater
             const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
             return new string(Enumerable.Repeat(chars, length)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
-        }
-
-        public static string read_embedded_resource(string resource_path){
-            /*
-             * 
-             * jangan lupa set file resource_path jadi bertipe EmbededFile
-             * resource_path merupakan path target file terhadap solution root, dimana slash diganti
-             * jadi titik, kecuali root slash (dihapus). Contoh:
-             * JavaExecute/MyEmbeddedFiles/embedded.txt menjadi JavaExecute.MyEmbeddedFiles.embedded.txt
-             * 
-             */
-            var assembly = Assembly.GetExecutingAssembly();
-            using (var temp = assembly.GetManifestResourceStream(resource_path))
-            using (StreamReader stream_reader = new StreamReader(temp)){
-                return stream_reader.ReadToEnd();
-            }
         }
     }
 }
