@@ -1,7 +1,7 @@
 Semoga bisa membantu teman-teman semua juga :D
 
 
-<details> <summary><h2>FAQ</h2></summary>
+<details> <summary><h2 style="display: inline-block;">FAQ</h2></summary>
 
 
 - IOException
@@ -16,7 +16,7 @@ Semoga bisa membantu teman-teman semua juga :D
 
   File log.txt dapat dibuka dengan cara klik kanan pada tulisan/logo HzzGrader (di pojok kiri atas)
   
-- Program dijalankan melalui HzzGrader hasilnya berbeda dari VSCode/Intellij
+-  Output program pada HzzGrader hasilnya berbeda dari VSCode/Intellij
 
   Jika hal ini terjadi, coba inisiasikan semua static variable pada awal-awal fungsi main(). Misal jika kita punya:  `public static int my_variable;`, maka tambahkan: 
 
