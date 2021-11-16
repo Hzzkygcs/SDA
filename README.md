@@ -29,6 +29,8 @@ Semoga bisa membantu teman-teman semua juga :D
   ```
   
 
+
+
 </details>
 
 
@@ -41,7 +43,7 @@ Teman-teman bisa mendownload versi terbaru aplikasinya [disini](https://github.c
 
 ### Cara memakai
 
-#### versi 1.2
+#### versi 1.2 atau ke atas
 
 Teman-teman cukup mendownload zip aplikasinya (versi 1.2) [disini](https://github.com/Hzzkygcs/SDA/releases). Disarankan mendownload yang no auto update. Setelah itu tinggal meng-extract zip-nya dan menjalankan programnya. Setelah itu tinggal pilih source code java yang mau diuji dan memilih testcase yang ingin digunakan. Kalau sudah, tunggu sebentar sampai HzzGrader selesai mendownload testcase. Kalau sudah selesai download, tinggal tekan `Start Test`.
 
