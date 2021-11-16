@@ -1,6 +1,6 @@
 {
   "version": "1.3.0",
-  "path": "https://github.com/Hzzkygcs/SDA/releases/download/1.2.beta3/HzzGrader.1.2.beta.3.zip",
+  "path": "https://github.com/Hzzkygcs/SDA/releases/download/1.3.beta0/HzzGrader.1.3.beta.0.zip",
   "update_note": "Fitur baru: \nTime limit exceeded. Sangat membantu jika ada infinite loop\n\nCommon bug fixed:\nStuck di proses parsing java source file",
   "forced": false
 }
