@@ -1,6 +1,13 @@
 Semoga bisa membantu teman-teman semua juga :D
 
+
+<details>
+
+<summary>
+
 ## FAQ
+
+</summary>
 
 - IOException
 
@@ -24,8 +31,10 @@ Semoga bisa membantu teman-teman semua juga :D
   	// kode anda
   }
   ```
-
   
+
+</details>
+
 
 
 
