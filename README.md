@@ -2,7 +2,7 @@ Semoga bisa membantu teman-teman semua juga :D
 
 ### FAQ
 
-<details> <summary><h2>click here to expand</h2></summary>
+<details> <summary>click here to expand FAQ</summary>
 
 
 - IOException
