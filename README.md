@@ -1,7 +1,8 @@
 Semoga bisa membantu teman-teman semua juga :D
 
+### FAQ
 
-<details> <summary><h2 style="display: inline-block;">FAQ</h2></summary>
+<details> <summary><h2>click here to expand</h2></summary>
 
 
 - IOException
