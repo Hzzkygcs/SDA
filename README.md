@@ -1,13 +1,8 @@
 Semoga bisa membantu teman-teman semua juga :D
 
 
-<details>
+<details> <summary>## FAQ</summary>
 
-<summary>
-
-## FAQ
-
-</summary>
 
 - IOException
 
