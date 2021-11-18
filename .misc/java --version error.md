@@ -23,11 +23,11 @@
 6. Lakukan hal yang sama untuk system variables
 
    <img src="https://github.com/Hzzkygcs/SDA/blob/master/.misc/img/java%20--version%20error/img4.png?raw=true" alt="langkah-langkah" style="height:400px;" />
-   
+
 
 7. Selesai!  Tinggal menutup `HzzGrader`, lalu dibuka lagi. Seharusnya jika langkah sudah dijalankan dengan benar, HzzGrader akan berhasil meng-compile kode java teman-teman. 
 
-   Selamat mencoba! :D
+   Selamat mencoba, teman-teman! :D
 
 
 

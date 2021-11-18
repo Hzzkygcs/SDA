@@ -5,29 +5,36 @@ Semoga bisa membantu teman-teman semua juga :D
 <details> <summary>click here to expand FAQ</summary>
 
 
+- `java --version`, `javac --version`, dan JNI error
+
+  Hal ini biasanya disebabkan karena versi java yang sudah terinstall di laptop teman-teman perlu diupdate. Bisa juga karena ada miskonfigurasi pada instalasi JDK teman-teman. Solusinya bisa dilihat [di sini](https://github.com/Hzzkygcs/SDA/blob/master/.misc/java%20--version%20error.md)
+
 - IOException
 
   Teman-teman coba periksa kembali apakah ada `final` pada variabel IO (seperti `in` atau `out` misalnya). Jika ada, teman-teman bisa menghapus keyword final pada variabel tersebut.
 
-- Stuck di "parsing and wrapping your copied ..."
+- Mengubah batas waktu TLE
+
+  Untuk mengubah batas waktu TLE, teman-teman bisa mengubah isi file `.configurations\time_limit_in_ms.txt` dengan suatu bilangan bulat. Pastikan file hanya terdiri atas **1 baris**, dan **tidak ada karakter spasi maupun newline** di dalamnya.
+
+- Output program berbeda dengan output pada VSCode/Intellij
+
+  Jika hal ini terjadi, coba inisiasikan semua static variable pada awal-awal fungsi main(). Misal jika kita punya:  `public static int my_variable = 3;`, maka tambahkan: 
+
+  ```java
+  public static void main(String[] args) {
+  	my_variable = 3;
+  	// kode anda
+  }
+  ```
+
+- Stuck di "parsing and wrapping your copied ..."  (solved in 1.3)
 
   Biasanya ini karena HzzGrader tidak bisa membaca/menulis ke folder `HzzGrader/bin/`. Merestart laptop atau kill process `java.exe` dan `javaw.exe` biasanya menjadi solusi umum. Pastikan juga tidak ada dua/lebih window HzzGrader yang terbuka secara bersamaan.
 
 - Membuka file log.txt
 
   File log.txt dapat dibuka dengan cara klik kanan pada tulisan/logo HzzGrader (di pojok kiri atas)
-  
--  Output program pada HzzGrader hasilnya berbeda dari VSCode/Intellij
-
-  Jika hal ini terjadi, coba inisiasikan semua static variable pada awal-awal fungsi main(). Misal jika kita punya:  `public static int my_variable;`, maka tambahkan: 
-
-  ```java
-  public static void main(String[] args) {
-  	my_variable = 0;
-  	// kode anda
-  }
-  ```
-  
 
 
 
