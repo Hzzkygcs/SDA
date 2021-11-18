@@ -11,7 +11,8 @@
     SizeChanged="MainWindow_OnSizeChanged"
 
     mc:Ignorable="d"
-    Title="HzzGrader" Height="500" Width="700"
+    Title="HzzGrader" Icon="src/icons/Icon.ico" 
+    Height="500" Width="700"
     MinHeight="200" MinWidth="300">
 
     <Window.Resources>
@@ -288,16 +289,13 @@
                                         Content="&#xf137;" BorderThickness="0" >
                                     <Label.Style>
                                         <Style TargetType="Label">
-                                            <Setter Property="Foreground" Value="{StaticResource foreground1}" />
+                                            <Setter Property="Foreground" Value="{StaticResource color_a}" />
                                             <Style.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Foreground" Value="{StaticResource color_b}" />
+                                                    <Setter Property="Foreground" Value="{StaticResource color_a2}" />
                                                 </Trigger>
                                                 <Trigger Property="IsEnabled" Value="False">
                                                     <Setter Property="Foreground" Value="{StaticResource color_d}" />
-                                                </Trigger>
-                                                <Trigger Property="IsEnabled" Value="True">
-                                                    <Setter Property="Foreground" Value="{StaticResource color_a}" />
                                                 </Trigger>
                                             </Style.Triggers>
                                         </Style>
@@ -320,16 +318,13 @@
                                     Content="&#xf138;" BorderThickness="0" >
                                     <Label.Style>
                                         <Style TargetType="Label">
-                                            <Setter Property="Foreground" Value="{StaticResource foreground1}" />
+                                            <Setter Property="Foreground" Value="{StaticResource color_a}" />
                                             <Style.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Foreground" Value="{StaticResource color_b}" />
+                                                    <Setter Property="Foreground" Value="{StaticResource color_a2}" />
                                                 </Trigger>
                                                 <Trigger Property="IsEnabled" Value="False">
                                                     <Setter Property="Foreground" Value="{StaticResource color_d}" />
-                                                </Trigger>
-                                                <Trigger Property="IsEnabled" Value="True">
-                                                    <Setter Property="Foreground" Value="{StaticResource color_a}" />
                                                 </Trigger>
                                             </Style.Triggers>
                                         </Style>
@@ -423,26 +418,47 @@
                     <DockPanel Margin="10 5">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" DockPanel.Dock="Top">
                             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                                <Label x:Name="label_input_panel"
-                                        Cursor="Hand"
-                                        Padding="1"
-                                        HorizontalAlignment="Center" 
+                                <StackPanel 
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Center">
+                                    <Label x:Name="label_input_panel"
+                                           Padding="1"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Content="input" >
+                                        <Label.Style>
+                                            <Style TargetType="Label">
+                                                <Setter Property="Foreground" Value="{StaticResource foreground1}" />
+                                            </Style>
+                                        </Label.Style>
+                                    </Label>
+                                    
+                                    <StackPanel MinWidth="10"></StackPanel>
+                                    
+                                    <Label x:Name="open_external_window_panel"
+                                           Cursor="Hand"
+                                           Padding="1"
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center"
                                         
-                                        ToolTip="Click to open up additional window"
-                                        ToolTipService.ShowDuration="5000"
-                                        MouseUp="label_input_panel_OnMouseUp__open_ExtendedEditor"
-                                        Content="input" >
-                                    <Label.Style>
-                                        <Style TargetType="Label">
-                                            <Setter Property="Foreground" Value="{StaticResource foreground1}" />
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Foreground" Value="{StaticResource color_b}" />
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Label.Style>
-                                </Label>
+                                           ToolTip="Click to open up additional window"
+                                           ToolTipService.ShowDuration="5000"
+                                           MouseUp="open_external_window_panel_OnMouseUp__open_ExtendedEditor"
+                                           FontFamily="{StaticResource FontAwesomeRe}"
+                                           Content="&#xf2d2;" >
+                                        <Label.Style>
+                                            <Style TargetType="Label">
+                                                <Setter Property="Foreground" Value="{StaticResource foreground1}" />
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Foreground" Value="{StaticResource color_b}" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Label.Style>
+                                    </Label>
+                                    
+                                </StackPanel>
                                 <TextBlock x:Name="information_label"
                                            HorizontalAlignment="Center"
                                            Foreground="{StaticResource foreground1}"

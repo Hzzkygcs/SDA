@@ -8,6 +8,7 @@
         mc:Ignorable="d"
 
         Closing="ExtendedEditor_OnClosing"
+        Icon="/src/icons/Icon.ico"
         Title="Extended Editor" Height="450" Width="800">
 
 
@@ -140,11 +141,13 @@
                 DockPanel.Dock="Top"
                 Orientation="Horizontal" HorizontalAlignment="Left">
                 <Label 
+                       Name="your_output_label"
                        Cursor="Hand"
-                       ToolTip="double click to toggle window pin &#x0a;right click to restart testcase checking"
+                       ToolTip="double click to toggle window pin &#x0a;right click to restart testcase checking &#x0a;scroll up/down to display other results"
                        ToolTipService.ShowDuration="4000"
-                       MouseDoubleClick="Control_OnMouseDoubleClick"
-                       MouseUp="Control_OnMouseUp">
+                       MouseDoubleClick="your_output_label_OnMouseDoubleClick"
+                       MouseWheel="your_output_label_OnMouseWheel"
+                       MouseUp="your_output_label_OnMouseUp">
                     your output
                     
                     <Label.Style>

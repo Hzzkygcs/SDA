@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Rendering;
+using MessageBox = System.Windows.MessageBox;
 
 namespace HzzGrader.Windows
 {
@@ -16,6 +17,7 @@ namespace HzzGrader.Windows
         public bool is_closed = false;
         public Action window_ready;
         public Action restart_stresstest;
+        public Action<bool> switch_result;
 
         public ExtendedEditor(){
             InitializeComponent();
@@ -87,7 +89,7 @@ namespace HzzGrader.Windows
             base.OnClosed(e);
         }
 
-        private void Control_OnMouseDoubleClick(object sender, MouseButtonEventArgs e){
+        private void your_output_label_OnMouseDoubleClick(object sender, MouseButtonEventArgs e){
             string status_title = " (pinned)";
 
             Topmost = !Topmost;
@@ -179,9 +181,18 @@ namespace HzzGrader.Windows
             }
         }
 
-        private void Control_OnMouseUp(object sender, MouseButtonEventArgs e){
+        private void your_output_label_OnMouseUp(object sender, MouseButtonEventArgs e){
             if (e.ChangedButton == MouseButton.Right){
                 restart_stresstest?.Invoke();
+            }
+        }
+
+        private void your_output_label_OnMouseWheel(object sender, MouseWheelEventArgs e){
+            if (e.Delta < 0){  // mouse wheel down
+                switch_result?.Invoke(true);
+            }
+            else{
+                switch_result?.Invoke(false);
             }
         }
     }

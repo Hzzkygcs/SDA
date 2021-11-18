@@ -250,6 +250,7 @@
       <HintPath>packages\System.Xml.ReaderWriter.4.3.0\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -352,6 +353,7 @@
     <Content Include="7zip\7zxa.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="src\icons\Icon.ico" />
     <EmbeddedResource Include="ExecuteStresstest\HzzGraderTimeLimited.java" />
     <Resource Include="Fonts\consola.ttf" />
     <Resource Include="Fonts\fa-regular-400.ttf" />

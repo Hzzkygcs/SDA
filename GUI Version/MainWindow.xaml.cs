@@ -7,6 +7,8 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Automation.Peers;
+using System.Windows.Automation.Provider;
 using System.Windows.Forms;
 using System.Windows.Input;
 using HzzGrader.updater;
@@ -261,7 +263,7 @@ namespace HzzGrader
         private ExtendedEditor extended_editor = null;
 
 
-        private void label_input_panel_OnMouseUp__open_ExtendedEditor(object sender, MouseButtonEventArgs e){
+        private void open_external_window_panel_OnMouseUp__open_ExtendedEditor(object sender, MouseButtonEventArgs e){
             if (extended_editor == null || extended_editor.is_closed){
                 Action restart_testcase = () =>
                 {
@@ -271,12 +273,27 @@ namespace HzzGrader
                     }
                     start_stress_test_btn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 };
+                
+                Action<bool> switch_result = (bool next) =>
+                {
+                    if (next){
+                        if (!start_stress_test_next.IsEnabled)
+                            return;
+                        Start_stress_test_next_OnMouseLeftButtonUp(null, null);
+                    }
+                    else{
+                        if (!start_stress_test_previous.IsEnabled)
+                            return;
+                        Start_stress_test_previous_OnMouseLeftButtonUp(null, null);
+                    }
+                };
 
                 extended_editor = new ExtendedEditor();
                 input_content.extended_editor = extended_editor.input_editor;
                 program_output_content.extended_editor = extended_editor.program_output_editor;
                 expected_output_content.extended_editor = extended_editor.expected_output_editor;
                 extended_editor.restart_stresstest = restart_testcase;
+                extended_editor.switch_result = switch_result;
                 extended_editor.Show();
             }
 

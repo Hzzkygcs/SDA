@@ -361,7 +361,8 @@ namespace HzzGrader
                     while (wait){
                         if (update_window){
                             information_label_set_str_content(
-                                String.Format("running ({0})", java_execute.number_of_received_meaningful_output-1));
+                                String.Format("running ({0})", 
+                                    Math.Max(0, java_execute.number_of_received_meaningful_output-1)));
                         }
                         await Task.Delay(30);
                     }
@@ -480,10 +481,23 @@ namespace HzzGrader
             if (native_hzzgrader_chb.IsChecked == true){
                 if (time_limited_chb != null)
                     time_limited_chb.Visibility = Visibility.Visible;
+                if (start_stress_test_previous != null)
+                    start_stress_test_previous.Visibility = Visibility.Visible;
+                if (start_stress_test_next != null)
+                    start_stress_test_next.Visibility = Visibility.Visible;
+                if (start_test_button_dummy_content != null)
+                    start_test_button_dummy_content.Visibility = Visibility.Visible;
+                
             }
             else{
                 if (time_limited_chb != null)
                     time_limited_chb.Visibility = Visibility.Hidden;
+                if (start_stress_test_previous != null)
+                    start_stress_test_previous.Visibility = Visibility.Collapsed;
+                if (start_stress_test_next != null)
+                    start_stress_test_next.Visibility = Visibility.Collapsed;
+                if (start_test_button_dummy_content != null)
+                    start_test_button_dummy_content.Visibility = Visibility.Collapsed;
             }
         }
 
