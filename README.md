@@ -5,7 +5,7 @@ Semoga bisa membantu teman-teman semua juga :D
 <details> <summary>click here to expand FAQ</summary>
 
 
-- `java --version`, `javac --version`, dan JNI error
+- java --version, javac --version, dan JNI error
 
   Hal ini biasanya disebabkan karena versi java yang sudah terinstall di laptop teman-teman perlu diupdate. Bisa juga karena ada miskonfigurasi pada instalasi JDK teman-teman. Solusinya bisa dilihat [di sini](https://github.com/Hzzkygcs/SDA/blob/master/.misc/java%20--version%20error.md)
 
@@ -28,7 +28,7 @@ Semoga bisa membantu teman-teman semua juga :D
   }
   ```
 
-- Stuck di "parsing and wrapping your copied ..."  (solved in 1.3)
+- Stuck di "parsing and wrapping your copied ..."  (solved in v1.3)
 
   Biasanya ini karena HzzGrader tidak bisa membaca/menulis ke folder `HzzGrader/bin/`. Merestart laptop atau kill process `java.exe` dan `javaw.exe` biasanya menjadi solusi umum. Pastikan juga tidak ada dua/lebih window HzzGrader yang terbuka secara bersamaan.
 
