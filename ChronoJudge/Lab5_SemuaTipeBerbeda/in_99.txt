@@ -1,0 +1,6 @@
+3
+LI 12 1
+YEFO 8 2
+TEBA 14 3
+1
+BELI 7 9

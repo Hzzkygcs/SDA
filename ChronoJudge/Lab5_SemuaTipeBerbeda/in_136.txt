@@ -1,0 +1,5 @@
+1
+WUTE 5 1
+2
+STOCK HI 18 2
+BELI 1 1

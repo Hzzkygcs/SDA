@@ -1,0 +1,7 @@
+3
+PUHA 10 1
+ZO 7 2
+MISO 8 3
+2
+BELI 2 5
+BELI 2 2

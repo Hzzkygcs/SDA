@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="97aa9d47-3238-4e55-80b5-380ba25d8cb9" name="Default Changelist" comment="sebelum demo">
+      <change afterPath="$PROJECT_DIR$/src/coba.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hzz_Testcase_Grader/Deploy.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hzz_Testcase_Grader/Deploy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hzz_Testcase_Grader/InputReader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hzz_Testcase_Grader/InputReader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hzz_Testcase_Grader/Solusi.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hzz_Testcase_Grader/Solusi.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Solusi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Solusi.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/Solusi.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/HzzGrader.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/coba.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectId" id="1xmDz2GxihyJK7X3sbugY6g72Ok" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="discord-application" />
+  </component>
+  <component name="RunManager" selected="Application.coba">
+    <configuration name="HzzGrader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="HzzGrader" />
+      <module name="Hzz_Testcase_Grader" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HzzGraderTCgenerator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="HzzGraderTCgenerator" />
+      <module name="Hzz_Testcase_Grader" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Solusi" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Solusi" />
+      <module name="Hzz_Testcase_Grader" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <module name="Hzz_Testcase_Grader" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="coba" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="coba" />
+      <module name="Hzz_Testcase_Grader" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="dummy" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="dummy" />
+      <module name="Hzz_Testcase_Grader" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Solusi" />
+      <item itemvalue="Application.dummy" />
+      <item itemvalue="Application.HzzGrader" />
+      <item itemvalue="Application.HzzGraderTCgenerator" />
+      <item itemvalue="Application.coba" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.coba" />
+        <item itemvalue="Application.HzzGraderTCgenerator" />
+        <item itemvalue="Application.HzzGrader" />
+        <item itemvalue="Application.dummy" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="97aa9d47-3238-4e55-80b5-380ba25d8cb9" name="Default Changelist" comment="" />
+      <created>1630951633791</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1630951633791</updated>
+      <workItem from="1632362735851" duration="3202000" />
+      <workItem from="1632370214817" duration="2024000" />
+      <workItem from="1632416661824" duration="10943000" />
+      <workItem from="1632469494469" duration="3454000" />
+      <workItem from="1632475685301" duration="1665000" />
+      <workItem from="1632479009732" duration="3775000" />
+      <workItem from="1632488808327" duration="4575000" />
+      <workItem from="1632500427591" duration="519000" />
+      <workItem from="1632579595459" duration="674000" />
+      <workItem from="1632584536702" duration="855000" />
+      <workItem from="1632709050967" duration="22000" />
+      <workItem from="1632760669740" duration="431000" />
+      <workItem from="1632765568172" duration="557000" />
+      <workItem from="1632801928373" duration="17000" />
+      <workItem from="1632838552799" duration="3411000" />
+      <workItem from="1632847860133" duration="517000" />
+      <workItem from="1632849309288" duration="1223000" />
+      <workItem from="1632920068838" duration="118000" />
+      <workItem from="1632932840462" duration="21000" />
+      <workItem from="1632976685950" duration="164000" />
+      <workItem from="1633055750082" duration="133000" />
+      <workItem from="1633062940942" duration="614000" />
+      <workItem from="1633116932716" duration="31000" />
+      <workItem from="1633117251296" duration="10000" />
+      <workItem from="1633757917563" duration="2210000" />
+      <workItem from="1633765899727" duration="2173000" />
+      <workItem from="1634034298813" duration="595000" />
+      <workItem from="1635095819605" duration="256000" />
+      <workItem from="1635096617356" duration="325000" />
+      <workItem from="1635497668634" duration="650000" />
+      <workItem from="1635940920536" duration="609000" />
+    </task>
+    <task id="LOCAL-00001" summary="update comment">
+      <created>1632842523997</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1632842523997</updated>
+    </task>
+    <task id="LOCAL-00002" summary="sebelum demo">
+      <created>1633765954150</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1633765954150</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="update comment" />
+    <MESSAGE value="sebelum demo" />
+    <option name="LAST_COMMIT_MESSAGE" value="sebelum demo" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.util.UnknownFormatConversionException" package="java.util" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/Solusi.java</url>
+          <line>166</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

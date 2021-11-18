@@ -1,0 +1,5 @@
+1
+DI 10 1
+2
+BELI 5 7
+SOLD_OUT DI

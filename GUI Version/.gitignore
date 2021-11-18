@@ -1,0 +1,9 @@
+bin/
+publish/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+*.rar
+*.zip
+!old versions/*

@@ -1,0 +1,9 @@
+5
+LO 7 1
+SU 1 2
+KA 15 3
+CEPO 9 4
+BI 16 5
+2
+BELI 7 8
+BELI 6 7

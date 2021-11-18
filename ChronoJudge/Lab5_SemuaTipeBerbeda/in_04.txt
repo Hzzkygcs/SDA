@@ -1,0 +1,7 @@
+4
+GELO 17 1
+GO 1 2
+SETU 13 3
+GIZO 1 4
+1
+BELI 7 9

@@ -1,0 +1,11 @@
+﻿<Application x:Class="HzzGrader.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:HzzGrader"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <FontFamily x:Key="Consolas">pack://application:,,,/Fonts/#Consolas</FontFamily>
+        <FontFamily x:Key="FontAwesomeRe">pack://application:,,,/Fonts/#Font Awesome 5 Free Regular</FontFamily>
+        <FontFamily x:Key="FontAwesomeSo">pack://application:,,,/Fonts/#Font Awesome 5 Free Solid</FontFamily>
+    </Application.Resources>
+</Application>

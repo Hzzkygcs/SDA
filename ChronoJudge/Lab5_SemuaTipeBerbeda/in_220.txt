@@ -1,0 +1,6 @@
+3
+PO 7 1
+LO 14 2
+ZIRA 18 3
+1
+SOLD_OUT PO
