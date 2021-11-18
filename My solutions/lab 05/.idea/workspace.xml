@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e1bc137f-08aa-44c5-ba83-d8b5be0635ce" name="Default Changelist" comment=".">
+      <change afterPath="$PROJECT_DIR$/AVLTreeGFG/AVLTreeGFG.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AVLTreeGFG/src/AvlTreeGFG.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AVLTreeSDA/src/AVLTreeSDA.java" beforeDir="false" afterPath="$PROJECT_DIR$/AVLTreeSDA/src/AVLTreeSDA.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="4cad50e8fd450352d66702614bb4e2ce9f50b375" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="20djhCNXPmu8aMawzoOZaQ1oCaS" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/others/src" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.updates" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\01 Kuliah\01 Dokumen\71 - Struktur Data Algoritma\09 Lab\lab 05\others\src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\01 Kuliah\01 Dokumen\71 - Struktur Data Algoritma\09 Lab\lab 05\backup" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.AvlTreeGFG">
+    <configuration name="AVLTreeSDA" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="AVLTreeSDA" />
+      <module name="AVLTreeSDA" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AvlTreeGFG" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="AvlTreeGFG" />
+      <module name="AVLTreeGFG" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HzzGrader (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="HzzGrader" />
+      <module name="other" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Lab5" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Lab5" />
+      <module name="es" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Solusi" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Solusi" />
+      <module name="lab 05" />
+      <option name="PROGRAM_PARAMETERS" value="-ea" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Solusi" />
+      <item itemvalue="Application.Lab5" />
+      <item itemvalue="Application.HzzGrader (1)" />
+      <item itemvalue="Application.AVLTreeSDA" />
+      <item itemvalue="Application.AvlTreeGFG" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.AvlTreeGFG" />
+        <item itemvalue="Application.AVLTreeSDA" />
+        <item itemvalue="Application.Solusi" />
+        <item itemvalue="Application.HzzGrader (1)" />
+        <item itemvalue="Application.Lab5" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e1bc137f-08aa-44c5-ba83-d8b5be0635ce" name="Default Changelist" comment="" />
+      <created>1636381477832</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1636381477832</updated>
+      <workItem from="1636381479079" duration="5537000" />
+      <workItem from="1636388875223" duration="9608000" />
+      <workItem from="1636420356403" duration="10361000" />
+      <workItem from="1636431652875" duration="43288000" />
+      <workItem from="1636479777037" duration="425000" />
+      <workItem from="1636480225674" duration="6894000" />
+      <workItem from="1636515629789" duration="8997000" />
+      <workItem from="1636535471592" duration="261000" />
+      <workItem from="1636536060140" duration="475000" />
+      <workItem from="1636540339164" duration="742000" />
+      <workItem from="1636555069709" duration="3065000" />
+      <workItem from="1636645091439" duration="161000" />
+      <workItem from="1636651550473" duration="1419000" />
+      <workItem from="1636715265629" duration="4000" />
+    </task>
+    <task id="LOCAL-00001" summary="avl insert balance gagal">
+      <created>1636396362163</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1636396362163</updated>
+    </task>
+    <task id="LOCAL-00002" summary="avl insert balance berhasil. Tinggal implementasi deletion, kemudian lanjutin lab">
+      <created>1636398727979</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1636398727979</updated>
+    </task>
+    <task id="LOCAL-00003" summary="avl remove balance sepertinya juga sudah berhasil">
+      <created>1636422767382</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1636422767382</updated>
+    </task>
+    <task id="LOCAL-00004" summary="error commit">
+      <created>1636433523284</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1636433523284</updated>
+    </task>
+    <task id="LOCAL-00005" summary="ada bug di waktu pop permen. Kalo banyak tipe pada note itu udh nol (tidak termasuk descendant), harusnya dia langsung delete dirinya sendiri. Tapi ada bug ini, yakni pada kasus banyak permennya nol tapi descendantnya masih ada, tidak mau hapus node itu. padahal harusnya dihapus">
+      <created>1636433650320</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1636433650320</updated>
+    </task>
+    <task id="LOCAL-00006" summary="bug pada sold out nampaknya sudah selesai">
+      <created>1636437073119</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1636437073119</updated>
+    </task>
+    <task id="LOCAL-00007" summary="testcase pdf sudah selesai. Mau coba mengumpulkan">
+      <created>1636440577578</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1636440577578</updated>
+    </task>
+    <task id="LOCAL-00008" summary="tadi gagal. cuman 1 doang yg ac wkwkwk&#10;&#10;Sisanya wa rte.&#10;Ini mau stresstest">
+      <created>1636444072481</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1636444072481</updated>
+    </task>
+    <task id="LOCAL-00009" summary="banyak bug dan terlalu kompleks. Ada clue kalau kompleksitasnya log kuadrat n. Jadi mau coba pakai kompleksitas itu aja">
+      <created>1636450357231</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1636450357231</updated>
+    </task>
+    <task id="LOCAL-00010" summary="ga jadi ganti algo. masih berusaha debug. masih ada bug, tapi mau coba submit lagi dulu buat ngamanin nilai">
+      <created>1636453506439</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1636453506439</updated>
+    </task>
+    <task id="LOCAL-00011" summary="dah lah rte semua. Padahal hzzgrader jarang ketemu tle">
+      <created>1636454548831</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1636454548831</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Hzzgrader lulus tapi masih banyak RTE di sofita. Mau coba bikin ulang avl">
+      <created>1636459185751</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1636459185751</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Mau bikin ulang aja">
+      <created>1636460987882</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1636460987882</updated>
+    </task>
+    <task id="LOCAL-00014" summary="class avl selesai">
+      <created>1636470650472</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1636470650472</updated>
+    </task>
+    <task id="LOCAL-00015" summary="nilai meningkat menjadi 37. Masih banyak RTE. WA jarang. HzzGrader sudah lolos padahal">
+      <created>1636477073162</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1636477073162</updated>
+    </task>
+    <task id="LOCAL-00016" summary="pusing">
+      <created>1636480934830</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1636480934831</updated>
+    </task>
+    <task id="LOCAL-00017" summary="mau pakai avltree punya geeks for geeks">
+      <created>1636481849355</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1636481849355</updated>
+    </task>
+    <task id="LOCAL-00018" summary="yang tadi pakai avl tree geeksforgeeks sudah bisa 60. Sekarang mau coba sampai 80.">
+      <created>1636487380045</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1636487380045</updated>
+    </task>
+    <task id="LOCAL-00019" summary="PUJI TUHAN sudah 80, menangani khusus kasus yang sampai nilai 80">
+      <created>1636526179942</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1636526179942</updated>
+    </task>
+    <task id="LOCAL-00020" summary="tambahkan referensi">
+      <created>1636555162143</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1636555162143</updated>
+    </task>
+    <task id="LOCAL-00021" summary=".">
+      <created>1636651811883</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1636651811883</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="avl insert balance gagal" />
+    <MESSAGE value="avl insert balance berhasil. Tinggal implementasi deletion, kemudian lanjutin lab" />
+    <MESSAGE value="avl remove balance sepertinya juga sudah berhasil" />
+    <MESSAGE value="error commit" />
+    <MESSAGE value="ada bug di waktu pop permen. Kalo banyak tipe pada note itu udh nol (tidak termasuk descendant), harusnya dia langsung delete dirinya sendiri. Tapi ada bug ini, yakni pada kasus banyak permennya nol tapi descendantnya masih ada, tidak mau hapus node itu. padahal harusnya dihapus" />
+    <MESSAGE value="bug pada sold out nampaknya sudah selesai" />
+    <MESSAGE value="testcase pdf sudah selesai. Mau coba mengumpulkan" />
+    <MESSAGE value="tadi gagal. cuman 1 doang yg ac wkwkwk&#10;&#10;Sisanya wa rte.&#10;Ini mau stresstest" />
+    <MESSAGE value="banyak bug dan terlalu kompleks. Ada clue kalau kompleksitasnya log kuadrat n. Jadi mau coba pakai kompleksitas itu aja" />
+    <MESSAGE value="ga jadi ganti algo. masih berusaha debug. masih ada bug, tapi mau coba submit lagi dulu buat ngamanin nilai" />
+    <MESSAGE value="dah lah rte semua. Padahal hzzgrader jarang ketemu tle" />
+    <MESSAGE value="Hzzgrader lulus tapi masih banyak RTE di sofita. Mau coba bikin ulang avl" />
+    <MESSAGE value="tes" />
+    <MESSAGE value="Mau bikin ulang aja" />
+    <MESSAGE value="class avl selesai" />
+    <MESSAGE value="nilai meningkat menjadi 37. Masih banyak RTE. WA jarang. HzzGrader sudah lolos padahal" />
+    <MESSAGE value="pusing" />
+    <MESSAGE value="mau pakai avltree punya geeks for geeks" />
+    <MESSAGE value="yang tadi pakai avl tree geeksforgeeks sudah bisa 60. Sekarang mau coba sampai 80." />
+    <MESSAGE value="PUJI TUHAN sudah 80, menangani khusus kasus yang sampai nilai 80" />
+    <MESSAGE value="tambahkan referensi" />
+    <MESSAGE value="." />
+    <option name="LAST_COMMIT_MESSAGE" value="." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.ClassCastException" package="java.lang" />
+          <option name="timeStamp" value="5" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.IllegalStateException" package="java.lang" />
+          <option name="timeStamp" value="39" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.util.NoSuchElementException" package="java.util" />
+          <option name="timeStamp" value="46" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.io.IOException" package="java.io" />
+          <option name="timeStamp" value="93" />
+        </breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/tester.java</url>
+          <line>79</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Solusi.java</url>
+          <line>76</line>
+          <option name="timeStamp" value="90" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/others/src/LabPain.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="92" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

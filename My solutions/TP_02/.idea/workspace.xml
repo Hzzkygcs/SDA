@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f985d1a4-0315-4b95-bc81-750ce35472fc" name="Default Changelist" comment="tes">
+      <change beforePath="$PROJECT_DIR$/stresstest.py" beforeDir="false" afterPath="$PROJECT_DIR$/stresstest.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="KEEP" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="20PP7AeHw8GzAcYoMwDm6B0lU5i" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="jdk.selected.JAVA_MODULE" value="15" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.completion" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.HzzGraderTCgenerator">
+    <configuration name="HzzGraderTCgenerator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="HzzGraderTCgenerator" />
+      <module name="Solusi" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Solusi" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Solusi" />
+      <module name="Solusi" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../TP_01" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <module name="TP_02" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Solusi" />
+      <item itemvalue="Application.HzzGraderTCgenerator" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.HzzGraderTCgenerator" />
+        <item itemvalue="Application.Solusi" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f985d1a4-0315-4b95-bc81-750ce35472fc" name="Default Changelist" comment="" />
+      <created>1635943081239</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1635943081239</updated>
+      <workItem from="1635943082517" duration="5207000" />
+      <workItem from="1635960741938" duration="368000" />
+      <workItem from="1635961130563" duration="8127000" />
+      <workItem from="1635993013968" duration="493000" />
+      <workItem from="1635998492805" duration="12000" />
+      <workItem from="1636132603906" duration="10474000" />
+      <workItem from="1636166972402" duration="20644000" />
+      <workItem from="1636194733604" duration="2690000" />
+      <workItem from="1636199698015" duration="29161000" />
+      <workItem from="1636229509046" duration="1135000" />
+      <workItem from="1636272691751" duration="2457000" />
+      <workItem from="1636284928761" duration="21803000" />
+      <workItem from="1636351872120" duration="1407000" />
+      <workItem from="1636368695956" duration="616000" />
+      <workItem from="1636373785128" duration="7160000" />
+      <workItem from="1636381525835" duration="315000" />
+      <workItem from="1636385089635" duration="2905000" />
+      <workItem from="1636388856357" duration="1219000" />
+      <workItem from="1636420026941" duration="316000" />
+      <workItem from="1636429886778" duration="1553000" />
+      <workItem from="1636431647143" duration="659000" />
+      <workItem from="1636455131267" duration="935000" />
+      <workItem from="1636645140157" duration="121000" />
+      <workItem from="1636651435880" duration="106000" />
+      <workItem from="1636715277116" duration="564000" />
+      <workItem from="1636716074645" duration="2636000" />
+      <workItem from="1636726282384" duration="3708000" />
+      <workItem from="1636797803503" duration="2099000" />
+      <workItem from="1636900512181" duration="2267000" />
+      <workItem from="1636979440289" duration="34000" />
+    </task>
+    <task id="LOCAL-00001" summary="stress sama BST, makin tambah buggy">
+      <created>1636143087807</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1636143087807</updated>
+    </task>
+    <task id="LOCAL-00002" summary=".">
+      <created>1636167106209</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1636167106209</updated>
+    </task>
+    <task id="LOCAL-00003" summary=".">
+      <created>1636167112631</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1636167112631</updated>
+    </task>
+    <task id="LOCAL-00004" summary="BST sudah bagus">
+      <created>1636180298923</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1636180298923</updated>
+    </task>
+    <task id="LOCAL-00005" summary="BST menghandel kasus ketika berusaha menambahkan data yang sudah ada ke dalam Tree">
+      <created>1636182541934</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1636182541934</updated>
+    </task>
+    <task id="LOCAL-00006" summary="pdf">
+      <created>1636182552733</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1636182552733</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Mengubah AbstractBundel menjadi type-parameterized">
+      <created>1636187534131</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1636187534131</updated>
+    </task>
+    <task id="LOCAL-00008" summary="ide 1. Lagi menunggu konfirmasi Kak Estu maupun Kak Galang">
+      <created>1636192632072</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1636192632072</updated>
+    </task>
+    <task id="LOCAL-00009" summary="ide 1. Lagi menunggu konfirmasi Kak Estu maupun Kak Galang">
+      <created>1636196122135</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1636196122135</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Mau merombak tipe data raden shogun">
+      <created>1636203419904</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1636203419904</updated>
+    </task>
+    <task id="LOCAL-00011" summary="mau debug untuk testcase 1">
+      <created>1636211641054</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1636211641054</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Handel testcase 1 hampir selesai. Mau menambahkan catatan terhadap banyaknya node">
+      <created>1636214744355</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1636214744355</updated>
+    </task>
+    <task id="LOCAL-00013" summary="testcase 1 sudah sesuai">
+      <created>1636223900128</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1636223900128</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Bug pada pisah sudah diperbaiki">
+      <created>1636224937043</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1636224937043</updated>
+    </task>
+    <task id="LOCAL-00015" summary="stabilize sudah selesai">
+      <created>1636226893002</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1636226893002</updated>
+    </task>
+    <task id="LOCAL-00016" summary="sudah selesai. Mau coba submit">
+      <created>1636229377124</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1636229377124</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Hasil dapat 58. Ada yg TLE, tapi perbandingan time untuk TLEnya terlalu drastis jika dibandingkan yang AC. Dugaan ada infinite loop. Semoga cara semuanya udh efisien, cuman krn infinite loop doang.&#10;&#10;Sekitar hampir 50% lainnya WA maupun RTE.">
+      <created>1636230627305</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1636230627305</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Jawaban sudah benar. sisa TLE saja. Tidak ada infinite loop yang ditemukan setelah 10k testcase. Dugaan, input segaja dibikin supaya tree menjadi linear">
+      <created>1636287585067</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1636287585067</updated>
+    </task>
+    <task id="LOCAL-00019" summary="dugaan benar. Ada input yang linear. Sekarang tinggal 1 yg TLE. sudah dapat 99/100 Puji Tuhan">
+      <created>1636302571750</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1636302571750</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Berusaha menambahkan optimasi malah jadi tambah banyak bugnya. Coba balik ke commit yang tadi. Sepertinya TLE karena lupa untuk aktifin printwriter setelah selesai debug tadi">
+      <created>1636307846481</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1636307846481</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Puji Tuhan sudah 100. Ternyata karena belom printwriter">
+      <created>1636309543171</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1636309543171</updated>
+    </task>
+    <task id="LOCAL-00022" summary="ide 1. tadi salah baca. ternyata awalnya ditolak, tapi PUJI TUHAN ujung2nya diterima.">
+      <created>1636353243700</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1636353243700</updated>
+    </task>
+    <task id="LOCAL-00023" summary="ditambahkan avl">
+      <created>1636381540809</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1636381540809</updated>
+    </task>
+    <task id="LOCAL-00024" summary="update fitur BstNode">
+      <created>1636387495807</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1636387495807</updated>
+    </task>
+    <task id="LOCAL-00025" summary="tes">
+      <created>1636430471286</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1636430471286</updated>
+    </task>
+    <task id="LOCAL-00026" summary="tes">
+      <created>1636901488793</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1636901488793</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ID_WIDTH">
+                <map>
+                  <entry key="Table.Default.Author.ColumnIdWidth" value="105" />
+                  <entry key="Table.Default.Date.ColumnIdWidth" value="46" />
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="stress sama BST, makin tambah buggy" />
+    <MESSAGE value="." />
+    <MESSAGE value="BST sudah bagus" />
+    <MESSAGE value="BST menghandel kasus ketika berusaha menambahkan data yang sudah ada ke dalam Tree" />
+    <MESSAGE value="pdf" />
+    <MESSAGE value="Mengubah AbstractBundel menjadi type-parameterized" />
+    <MESSAGE value="ide 1. Lagi menunggu konfirmasi Kak Estu maupun Kak Galang" />
+    <MESSAGE value="Mau merombak tipe data raden shogun" />
+    <MESSAGE value="mau debug untuk testcase 1" />
+    <MESSAGE value="Handel testcase 1 hampir selesai. Mau menambahkan catatan terhadap banyaknya node" />
+    <MESSAGE value="testcase 1 sudah sesuai" />
+    <MESSAGE value="Bug pada pisah sudah diperbaiki" />
+    <MESSAGE value="stabilize sudah selesai" />
+    <MESSAGE value="sudah selesai. Mau coba submit" />
+    <MESSAGE value="Hasil dapat 58. Ada yg TLE, tapi perbandingan time untuk TLEnya terlalu drastis jika dibandingkan yang AC. Dugaan ada infinite loop. Semoga cara semuanya udh efisien, cuman krn infinite loop doang.&#10;&#10;Sekitar hampir 50% lainnya WA maupun RTE." />
+    <MESSAGE value="Jawaban sudah benar. sisa TLE saja. Tidak ada infinite loop yang ditemukan setelah 10k testcase. Dugaan, input segaja dibikin supaya tree menjadi linear" />
+    <MESSAGE value="dugaan benar. Ada input yang linear. Sekarang tinggal 1 yg TLE. sudah dapat 99/100 Puji Tuhan" />
+    <MESSAGE value="Berusaha menambahkan optimasi malah jadi tambah banyak bugnya. Coba balik ke commit yang tadi. Sepertinya TLE karena lupa untuk aktifin printwriter setelah selesai debug tadi" />
+    <MESSAGE value="Puji Tuhan sudah 100. Ternyata karena belom printwriter" />
+    <MESSAGE value="ide 1. tadi salah baca. ternyata awalnya ditolak, tapi PUJI TUHAN ujung2nya diterima." />
+    <MESSAGE value="ditambahkan avl" />
+    <MESSAGE value="update fitur BstNode" />
+    <MESSAGE value="tes" />
+    <option name="LAST_COMMIT_MESSAGE" value="tes" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src2/AvlClass.java</url>
+          <line>15</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <condition expression="!temp1 || !temp2" language="JAVA" />
+          <url>file://$PROJECT_DIR$/src2/AvlClass.java</url>
+          <line>622</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <condition expression="!sorted[i].equals(temp)" language="JAVA" />
+          <url>file://$PROJECT_DIR$/src2/tester.java</url>
+          <line>90</line>
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src2/tester.java</url>
+          <line>39</line>
+          <option name="timeStamp" value="64" />
+        </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="16" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.AssertionError" package="java.lang" />
+          <option name="timeStamp" value="45" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.IndexOutOfBoundsException" package="java.lang" />
+          <option name="timeStamp" value="56" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.io.IOException" package="java.io" />
+          <option name="timeStamp" value="65" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/Solusi/src/Solusi.java</url>
+          <line>434</line>
+          <properties class="Solusi">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="AvlData" memberName="right" />
+        <PinnedItemInfo parentTag="HeadBundel" memberName="next" />
+        <PinnedItemInfo parentTag="Pulau" memberName="head" />
+        <PinnedItemInfo parentTag="AvlData" memberName="left" />
+        <PinnedItemInfo parentTag="DataranBstNode" memberName="left" />
+        <PinnedItemInfo parentTag="DataranBstNode" memberName="data" />
+        <PinnedItemInfo parentTag="Pulau" memberName="tail" />
+        <PinnedItemInfo parentTag="DataranBstNode" memberName="right" />
+      </pinned-members>
+    </pin-to-top-manager>
+  </component>
+</project>

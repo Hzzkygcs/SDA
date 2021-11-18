@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AVLTreeGFG/AVLTreeGFG.iml" filepath="$PROJECT_DIR$/AVLTreeGFG/AVLTreeGFG.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AVLTreeSDA/AVLTreeSDA.iml" filepath="$PROJECT_DIR$/AVLTreeSDA/AVLTreeSDA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/es/es.iml" filepath="$PROJECT_DIR$/es/es.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lab 05.iml" filepath="$PROJECT_DIR$/lab 05.iml" />
+      <module fileurl="file://$PROJECT_DIR$/others/other.iml" filepath="$PROJECT_DIR$/others/other.iml" />
+    </modules>
+  </component>
+</project>
