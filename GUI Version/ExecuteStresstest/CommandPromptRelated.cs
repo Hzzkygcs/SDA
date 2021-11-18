@@ -98,7 +98,8 @@ namespace HzzGrader
                     res = await execute_cmd("java -version");
                     if (!res.Item1.Trim().StartsWith("javac")){
                         var is_cancel = MessageBox.Show(
-                            "There's an error when running javac --version\nDo you wish to continue?", "",
+                            "There's an error when running javac --version\nDo you wish to continue?\n\n" +
+                            "please read the FAQ on https://ristek.link/HzzGrader", "",
                             MessageBoxButtons.YesNo, MessageBoxIcon.Error);
                         if (is_cancel == System.Windows.Forms.DialogResult.No){
                             information_label_set_str_content("ERROR javac not found");
@@ -119,7 +120,8 @@ namespace HzzGrader
 
                     if (!(temp.StartsWith("java") || temp.StartsWith("openjdk"))){
                         var is_cancel = MessageBox.Show(
-                            "There's an error when running java --version\nDo you wish to continue?", "",
+                            "There's an error when running java --version\nDo you wish to continue?\n\n" +
+                            "please read the FAQ on https://ristek.link/HzzGrader", "",
                             MessageBoxButtons.YesNo, MessageBoxIcon.Error);
                         if (is_cancel == System.Windows.Forms.DialogResult.No){
                             information_label_set_str_content("ERROR java not found");
@@ -141,7 +143,7 @@ namespace HzzGrader
 
         public async Task<bool> compile_java_source_code(string[] flag, string compile_dir_path,
             params string[] source_file_path){
-            Tuple<string, string> result;
+            Tuple<string, string, string> result;
             {
 
                 string command_compile = String.Format("javac {0} -d \"{1}\" \"{2}\"",
@@ -157,22 +159,20 @@ namespace HzzGrader
                 result = await run_cmd_asynchronously(command_compile);
                 // result = await execute_cmd(command_compile);
 
+                // compile-time error
                 if (result.Item2.Length > 0 && !result.Item2.Contains("warning") || result.Item2.Contains("error")){
-                    MessageBox.Show("Unexpected compile-time error");
-                    string err_msg = result.Item2.Replace("       ^", "\n");
-                    err_msg = String.Join("\n\n", Utility.TakeLastLines(err_msg, 2));
-                    err_msg = Regex.Replace(err_msg, "   +", "  ");
-                    MessageBox.Show(err_msg);
-                    // MessageBox.Show(command_compile);
+                    // MessageBox.Show("Unexpected compile-time error");
+                    string err_msg_full = result.Item3
+                        .Replace(compile_dir_path + "\\", "");
 
                     write_log("Unexpected error (compiling java source code)");
-                    write_log(result.Item2);
+                    write_log(result.Item3);
                     write_log(command_compile + "\n\n");
 
-                    information_label_set_str_content("unexpected error");
-                    input.Text = "";
-                    program_output.Text = "";
-                    expected_output.Text = "";
+                    information_label_set_str_content("compile-time error");
+                    input_content.Text = err_msg_full;
+                    program_output_content.Text = "";
+                    expected_output_content.Text = "";
                     return false;
                 }
             }
@@ -183,7 +183,7 @@ namespace HzzGrader
             information_label.Text = content;
         }
 
-        public async Task<Tuple<string,string>> run_cmd_asynchronously(string cmd_command){
+        public async Task<Tuple<string,string, string>> run_cmd_asynchronously(string cmd_command){
             // result = await execute_cmd_optimized(command_run, command_prompt_run_process, 4000, null);
             JavaExecute java_execute = new JavaExecute(initialize_cmd_process(new Process()), compile_dir_path);
             bool wait = true;

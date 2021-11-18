@@ -120,6 +120,23 @@ namespace HzzGrader.JavaRelated
     }
 
 
+    // complement of AssignedVariableDeclaration
+    public class UninitializedVariableDeclaration : VariableDeclaration
+    {
+
+        public UninitializedVariableDeclaration(string name, string type, string complete_type,
+            string type_generic = "", VisibilityModifier visibility_modifier = VisibilityModifier.DEFAULT,
+            StaticAbstract static_abstract = StaticAbstract.NONE, bool is_synchronized = false, bool is_final = false) :
+            base(name, type, type_generic, complete_type, visibility_modifier,
+                static_abstract, is_synchronized, is_final){
+        }
+
+        public override string ToString(){
+            return String.Format("{0};", base.ToString());
+        }
+    }
+
+
     public class ClassDeclaration : Declaration
     {
         public string name;
@@ -185,18 +202,46 @@ namespace HzzGrader.JavaRelated
         static readonly Regex GET_PUBLIC_CLASS_NAME_REGEX =
             new Regex("public\\s+class\\s+([a-zA-Z0-9_][a-zA-Z0-9_]*)\\s*{");
 
+        
+        // excluding primitive types such as int, long, boolean, etc
+        public static readonly HashSet<string> _JAVA_KEYWORDS 
+            = new HashSet<string>(new []{
+                "abstract", "continue", "for", "new", "switch", "assert",  "default", "goto", "super",
+                "package", "synchronized", "do", "if", "private", "this", "break",  "while", 
+                "implements", "protected", "throw", "else", "import", "public", "throws", "case", "enum", 
+                "instanceof", "return", "transient", "catch", "extends", "try", "volatile", 
+                "final", "interface", "static", "void", "class", "finally", "strictfp","const", "native"});
+ 
+        public static readonly HashSet<string> _JAVA_PRIMITIVE_TYPES 
+            = new HashSet<string>(new []{
+                "int", "byte", "short", "long", "float", "double", "boolean", "char",
+            });
+        
+        public static readonly HashSet<string> _JAVA_PRIMITIVE_WRAPPER
+            = new HashSet<string>(new []{
+                "Integer", "Byte", "Short", "Long", "Float", "Double", "Boolean", "Character",
+            });
 
+        
+        
         public static readonly string _KEYWORD_MODIFIERS =
             "(?:(public|private|protected)\\s+)?(?:(abstract|static)\\s+)?(?:(final)\\s+)?(?:(synchronized)\\s+)?";
+        
+        public static readonly string _VARIABLE_DECLARATION_TYPE =
+            "(([a-zA-Z0-9_]+)\\s*(<[a-zA-Z0-9_,\\s<>]*>)?(?:\\s*\\[\\s*\\]\\s*)*)\\s+([a-zA-Z0-9_]+)";
 
         public static readonly Regex GET_CLASS_DECLARATION_REGEX =
             new Regex(_KEYWORD_MODIFIERS +
                       "class\\s+([a-zA-Z0-9_]+)\\s*(<[^;]*>)?\\s*(?:extends\\s+([a-zA-Z0-9_]+)\\s*(<[^;]*>)?)?\\s*(?:implements\\s+([^{]+))?\\s*\\{");
 
+        public static readonly Regex GET_UNINITIALIZED_VARIABLE_DECLARATIONS_REGEX = 
+            new Regex(_KEYWORD_MODIFIERS +
+                      _VARIABLE_DECLARATION_TYPE + "\\s*;");
+        
         //  (?:(public|private|protected)\s+)?(?:(abstract|static)\s+)?(?:(final)\s+)?(?:(synchronized)\s+)?(([a-zA-Z0-9_]+)\s*(<[a-zA-Z0-9_,\s]*>)?(?:\s*\[\s*\]\s*)*)\s+([a-zA-Z0-9_]+)\s*=(?!=)([^;]+);
         public static readonly Regex GET_DECLARED_ASSIGNED_REGEX =
             new Regex(_KEYWORD_MODIFIERS +
-                      "(([a-zA-Z0-9_]+)\\s*(<[a-zA-Z0-9_,\\s<>]*>)?(?:\\s*\\[\\s*\\]\\s*)*)\\s+([a-zA-Z0-9_]+)\\s*=(?!=)([^;]+);");
+                      _VARIABLE_DECLARATION_TYPE + "\\s*=(?!=)([^;]+);");
 
         public static readonly Regex GET_MAIN_METHOD_REGEX =
             new Regex("public\\s+static\\s+void\\s+main\\s*\\(.+\\)[a-zA-Z0-9_ ]*\\{");
@@ -273,6 +318,20 @@ namespace HzzGrader.JavaRelated
                 visibility, static_abstract,
                 match.Groups[SYNCHRONIZED_GROUP].Length > 2, match.Groups[FINAL_GROUP].Length > 2);
         }
+        
+        public static UninitializedVariableDeclaration get_uninitialized_variable_declaration_from_match(Match match){
+            VisibilityModifier visibility = VisibilityModifierExtension.from_string(
+                match.Groups[VISBILITY_GROUP].Value);
+
+            StaticAbstract static_abstract = StaticAbstractExtension.from_string(
+                match.Groups[STATIC_ABSTRACT_GROUP].Value);
+
+            return new UninitializedVariableDeclaration(
+                match.Groups[VARIABLE_NAME_GROUP].Value, match.Groups[VARIABLE_TYPE_GROUP].Value,
+                match.Groups[VARIABLE_COMPLETE_TYPE_GROUP].Value, match.Groups[GENERIC_GROUP].Value,
+                visibility, static_abstract,
+                match.Groups[SYNCHRONIZED_GROUP].Length > 2, match.Groups[FINAL_GROUP].Length > 2);
+        }
 
         // must be called after parse()
         public List<ClassDeclaration> get_class_declarations(){
@@ -344,12 +403,35 @@ namespace HzzGrader.JavaRelated
             foreach (Match match in matches){
                 if (!match.Success)
                     continue;
+                if (_JAVA_KEYWORDS.Contains(match.Groups[VARIABLE_TYPE_GROUP].Value))
+                    continue;
                 var temp = get_assigned_variable_declaration_from_match(match);
                 temp.match = match;
                 ret.Add(temp);
             }
             return ret;
         }
+        
+        // must be called after parse()
+        public List<UninitializedVariableDeclaration> get_uninitialized_variable_declarations(){
+            MatchCollection matches = GET_UNINITIALIZED_VARIABLE_DECLARATIONS_REGEX.Matches(tokenized_str);
+            List<UninitializedVariableDeclaration> ret 
+                = new List<UninitializedVariableDeclaration>(matches.Count + 2);
+
+            foreach (Match match in matches){
+                if (!match.Success)
+                    continue;
+                if (_JAVA_KEYWORDS.Contains(match.Groups[VARIABLE_TYPE_GROUP].Value))
+                    continue;
+                var temp = get_uninitialized_variable_declaration_from_match(match);
+                temp.match = match;
+                ret.Add(temp);
+            }
+            return ret;
+        }
+        
+        
+        
 
         // must be called after parse()
         public List<AssignedVariableDeclaration> get_assigned_static_variable_declarations(){

@@ -61,3 +61,10 @@ Ketika mendownload yang *auto update*, beberapa antivirus mungkin akan mengangga
 
 Kalau teman-teman merasa aplikasi ini sangat berguna dan ingin memberikan sedikit donasi, teman-teman bisa mengirimkannya ke [https://saweria.co/HzzHzz](https://saweria.co/HzzHzz) 
 Terima kasih atas dukungan teman-teman semua :D
+
+
+
+## Cross-platform Alternative
+
+Untuk teman-teman yang tidak menggunakan windows, teman-teman bisa mengunjungi website dengan fungsionalitas yang serupa, yakni [chronojudge](https://chronojudge.netlify.app/)! Have a nice day! :D
+

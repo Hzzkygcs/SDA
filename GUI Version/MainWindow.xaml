@@ -89,7 +89,6 @@
             </Setter>
         </Style>
 
-
     </Window.Resources>
 
 
@@ -268,17 +267,107 @@
                             </StackPanel>
 
 
-                            <Button DockPanel.Dock="Top"
-                                    x:Name="start_stress_test_btn"
-                                    Click="ButtonBase_start_test_OnClick"
-                                    Margin="0 5" MaxWidth="500" Background="{StaticResource color_a}"
-                                    Width="{Binding ActualWidth, ElementName=tc_folder_panel}"
-                                    Foreground="{StaticResource foreground1}" Cursor="Hand"
-                                    Style="{StaticResource tombol_biru}"
-                                    Content="Start Test" BorderThickness="0" />
+                            <DockPanel
+                                DockPanel.Dock="Top"
+                                Name="start_stress_test_container"
+                                Width="{Binding ActualWidth, ElementName=tc_folder_panel}"
+                                Margin="0 5" MaxWidth="500">
+                                
+                                <Label 
+                                        x:Name="start_stress_test_previous"
+                                        DockPanel.Dock="Left"
+                                        IsEnabled="False"
+                                        MouseLeftButtonUp="Start_stress_test_previous_OnMouseLeftButtonUp"
+                                        Cursor="Hand"
+                                        MinWidth="10"
+                                        ToolTip="run previous testcase"
+                                        FontSize="17"
+                                        VerticalAlignment="Center"
+                                        Margin="0 -5 0 -5"
+                                        FontFamily="{StaticResource FontAwesomeSo}"
+                                        Content="&#xf137;" BorderThickness="0" >
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Setter Property="Foreground" Value="{StaticResource foreground1}" />
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Foreground" Value="{StaticResource color_b}" />
+                                                </Trigger>
+                                                <Trigger Property="IsEnabled" Value="False">
+                                                    <Setter Property="Foreground" Value="{StaticResource color_d}" />
+                                                </Trigger>
+                                                <Trigger Property="IsEnabled" Value="True">
+                                                    <Setter Property="Foreground" Value="{StaticResource color_a}" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+                                
+                                
+                                <Label 
+                                    x:Name="start_stress_test_next"
+                                    DockPanel.Dock="Left"
+                                    IsEnabled="False"
+                                    MouseLeftButtonUp="Start_stress_test_next_OnMouseLeftButtonUp"
+                                    Cursor="Hand"
+                                    MinWidth="10"
+                                    ToolTip="run next testcase"
+                                    FontSize="17"
+                                    VerticalAlignment="Center"
+                                    Margin="0 -5 0 -5"
+                                    FontFamily="{StaticResource FontAwesomeSo}"
+                                    Content="&#xf138;" BorderThickness="0" >
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Setter Property="Foreground" Value="{StaticResource foreground1}" />
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Foreground" Value="{StaticResource color_b}" />
+                                                </Trigger>
+                                                <Trigger Property="IsEnabled" Value="False">
+                                                    <Setter Property="Foreground" Value="{StaticResource color_d}" />
+                                                </Trigger>
+                                                <Trigger Property="IsEnabled" Value="True">
+                                                    <Setter Property="Foreground" Value="{StaticResource color_a}" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+                                
+                                <Button 
+                                        x:Name="start_stress_test_btn"
+                                        Click="ButtonBase_start_test_OnClick"
+                                        Background="{StaticResource color_a}"
+                                        Foreground="{StaticResource foreground1}" 
+                                        Cursor="Hand"
+                                        Style="{StaticResource tombol_biru}"
+                                        Margin="4 0 0 0"
+                                        BorderThickness="0" >
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label
+                                                Name="start_stress_test_btn_content"
+                                                Margin="0"
+                                                Padding="0"
+                                                Foreground="{StaticResource foreground1}">
+                                                Start Test
+                                            </Label>
+                                            <StackPanel
+                                                Name="start_test_button_dummy_content">
+                                                <!-- dummy. Its min width is set programatically -->
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                                
+                            </DockPanel>
+                            
 
                             <Grid DockPanel.Dock="Top"
-                                       Width="{Binding ElementName=start_stress_test_btn, Path=ActualWidth}">
+                                  Margin="0 2 0 0"
+                                       Width="{Binding ElementName=start_stress_test_container, Path=ActualWidth}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="1*"></ColumnDefinition>
                                     <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -288,7 +377,7 @@
                                 <DockPanel Grid.Column="0">
                                 <CheckBox x:Name="native_hzzgrader_chb"
                                           Grid.Column="0" 
-                                          DockPanel.Dock="Left" 
+                                          DockPanel.Dock="Left"
                                           IsChecked="True"
                                           Content="Fast native"
                                           Checked="Native_hzzgrader_chb_changed"
@@ -366,6 +455,7 @@
                                 Name="border_wrapper__input">
                             <TextBox x:Name="input"
                                      TextWrapping="Wrap"
+                                     FontFamily="{StaticResource Consolas}"
                                      MinWidth="400"
                                      MinHeight="60"
                                      IsReadOnly="True"
@@ -401,6 +491,7 @@
                                 <DockPanel LastChildFill="True">
                                     <TextBox x:Name="program_output"
                                              TextWrapping="Wrap"
+                                             FontFamily="{StaticResource Consolas}"
                                              MinWidth="200"
                                              MinHeight="60"
                                              IsReadOnly="True"
@@ -425,6 +516,7 @@
                                     DockPanel.Dock="Top">
                                 <TextBox x:Name="expected_output"
                                          TextWrapping="Wrap"
+                                         FontFamily="{StaticResource Consolas}"
                                          MinWidth="200"
                                          MinHeight="60"
                                          IsReadOnly="True"

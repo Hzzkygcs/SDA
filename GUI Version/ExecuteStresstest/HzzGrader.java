@@ -26,7 +26,6 @@ public class HzzGrader {
     
     
     public static void stress_test(){
-        System.out.println("Stress-testing \n\n");
         ByteArrayOutputStream baos = new ByteArrayOutputStream(32768);
         
         PrintStream old_stdout = System.out;
@@ -62,6 +61,8 @@ public class HzzGrader {
                         System.out.println("error");
                         System.out.println(in_file.getName());
                         
+                        System.out.println("{{CURRENT_TESTCASE_DELIMITER_TOKEN}}");
+                        System.out.println(i);
                         System.out.println("{{INPUT_DELIMITER_TOKEN}}");
                         System.out.println(Files.readString(in_file.getAbsoluteFile().toPath()));
                         
@@ -96,6 +97,8 @@ public class HzzGrader {
                         System.out.println("{{INFORMATION_DELIMITER_TOKEN}}");
                         System.out.println(in_file.getName());
                         System.out.println(difference_line);
+                        System.out.println("{{CURRENT_TESTCASE_DELIMITER_TOKEN}}");
+                        System.out.println(i);
                         if (OUTPUT_PERBANDINGAN){
                             System.out.println("{{INPUT_DELIMITER_TOKEN}}");
                             System.out.println(Files.readString(in_file.getAbsoluteFile().toPath()));
@@ -119,7 +122,8 @@ public class HzzGrader {
             
             System.out.println("{{INFORMATION_DELIMITER_TOKEN}}");
             System.out.printf("DONE! There's no wrong answer.  Finished checking %d testcases%n", i);
-            
+            System.out.println("{{CURRENT_TESTCASE_DELIMITER_TOKEN}}");
+            System.out.println(i);
             System.out.println("{{INPUT_DELIMITER_TOKEN}}");
             System.out.println("{{PROGRAM_OUTPUT_DELIMITER_TOKEN}}");
             System.out.println("{{EXPECTED_OUTPUT_TOKEN}}");
@@ -130,6 +134,7 @@ public class HzzGrader {
             System.out.printf("Running time in total %d ms %n", total_elapsed_ms);
             
             System.out.println("{{END_DELIMITER_TOKEN}}");
+            System.out.println("{{TESTCASE_SUCCESS}}");
             
             
         } catch (FileNotFoundException e) {

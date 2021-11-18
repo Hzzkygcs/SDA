@@ -18,7 +18,8 @@ namespace HzzGrader
                 return false;
 
             // --unidentified error~ is just an arbitrary placeholder
-            Tuple<string, string> result = new Tuple<string, string>("--unidentified error~", "--unidentified error~");
+            Tuple<string, string, string> result = new Tuple<string, string, string>(
+                "--unidentified error~", "--unidentified error~", "--unidentified error~");
 
             {
                 JavaMiniParser java_mini_parser = new JavaMiniParser(File.ReadAllText(source_file_path));

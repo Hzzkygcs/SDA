@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using HzzGrader.updater;
 using HzzGrader.Windows;
+using Microsoft.Extensions.Primitives;
 using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Application = System.Windows.Application;
@@ -184,6 +185,9 @@ namespace HzzGrader
         }
 
         private async void ButtonBase_start_test_OnClick(object sender, RoutedEventArgs e){
+            start_stress_test_previous.IsEnabled = false;
+            start_stress_test_next.IsEnabled = false;
+            
             start_stress_test_btn.IsEnabled = false;
             native_hzzgrader_chb.IsEnabled = false;
             java_file_path.IsEnabled = false;
@@ -196,6 +200,8 @@ namespace HzzGrader
             input_content.Text = "";
             program_output_content.Text = "";
             expected_output_content.Text = "";
+            
+            start_stress_test_btn_content.Content = "Restart Test";
 
             Dispatcher.Invoke(invoke_stress_test);
         }
@@ -298,7 +304,7 @@ namespace HzzGrader
             pick_testcase_folder.IsEnabled = true;
             pick_testcase_zip_btn.IsEnabled = true;
 
-            extended_editor.equalize_number_of_line();
+            extended_editor?.equalize_number_of_line();
             extended_editor?.update_differences_colouring();
         }
 
@@ -478,6 +484,10 @@ namespace HzzGrader
 
             int LOWER_LIMIT = 450;
             int MAX_WIDTH_LOWER_LIMIT = 250;
+            int MAX_WIDTH_UPPER_LIMIT = 500;
+            int UPPER_LIMIT = 700;
+            double width_percentage = (e.NewSize.Width - LOWER_LIMIT) / (UPPER_LIMIT - LOWER_LIMIT); 
+            
             if (e.NewSize.Width < LOWER_LIMIT){
                 brand_label.Visibility = Visibility.Collapsed;
                 version_label.Visibility = Visibility.Collapsed;
@@ -489,11 +499,6 @@ namespace HzzGrader
             else{
                 brand_label.Visibility = Visibility.Visible;
                 version_label.Visibility = Visibility.Visible;
-
-                int MAX_WIDTH_UPPER_LIMIT = 500;
-
-                int UPPER_LIMIT = 700;
-
 
                 if (e.NewSize.Width < UPPER_LIMIT){
                     // window's width is between 450 and 700
@@ -511,6 +516,13 @@ namespace HzzGrader
                     tc_folder_panel.MaxWidth = MAX_WIDTH_UPPER_LIMIT;
                 }
             }
+            start_test_button_dummy_content.MinWidth = 15 + 30 * clamp(0, width_percentage, 1);
+        }
+        
+        public static double clamp(double a, double b, double c){
+            return Math.Max(
+                a, Math.Min(b, c)
+            );
         }
 
         private double? prev_window_width = null;
@@ -542,5 +554,7 @@ namespace HzzGrader
                 anchor_at_top_left = !anchor_at_top_left;
             }
         }
+
+
     }
 }

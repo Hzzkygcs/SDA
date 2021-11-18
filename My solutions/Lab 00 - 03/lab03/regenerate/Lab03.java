@@ -6,16 +6,6 @@ import static java.lang.System.out;
 
 
 
-/**
- *
- * PUJI TUHAN YESUS KRISTUS
- * AC sept 21, 2021. 02:26.
- * Dibantu Ridjky juga -> ngirim kode -> aku bisa regenereate ribuan testcase2 kecil -> solve problem
- * Ridjky Tegar Perkasa
- *
- */
-
-
 enum Session {SIANG, MALAM, BOLOS}
 
 class Data{

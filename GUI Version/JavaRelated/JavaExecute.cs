@@ -12,10 +12,12 @@ namespace HzzGrader.JavaRelated
         public Action<JavaExecute> on_unblocked;
 
         public int number_of_received_output = 0;
+        public int number_of_received_meaningful_output = 0;  // must contain at least one non-whitespace character
 
         public Process process;
         public string directory;
         private bool _blocked;
+        public StringBuilder program_overall_output = new StringBuilder(0x_FFFFF);  // program_output + program_error
         public StringBuilder program_output = new StringBuilder(0x_FFFFF); // ~2 mega bytes buffer
         public StringBuilder program_error = new StringBuilder(400);
         private string start_token = null;
@@ -23,7 +25,7 @@ namespace HzzGrader.JavaRelated
 
         public static readonly string START_CMD = "echo. & echo {0} &";
         public static readonly string COMMAND_EXTERNAL_STDIN = "java \"{0}\" < \"{1}\"";
-        public static readonly string COMMAND_CUSTOM_ARG = "java {0} \"{1}\"";
+        public static readonly string COMMAND_CUSTOM_ARG = "java {0} \"{1}\" {2}";
         public static readonly string TERMINATION_CMD = "& echo. & echo {0}";
 
         public JavaExecute(Process cmd_process, string directory){
@@ -38,6 +40,7 @@ namespace HzzGrader.JavaRelated
             process.Start();
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
+            program_overall_output.Clear();
             program_output.Clear();
             program_error.Clear();
         }
@@ -51,6 +54,7 @@ namespace HzzGrader.JavaRelated
             start_token = random_string(16);
             termination_token = random_string(16);
             number_of_received_output = 0;
+            number_of_received_meaningful_output = 0;
 
             string cmd = String.Format(START_CMD, start_token)
                          + String.Format(COMMAND_EXTERNAL_STDIN, java_class_name, stdin_file_path)
@@ -59,7 +63,7 @@ namespace HzzGrader.JavaRelated
 
         }
 
-        public void execute_custom_java_args(string java_class_name, string flag = ""){
+        public void execute_custom_java_args(string java_class_name, string flag="", string arguments=""){
             if (termination_token != null) throw new SynchronizationLockException();
 
             // indicate from which line (and up to what line) the output listener should listen to.
@@ -68,9 +72,10 @@ namespace HzzGrader.JavaRelated
             start_token = random_string(16);
             termination_token = random_string(16);
             number_of_received_output = 0;
+            number_of_received_meaningful_output = 0;
 
             string cmd = String.Format(START_CMD, start_token)
-                         + String.Format(COMMAND_CUSTOM_ARG, flag, java_class_name)
+                         + String.Format(COMMAND_CUSTOM_ARG, flag, java_class_name, arguments)
                          + String.Format(TERMINATION_CMD, termination_token);
             process.StandardInput.WriteLine(cmd);
         }
@@ -84,6 +89,7 @@ namespace HzzGrader.JavaRelated
             start_token = random_string(16);
             termination_token = random_string(16);
             number_of_received_output = 0;
+            number_of_received_meaningful_output = 0;
 
             string cmd = String.Format(START_CMD, start_token)
                          + command
@@ -115,15 +121,21 @@ namespace HzzGrader.JavaRelated
             }
 
             number_of_received_output++;
+            if (data.Data.Trim().Length > 0)
+                number_of_received_meaningful_output++;
             program_output.AppendLine(data.Data);
+            program_overall_output.AppendLine(data.Data);
         }
 
         public void error_handler(object sendingProcess, DataReceivedEventArgs data){
-            program_error.Append(data.Data);
+            program_error.AppendLine(data.Data);
+            program_overall_output.AppendLine(data.Data);
         }
 
-        public Tuple<string, string> flush(){
-            Tuple<string, string> ret = new Tuple<string, string>(program_output.ToString(), program_error.ToString());
+        public Tuple<string, string, string> flush(){
+            Tuple<string, string, string> ret = new Tuple<string, string, string>(
+                program_output.ToString(), program_error.ToString(), program_overall_output.ToString());
+            program_overall_output.Clear();
             program_output.Clear();
             program_error.Clear();
             return ret;
