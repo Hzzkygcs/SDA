@@ -170,8 +170,10 @@ public class HzzGrader {
             
             System.setOut(old_stdout);
             
+            System.out.println("dummy");
+            System.out.println("dummy");
             System.out.println("{{INFORMATION_DELIMITER_TOKEN}}");
-            System.out.printf("DONE! There's no wrong answer.  Finished checking %d testcases%n", i);
+            System.out.printf("DONE! There's no wrong answer.  Finished checking %d testcases%n", (i - initial_tc_number)/step);
             
             System.out.println("{{CURRENT_TESTCASE_DELIMITER_TOKEN}}");
             System.out.println(i);

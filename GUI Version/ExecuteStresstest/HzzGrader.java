@@ -21,11 +21,19 @@ public class HzzGrader {
     
     public static String[] parameter = new String[0];
     public static void main(String[] args){
-        stress_test();
+        if (args.length > 0){
+            assert args.length >= 2;
+            stress_test(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
+        }else{
+            stress_test();
+        }
     }
     
     
     public static void stress_test(){
+        stress_test(0, 1);
+    }
+    public static void stress_test(int initial_tc_number, int step){
         ByteArrayOutputStream baos = new ByteArrayOutputStream(32768);
         
         PrintStream old_stdout = System.out;
@@ -39,7 +47,7 @@ public class HzzGrader {
         
         
         try {
-            int i = 0;
+            int i = initial_tc_number;
             File in_file = new File("{{TARGET_DIRECTORY}}" + String.format("/in_%02d.txt", i));
             while (in_file.isFile()){
                 File out_file = new File("{{TARGET_DIRECTORY}}" + String.format("/out_%02d.txt", i));
@@ -113,15 +121,17 @@ public class HzzGrader {
                     
                     
                     
-                    ++i;
+                    i += step;
                     in_file = new File("{{TARGET_DIRECTORY}}" + String.format("/in_%02d.txt", i));
                 }
             }
             
             System.setOut(old_stdout);
             
+            System.out.println("dummy");
+            System.out.println("dummy");
             System.out.println("{{INFORMATION_DELIMITER_TOKEN}}");
-            System.out.printf("DONE! There's no wrong answer.  Finished checking %d testcases%n", i);
+            System.out.printf("DONE! There's no wrong answer.  Finished checking %d testcases%n", (i - initial_tc_number)/step);
             System.out.println("{{CURRENT_TESTCASE_DELIMITER_TOKEN}}");
             System.out.println(i);
             System.out.println("{{INPUT_DELIMITER_TOKEN}}");

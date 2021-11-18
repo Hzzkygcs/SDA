@@ -330,7 +330,7 @@ namespace HzzGrader
 
         public async Task execute_stress_test_native(int tc_pos=0, int tc_step=1, int run_x_times=1, bool update_window=true){
             string compile_path, information_token, current_testcase_number_token;
-            string input_token, program_output_token, expected_output_token, end_token;
+            string input_token, program_output_token, expected_output_token, end_token, testcase_success;
 
             try{
                 ExecutionState current_state = execution_state;
@@ -340,6 +340,7 @@ namespace HzzGrader
                 program_output_token = String.Format("{0}", current_state.program_output_token);
                 expected_output_token = String.Format("{0}", current_state.expected_output_token);
                 end_token = String.Format("{0}", current_state.end_token);
+                testcase_success = String.Format("{0}", current_state.testcase_success);
 
 
                 /*
@@ -393,7 +394,7 @@ namespace HzzGrader
                     string[] temp = item1.Split(new string[]
                     {
                         information_token, current_testcase_number_token, input_token,
-                        program_output_token, expected_output_token, end_token
+                        program_output_token, expected_output_token, end_token, testcase_success 
                     }, StringSplitOptions.RemoveEmptyEntries);
                     if (temp.Length < 5){
                         MessageBox.Show("error outputted value is not recognized");
@@ -430,7 +431,7 @@ namespace HzzGrader
                         current_state.results.Add(execution_result);
 
                     if (item1.Contains(current_state.testcase_success)){
-                        current_state.result_max = current_state.results.Count - 1;
+                        current_state.result_max = current_state.results.Count;
                         if (current_state.result_index >= current_state.results.Count-1)
                             start_stress_test_next.IsEnabled = false;
                     }else{
