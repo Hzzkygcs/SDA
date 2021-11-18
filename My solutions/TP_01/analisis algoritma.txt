@@ -1,0 +1,47 @@
+// misal banyak batch = C
+// misal banyak murid = N
+// misal banyak hari = E
+// misal banyak kejadian = P
+
+// misal banyak panutan = Q
+// misal banyak kelompok deploy = K
+
+
+// Batch.add = O(1)
+// Batch.move_down = O(1)
+// Batch.move_up = O(1)
+// Batch.prepare_iteration = theta(N) = O(n log n)
+// Batch.hasNext = O(1)
+// Batch.next = O(log n)
+// Batch.print_and_update_rank = O(n log n + log n +  n log n)
+//                             = O(n log n)
+// Batch.size = O(1)
+
+
+
+// panutan = O(Q + N log N + Q log N);  Q <= N
+//         = O(N + N log N + N log N)
+//         = O(N log N)
+//
+// kompetitif = O(N log N + log N + N log N)
+//            = O(N log N)
+// evaluasi = O(N log N + N log N + N)
+//          = O(N log N)
+// duo = O(N log N + N log N + N)
+//     = O(N log N)
+//
+// deploy = O(N**2 + N**2)
+// deploy = O(N**2)
+
+
+
+// Deploy.preprocess_batch = O(N**2 + N) = O(N**2)
+// Deploy.recursive = O(NK); K <= (1/2) N
+//                  = O((1/2) N**2)
+//                  = O(N**2)
+
+
+
+Total semuanya (pseudo polynomial):
+// O(C(EP + N log N + N**2))
+// O(C(EP + N**2))  

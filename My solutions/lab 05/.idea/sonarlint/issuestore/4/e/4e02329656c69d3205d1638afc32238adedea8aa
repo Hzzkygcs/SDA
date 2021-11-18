@@ -1,0 +1,112 @@
+
+a	java:S112¥"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+\	java:S112•"FDefine and throw a dedicated exception instead of using a generic one.(êÏïô
+m
+java:S3008"WRename this field "__TESTCASE__" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¼½±‰
+k
+java:S3008"URename this field "kotak_tree" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë®¼¾
+n
+java:S3008"YRename this field "tipe_from_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‰¿°V
+2
+java:S2386"Make this member "protected".(‰¿°V
+Q	java:S125"<This block of commented-out lines of code should be removed.(”¼ÉŸ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(›êÂ¢ùÿÿÿÿ
+h	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿º²Ñùÿÿÿÿ
+F
+java:S1172"+Remove this unused method parameter "args".(¿º²Ñùÿÿÿÿ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ
+H
+java:S1135L"2Complete the task associated to this TODO comment.(…ïœ†
+I
+java:S1135‚"2Complete the task associated to this TODO comment.(…ïœ†
+u
+java:S1210×"YOverride "equals(Object obj)" to comply with the contract of the "compareTo(T o)" method.(·Ìú§üÿÿÿÿ
+n	java:S116ß"SRename this field "node_ini" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(†—¡éıÿÿÿÿ
+l	java:S116à"VRename this field "tipe_permen" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„¬ÜÙ
+u
+java:S1210é"YOverride "equals(Object obj)" to comply with the contract of the "compareTo(T o)" method.(ÙÎÙûÿÿÿÿ
+Q
+java:S1118ô":Add a private constructor to hide the implicit public one.(¢¤Ä
+D
+java:S4274Š"(Replace this assert with a proper check.(¼é©ìøÿÿÿÿ
+i
+java:S3776ö"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(ï¡èÛ
+d	java:S100“"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒš¦´
+d	java:S100Ã"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒ‰Ù½
+R	java:S125Õ"<This block of commented-out lines of code should be removed.(šõÀú
+R	java:S125Ú"<This block of commented-out lines of code should be removed.(ª¢ª
+d	java:S100å"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İ´œô
+d	java:S100ğ"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ç‹¥Ò
+d	java:S100û"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶Çîü
+d	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Íú•ä
+i	java:S100†"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æüòºùÿÿÿÿ
+c	java:S100“"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÂÇÎ(
+d	java:S100¯"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ı’ñî
+N
+java:S1135¿"2Complete the task associated to this TODO comment.(îŠà¿üÿÿÿÿ
+T	java:S106ä"9Replace this use of System.out or System.err by a logger.(Ó›Ãøÿÿÿÿ
+T	java:S106æ"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ
+T	java:S106è"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ
+a
+java:S1192T"FDefine a constant instead of duplicating this literal "-1 -1" 3 times.(‹…í–şÿÿÿÿ
+€
+java:S1319"kThe type of "tipe_from_name" should be an interface such as "Map" rather than the implementation "HashMap".(‰¿°V
+z
+java:S1319ê"cThe type of "str" should be an interface such as "List" rather than the implementation "ArrayList".(ÇÜı
+k	java:S117*"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(š¡ôŞûÿÿÿÿ
+f	java:S1174"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İÌƒÆ
+e	java:S1176"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’èÿ
+e	java:S1178"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡…ˆ 
+k	java:S1179"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¼¬¯ÿÿÿÿÿ
+k	java:S117M"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ù’Å¯şÿÿÿÿ
+k	java:S117M"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ù’Å¯şÿÿÿÿ
+k	java:S117O"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ôä¿»ùÿÿÿÿ
+k	java:S117Q"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¸µƒÖüÿÿÿÿ
+g	java:S117ˆ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒšï
+f	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ååµ|
+l	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„ı¾şÿÿÿÿ
+l	java:S117£"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„ı¾şÿÿÿÿ
+g	java:S117Ã"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒ‰Ù½
+l	java:S117Ò"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áÔ‰ ÿÿÿÿÿ
+l	java:S117Ó"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÎºœŸıÿÿÿÿ
+g	java:S117å"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İ´œô
+g	java:S117æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨Æğ¿
+g	java:S117ğ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ç‹¥Ò
+l	java:S117ñ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÖÖ×ÿÿÿÿÿ
+g	java:S117û"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶Çîü
+g	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Íú•ä
+l	java:S117†"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æüòºùÿÿÿÿ
+f	java:S117“"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÂÇÎ(
+l	java:S117Ã"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ù‚’ıûÿÿÿÿ
+n
+java:S1104"XMake __TESTCASE__ a static final constant or non-public and provide accessors if needed.(¼½±‰
+d
+java:S1104"NMake in a static final constant or non-public and provide accessors if needed.(øƒôÒ
+j
+java:S1104"OMake out a static final constant or non-public and provide accessors if needed.(›êÂ¢ùÿÿÿÿ
+l
+java:S1104"VMake kotak_tree a static final constant or non-public and provide accessors if needed.(Ë®¼¾
+o
+java:S1104"ZMake tipe_from_name a static final constant or non-public and provide accessors if needed.(‰¿°V
+i
+java:S1104˜"RMake reader a static final constant or non-public and provide accessors if needed.(Ê×ş¬
+l
+java:S1104™"UMake tokenizer a static final constant or non-public and provide accessors if needed.(ÀˆÁ†
+H
+java:S1444"2Make this "public static __TESTCASE__" field final(¼½±‰
+>
+java:S1444"(Make this "public static in" field final(øƒôÒ
+D
+java:S1444")Make this "public static out" field final(›êÂ¢ùÿÿÿÿ
+F
+java:S1444"0Make this "public static kotak_tree" field final(Ë®¼¾
+I
+java:S1444"4Make this "public static tipe_from_name" field final(‰¿°V
+d
+java:S2259‰"HA "NullPointerException" could be thrown; "kotak_node" is nullable here.(±ä÷üÿÿÿÿ
+X
+java:S2259Š"BA "NullPointerException" could be thrown; "get()" can return null.(ª÷Áe
+^
+java:S2259Æ"BA "NullPointerException" could be thrown; "left" is nullable here.(ÒŠÀÚúÿÿÿÿ
+Y
+java:S2259Ì"CA "NullPointerException" could be thrown; "right" is nullable here.(¼™F

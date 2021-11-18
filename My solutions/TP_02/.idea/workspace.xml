@@ -390,6 +390,11 @@
           <line>39</line>
           <option name="timeStamp" value="64" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/temen_ralfi/src/HzzGrader.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="73" />
+        </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="16" />
