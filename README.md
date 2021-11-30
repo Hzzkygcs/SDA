@@ -5,6 +5,10 @@ Semoga bisa membantu teman-teman semua juga :D
 <details> <summary>click here to expand FAQ</summary>
 
 
+- 7zip exception: The system cannot find the file specified
+
+  Hal ini diduga disebabkan karena ada masalah permission untuk mendownload file `.7z`-nya ataupun masalah permission untuk memodifikasi folder tersebut. Salah satu cara yang pernah berhasil adalah men-download dan meng-extract HzzGrader pada direktori `C:\Users\<user name>\Downloads`. Cara lainnya adalah dengan mencoba menjalankan HzzGrader dengan *administrator privilege*
+
 - java --version, javac --version, dan JNI error
 
   Hal ini biasanya disebabkan karena versi java yang sudah terinstall di laptop teman-teman perlu diupdate. Bisa juga karena ada miskonfigurasi pada instalasi JDK teman-teman. Solusinya bisa dilihat [di sini](https://github.com/Hzzkygcs/SDA/blob/master/.misc/java%20--version%20error.md)
