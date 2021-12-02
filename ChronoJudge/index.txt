@@ -16,3 +16,8 @@ TP2_StabilizeCrumble
 TP2_RiseQuakeStabilizeCrumble
 TP2_GerakTebasTeleportasi
 TP2_All
+TP3_TRC
+TP3_TRCSi
+TP3_TRSe
+TP3_Boss
+TP3_Networking
