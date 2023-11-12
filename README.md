@@ -2,8 +2,6 @@ Semoga bisa membantu teman-teman semua juga :D
 
 ### FAQ
 
-<details> <summary>click here to expand FAQ</summary>
-
 
 - 7zip exception: The system cannot find the file specified
 
@@ -39,10 +37,6 @@ Semoga bisa membantu teman-teman semua juga :D
 - Membuka file log.txt
 
   File log.txt dapat dibuka dengan cara klik kanan pada tulisan/logo HzzGrader (di pojok kiri atas)
-
-
-
-</details>
 
 
 
